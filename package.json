@@ -22,7 +22,7 @@
     "copy-imgs": "copyfiles -f src/assets/css/* dist/assets/css/",
     "copy-js": "copyfiles -f src/assets/js/* dist/assets/js/",
     "remove-dist": "rimraf ./dist",
-    "prebuild": "npm run clean-dist && npm run lint && npm run test",
+    "prebuild": "npm run clean-dist && npm run test && npm run lint && npm run copy-files",
     "build": "babel-node tools/build.js && npm run open:dist && npm run clean-dist",
     "test": "mocha tools/testSetup.js \"src/**/*.spec.js\" --reporter progress",
     "test:cover": "babel-node node_modules/isparta/bin/isparta cover --root src --report html node_modules/mocha/bin/_mocha -- --require ./tools/testSetup.js \"src/**/*.spec.js\" --reporter progress",
