@@ -20,7 +20,7 @@ const history = browserHistory;
   // </Provider>,
 
 render(
-  <Router history={browserHistory} routes={routes} />,
+  <Router history={history} routes={routes} />,
   document.getElementById('app')
 );
 
