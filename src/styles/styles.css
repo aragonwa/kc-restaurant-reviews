@@ -2,7 +2,11 @@
   background-color: #ebf2d2;
 }
 .item {
-  border: 1px solid #000;
+  padding-top:10px;
+}
+.item div[class^="col-xs-12"] div{
+  border-bottom: 1px solid #DDD;
+
 }
 
 .iframe-container{

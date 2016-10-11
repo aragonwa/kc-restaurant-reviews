@@ -1,55 +1,34 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
+import RestaurantListItem from './RestaurantListItem';
 
-const RestaurantList  = () => {
+class RestaurantList extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+  }
+
+  _capitalCase (str) {
+    return str.toLowerCase().replace(/\b[a-z]/g,function(char) { return char.toUpperCase();});
+  }
+  render() {
+    let rows = [];
+    let data = this.props.data;
+    let len = data.length;
+    for(let i=0; i < len; i++){
+      let item = data[i];
+      item.businessName = this._capitalCase(item.businessName);
+      item.businessAddress = this._capitalCase(item.businessAddress);
+      item.businessCity = this._capitalCase(item.businessCity);
+      rows.push(<RestaurantListItem key={i} item={item} id={i}/>);
+    }
   return (
     <div>
-      <div className="col-sm-12 item" id="1">
-        <div className="row">
-          <div className="col-xs-7">
-            <p><a href="#" className="restaurantTitle">China Tea Pot</a></p>
-            <p>1423 Button way South</p>
-            <p>Seattle, WA 98168</p>
-            <p>(206) 263-2000</p>
-          </div>
-          <div className="col-xs-5 text-center">
-            <p><span className="fa fa-smile-o fa-3x" /></p>
-            <p>Satisfactory</p>
-            <p><a href="#">History <span className="fa fa-chevron-right" /></a></p>
-          </div>
-        </div>
-      </div>
-      <div className="col-sm-12 item" id="2">
-        <div className="row">
-          <div className="col-xs-7">
-            <p><a href="#" className="restaurantTitle">Red China Cafe</a></p>
-            <p>14857 Washington Street</p>
-            <p>Seattle, WA 98102</p>
-            <p>(206) 263-2000</p>
-          </div>
-          <div className="col-xs-5 text-center">
-            <p><span className="fa fa-meh-o fa-3x" /></p>
-            <p>On Warning</p>
-            <p><a href="#">History <span className="fa fa-chevron-right" /></a></p>
-          </div>
-        </div>
-      </div>
-      <div className="col-sm-12 item" id="3">
-        <div className="row">
-          <div className="col-xs-7">
-            <p><a href="#" className="restaurantTitle">Red China Cafe</a></p>
-            <p>14857 Washington Street</p>
-            <p>Seattle, WA 98102</p>
-            <p>(206) 263-2000</p>
-          </div>
-          <div className="col-xs-5 text-center">
-            <p><span className="fa fa-frown-o fa-3x" /></p>
-            <p>Unsatisfactory</p>
-            <p><a href="#">History <span className="fa fa-chevron-right" /></a></p>
-          </div>
-        </div>
-      </div>
+      {rows}
     </div>
-  );
+    );
+  }
+}
+RestaurantList.propTypes = {
+  data: PropTypes.array.isRequired
 };
 
 export default RestaurantList;

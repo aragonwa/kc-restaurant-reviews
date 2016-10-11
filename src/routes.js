@@ -14,6 +14,8 @@ import DetailsPage from './components/details/DetailsPage';
 export default (
   <Route path="/" component={App}>
     <IndexRoute component={HomePage} />
-    <Route path="details" component={DetailsPage} />
+    <Route path="/" component={HomePage}>
+      <Route path="details/:id" component={DetailsPage}/>
+    </Route>
   </Route>
 );
