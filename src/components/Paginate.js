@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
-var _ = require('underscore');
+import _ from 'underscore';
+import {PAGER_ITEMS_PER_PAGE as itemsPerPage} from '../constants/appSettings';
 
 class Paginate extends React.Component {
   constructor(props, context) {
@@ -28,13 +29,12 @@ class Paginate extends React.Component {
   render() {
     const {pagerNum} = this.props;
     const {restaurants} = this.props;
-    const itemsPerPage = 10;
-    let paginationItems = [];
+    //let paginationItems = [];
 
-    let itemsStart = (((pagerNum-1) * 10) + 1);
-    let itemsEnd = (itemsStart + _.first((_.rest(restaurants, [(pagerNum - 1) * itemsPerPage])), itemsPerPage).length) - 1;
+    //let itemsStart = (((pagerNum-1) * 10) + 1);
+    //let itemsEnd = (itemsStart + _.first((_.rest(restaurants, [(pagerNum - 1) * itemsPerPage])), itemsPerPage).length) - 1;
     let activePageNumClass = '';
-    let paginationVisible;
+    //let paginationVisible;
     let previousDisabledClass = '';
     let nextDisabledClass = '';
 
@@ -49,23 +49,23 @@ class Paginate extends React.Component {
       nextDisabledClass = 'next';
     }
 
-    for(let i = 0; i < Math.ceil(restaurants.length/itemsPerPage); i++) {
-      //If page num is equal to current page add class .active
-      if(pagerNum === (i+1))
-      {
-        activePageNumClass = 'active';
-      } else {
-        activePageNumClass = '';
-      }
-      paginationItems.push(<li key={i} className={activePageNumClass}><a href="#" data-page-id={i}>{i+1}</a></li>)
-    };
-
+    // for(let i = 0; i < Math.ceil(restaurants.length/itemsPerPage); i++) {
+    //   //If page num is equal to current page add class .active
+    //   if(pagerNum === (i+1))
+    //   {
+    //     activePageNumClass = 'active';
+    //   } else {
+    //     activePageNumClass = '';
+    //   }
+    //   paginationItems.push(<li key={i} className={activePageNumClass}><a href="#" data-page-id={i}>{i+1}</a></li>)
+    // };
+    //{paginationItems}
     return (
-      <div className="col-xs-12">
+      <div className="col-sm-12">
         <nav className="center-block">
           <ul className="pagination">
             <li className={previousDisabledClass} onClick={this.decreasePagerNum}><a href="#">Previous</a></li>
-            {paginationItems}
+           
             <li className={nextDisabledClass} onClick={this.increasePagerNum}><a href="#">Next</a></li>
           </ul>
         </nav>

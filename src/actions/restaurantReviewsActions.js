@@ -11,7 +11,8 @@ export function dummyAction(text) {
 export function updateFilter(value) {
   return {
     type: types.UPDATE_FILTER,
-    value
+    value,
+    pagerNum:1
   };
 }
 

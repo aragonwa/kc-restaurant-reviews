@@ -18,7 +18,7 @@ export default function restarurantReviewsReducer(state = initialState.restauran
     case DUMMY_ACTION:
      return objectAssign({}, state, {updatedItem: 'yes'});
     case UPDATE_FILTER:
-     return objectAssign({}, state, {filter: action.value});
+     return objectAssign({}, state, {filter: action.value}, {pagerNum: 1});
     case INCREASE_PAGER_NUM:
      return objectAssign({}, state, {pagerNum: action.value});
     case DECREASE_PAGER_NUM:

@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react';
 // import FuelSavingsResults from './FuelSavingsResults';
 import RestaurantListItem from './home/list/RestaurantListItem';
 import TextInput from './TextInput';
+import _ from 'underscore';
 
 class RestaurantReviewsList extends React.Component {
   constructor(props, context) {
@@ -34,6 +35,8 @@ class RestaurantReviewsList extends React.Component {
         displayRows.push(<RestaurantListItem key={i} item={business} />);
       }
     }
+
+    displayRows = _.first((_.rest(displayRows, [(restaurantReviews.pagerNum - 1) * 10])), 10);
 
     return (
       <div>

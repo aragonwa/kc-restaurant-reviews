@@ -6,7 +6,11 @@ import RestaurantReviewsList from '../components/RestaurantReviewsList';
 
 export const RestaurantReviewsPage = (props) => {
   if(props.loading) {
-    return <span className="fa fa-spinner fa-4x fa-spin"/>
+    return (
+      <div className="col-sm-12">
+        <span className="fa fa-spinner fa-4x fa-spin"/>
+      </div>
+    );
   }
   return (
     <RestaurantReviewsList
