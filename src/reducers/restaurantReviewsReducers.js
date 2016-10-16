@@ -1,4 +1,4 @@
-import {DUMMY_ACTION, UPDATE_FILTER, LOAD_RESTAURANTS_SUCCESS, INCREASE_PAGER_NUM, DECREASE_PAGER_NUM} from '../constants/actionTypes';
+import {DUMMY_ACTION, UPDATE_FILTER, LOAD_RESTAURANTS_SUCCESS, INCREASE_PAGER_NUM, DECREASE_PAGER_NUM, LOADING_RESTAURANTS} from '../constants/actionTypes';
 // import calculator from '../utils/fuelSavingsCalculator';
 import objectAssign from 'object-assign';
 import initialState from './initialState';
@@ -24,7 +24,9 @@ export default function restarurantReviewsReducer(state = initialState.restauran
     case DECREASE_PAGER_NUM:
      return objectAssign({}, state, {pagerNum: action.value});
     case LOAD_RESTAURANTS_SUCCESS:
-     return objectAssign({}, state, {restaurants: action.restaurants});
+     return objectAssign({}, state, {restaurants: action.restaurants},{loading: action.isLoading});
+     case LOADING_RESTAURANTS:
+     return objectAssign({}, state, {loading: action.isLoading});
     default:
       return state;
   }

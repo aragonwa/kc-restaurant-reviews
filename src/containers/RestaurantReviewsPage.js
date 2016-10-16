@@ -5,6 +5,9 @@ import * as actions from '../actions/restaurantReviewsActions';
 import RestaurantReviewsList from '../components/RestaurantReviewsList';
 
 export const RestaurantReviewsPage = (props) => {
+  if(props.loading) {
+    return <span className="fa fa-spinner fa-4x fa-spin"/>
+  }
   return (
     <RestaurantReviewsList
       updateFilter={props.actions.updateFilter}
@@ -19,7 +22,8 @@ RestaurantReviewsPage.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    restaurantReviews: state.restaurantReviews
+    restaurantReviews: state.restaurantReviews,
+    loading: state.restaurantReviews.loading
   };
 }
 

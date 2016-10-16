@@ -29,18 +29,26 @@ export function decreasePagerNum(value) {
   };
 }
 
+export function loadingRestaurants(isLoading) {
+  return {
+    type: types.LOADING_RESTAURANTS,
+    isLoading
+  };
+}
 
-export function loadRestaurantsSuccess(restaurants) {
+export function loadRestaurantsSuccess(restaurants, isLoading) {
   return {
     type: types.LOAD_RESTAURANTS_SUCCESS,
-    restaurants
+    restaurants,
+    isLoading
   };
 }
 
 export function loadRestaurants(){
   return function(dispatch){
+    dispatch(loadingRestaurants(true));
     return getRestaurantsApi().then(function(response) {
-      dispatch(loadRestaurantsSuccess(JSON.parse(response)));
+      dispatch(loadRestaurantsSuccess(JSON.parse(response), false));
       //console.log("Success!", response);
     }, function(error) {
       console.error("Failed!", error);
