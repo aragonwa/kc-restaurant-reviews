@@ -1,7 +1,7 @@
 # React Slingshot!
 
 ## KC build:
-- npm installed
+- npm install
 - npm start -s
 
 [![Build status: Linux](https://img.shields.io/travis/coryhouse/react-slingshot.svg?style=flat-square)](https://travis-ci.org/coryhouse/react-slingshot)
