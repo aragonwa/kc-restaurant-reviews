@@ -1,7 +1,7 @@
 import React from 'react';
-import RestaurantMap from './map/RestaurantMap';
-import RestaurantList from './list/RestaurantList';
-import RestaurantSearch from './search/RestaurantSearch';
+// import RestaurantMap from './map/RestaurantMap';
+// import RestaurantList from './list/RestaurantList';
+// import RestaurantSearch from './search/RestaurantSearch';
 
 const HomePage = (props) => {
   return (

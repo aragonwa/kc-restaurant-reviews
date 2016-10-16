@@ -1,10 +1,10 @@
 import React, {PropTypes} from 'react';
 import {Link} from 'react-router';
 
-const RestaurantListItem = ({item, id}) => {
-  const businessName = item.businessName;
-  const businessAddress = item.businessAddress;
-  const businessCity = item.businessCity;
+const RestaurantListItem = ({item}) => {
+  const businessName = item.name;
+  const businessAddress = item.address;
+  const businessCity = item.city;
 
   return (
     <div className="col-sm-12 item">
@@ -18,7 +18,7 @@ const RestaurantListItem = ({item, id}) => {
         <div className="col-xs-5 text-center">
           <p><span className="fa fa-smile-o fa-3x fa-color-primary" /></p>
           <p>Satisfactory</p>
-          <p><Link to={"/details/" + id}>History <span className="fa fa-chevron-right" /></Link></p>
+          <p><Link to={"/details/"}>History <span className="fa fa-chevron-right" /></Link></p>
         </div>
         <div className="col-xs-12">
           <div></div>

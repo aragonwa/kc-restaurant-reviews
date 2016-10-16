@@ -7,6 +7,13 @@ import reduxImmutableStateInvariant from 'redux-immutable-state-invariant';
 import thunkMiddleware from 'redux-thunk';
 import rootReducer from '../reducers';
 
+//https://github.com/svrcekmichal/redux-axios-middleware
+// https://medium.com/@rajaraodv/a-guide-for-building-a-react-redux-crud-app-7fe0b8943d0f#.yvdv9yus9
+// const client = axios.create({ //all axios can be used, shown in axios documentation
+//   baseURL:'//kcit-bzzqfx1:40001/api/business/a/47.0845/-122.5284/47.7803/-121.0657',
+//   responseType: 'json'
+// });
+
 export default function configureStore(initialState) {
   const middewares = [
     // Add other middleware on this line...

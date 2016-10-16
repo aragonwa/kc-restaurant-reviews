@@ -7,6 +7,7 @@ class DetailsPage extends React.Component {
   }
 
   componentDidMount () {
+    console.log(this);
     $('#'+this.props.params.id).modal();
   }
   componentDidUpdate () {
