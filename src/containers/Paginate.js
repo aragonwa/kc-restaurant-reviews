@@ -12,18 +12,23 @@ export const Paginate = (props) => {
       pagerNum={props.pagerNum}
       restaurants={props.restaurants}
       itemsPerPage={10}
+      filter={props.filter}
     />
   );
 };
 
 Paginate.propTypes = {
   pagerNum: PropTypes.number.isRequired,
+  filter: PropTypes.string.isRequired,
+  restaurants: PropTypes.array.isRequired,
+  actions: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {
   return {
     pagerNum: state.restaurantReviews.pagerNum,
-    restaurants: state.restaurantReviews.restaurants
+    restaurants: state.restaurantReviews.restaurants,
+    filter: state.restaurantReviews.filter,
   };
 }
 

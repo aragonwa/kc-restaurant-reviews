@@ -12,16 +12,27 @@ export const RestaurantReviewsPage = (props) => {
       </div>
     );
   }
+  const childrenWithProps = React.Children.map(props.children,
+    (child) => React.cloneElement(child, {
+      restaurants: props.restaurantReviews.restaurants
+    })
+  );
   return (
-    <RestaurantReviewsList
-      updateFilter={props.actions.updateFilter}
-      restaurantReviews={props.restaurantReviews}
-    />
+    <div>
+      {childrenWithProps}
+      <RestaurantReviewsList
+        updateFilter={props.actions.updateFilter}
+        restaurantReviews={props.restaurantReviews}
+      />
+    </div>
   );
 };
 
 RestaurantReviewsPage.propTypes = {
+  children: PropTypes.element,
   restaurantReviews: PropTypes.object.isRequired,
+  loading: PropTypes.bool.isRequired,
+  actions: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {

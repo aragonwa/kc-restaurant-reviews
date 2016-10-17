@@ -12,16 +12,16 @@ const RestaurantListItem = ({item}) => {
         <div className="col-xs-7">
           <p><strong>{businessName}</strong><br />
           {businessAddress}<br />
-          {businessCity}, WA {item.businessLocationZip}<br />
+          {businessCity}, WA {item.businessZip}<br />
           (206) 263-2000</p>
         </div>
         <div className="col-xs-5 text-center">
           <p><span className="fa fa-smile-o fa-3x fa-color-primary" /></p>
           <p>Satisfactory</p>
-          <p><Link to={"/details/"}>History <span className="fa fa-chevron-right" /></Link></p>
+          <p><Link to={"/details/"+item.zip}>History <span className="fa fa-chevron-right" /></Link></p>
         </div>
         <div className="col-xs-12">
-          <div></div>
+          <div />
         </div>
       </div>
     </div>

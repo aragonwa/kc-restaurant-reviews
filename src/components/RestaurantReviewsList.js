@@ -7,20 +7,28 @@ import _ from 'underscore';
 class RestaurantReviewsList extends React.Component {
   constructor(props, context) {
     super(props, context);
-
+    this.state = {
+     textVal: ''
+    };
     this.restaurantReviewsFilterKeypress = this.restaurantReviewsFilterKeypress.bind(this);
+    this.updateFilter = this.updateFilter.bind(this);
   }
 
-  restaurantReviewsFilterKeypress(value) {
-    this.props.updateFilter(value);
+  restaurantReviewsFilterKeypress(e) {
+    this.setState({textVal: e.target.value});
   }
 
-   _capitalCase (str) {
+  updateFilter(){
+    this.props.updateFilter(this.state.textVal);
+  }
+
+  _capitalCase (str) {
     return str.toLowerCase().replace(/\b[a-z]/g,function(char) { return char.toUpperCase();});
   }
 
   render() {
     const {restaurantReviews} = this.props;
+    const {textVal} = this.state;
 
     let displayRows = [];
     let len = restaurantReviews.restaurants.length;
@@ -31,6 +39,7 @@ class RestaurantReviewsList extends React.Component {
       business.name = this._capitalCase(item.businessName);
       business.address = this._capitalCase(item.businessAddress);
       business.city = this._capitalCase(item.businessCity);
+      business.zip = item.businessLocationZip;
       if((business.name.toLowerCase()).includes((restaurantReviews.filter).toLowerCase())) {
         displayRows.push(<RestaurantListItem key={i} item={business} />);
       }
@@ -42,8 +51,9 @@ class RestaurantReviewsList extends React.Component {
       <div>
         <TextInput
           onChange={this.restaurantReviewsFilterKeypress}
+          onClick={this.updateFilter}
           name="restaurant-reviews-filter"
-          value={restaurantReviews.filter}
+          value={textVal}
         />
         {displayRows}
       </div>
@@ -52,7 +62,8 @@ class RestaurantReviewsList extends React.Component {
 }
 
 RestaurantReviewsList.propTypes = {
-  restaurantReviews: PropTypes.object.isRequired
+  restaurantReviews: PropTypes.object.isRequired,
+  updateFilter: PropTypes.func.isRequired
 };
 
 export default RestaurantReviewsList;

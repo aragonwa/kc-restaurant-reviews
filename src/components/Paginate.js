@@ -1,5 +1,4 @@
 import React, {PropTypes} from 'react';
-import _ from 'underscore';
 import {PAGER_ITEMS_PER_PAGE as itemsPerPage} from '../constants/appSettings';
 
 class Paginate extends React.Component {
@@ -13,15 +12,15 @@ class Paginate extends React.Component {
     e.preventDefault();
     const pagerNum = this.props.pagerNum;
     if(pagerNum <= 1){
-      return
+      return;
     }
-    this.props.decreasePagerNum(pagerNum - 1)
+    this.props.decreasePagerNum(pagerNum - 1);
   }
 
   increasePagerNum (e){
     e.preventDefault();
     if(this.props.pagerNum * this.props.itemsPerPage >= this.props.restaurants.length){
-      return
+      return;
     }
     this.props.increasePagerNum(this.props.pagerNum + 1);
   }
@@ -29,12 +28,7 @@ class Paginate extends React.Component {
   render() {
     const {pagerNum} = this.props;
     const {restaurants} = this.props;
-    //let paginationItems = [];
-
-    //let itemsStart = (((pagerNum-1) * 10) + 1);
-    //let itemsEnd = (itemsStart + _.first((_.rest(restaurants, [(pagerNum - 1) * itemsPerPage])), itemsPerPage).length) - 1;
-    let activePageNumClass = '';
-    //let paginationVisible;
+    const filteredRestaurants = restaurants.filter((val) => { return val.businessName.toLowerCase().includes(this.props.filter.toLowerCase());});
     let previousDisabledClass = '';
     let nextDisabledClass = '';
 
@@ -43,29 +37,17 @@ class Paginate extends React.Component {
     } else {
       previousDisabledClass = 'previous';
     }
-    if(pagerNum * itemsPerPage >= restaurants.length) {
+    if(pagerNum * itemsPerPage >= filteredRestaurants.length) {
       nextDisabledClass = 'next disabled';
     } else {
       nextDisabledClass = 'next';
     }
 
-    // for(let i = 0; i < Math.ceil(restaurants.length/itemsPerPage); i++) {
-    //   //If page num is equal to current page add class .active
-    //   if(pagerNum === (i+1))
-    //   {
-    //     activePageNumClass = 'active';
-    //   } else {
-    //     activePageNumClass = '';
-    //   }
-    //   paginationItems.push(<li key={i} className={activePageNumClass}><a href="#" data-page-id={i}>{i+1}</a></li>)
-    // };
-    //{paginationItems}
     return (
       <div className="col-sm-12">
         <nav className="center-block">
           <ul className="pagination">
             <li className={previousDisabledClass} onClick={this.decreasePagerNum}><a href="#">Previous</a></li>
-           
             <li className={nextDisabledClass} onClick={this.increasePagerNum}><a href="#">Next</a></li>
           </ul>
         </nav>
@@ -75,7 +57,12 @@ class Paginate extends React.Component {
 }
 
 Paginate.propTypes = {
-
+  decreasePagerNum: PropTypes.func.isRequired,
+  increasePagerNum: PropTypes.func.isRequired,
+  pagerNum: PropTypes.number.isRequired,
+  filter: PropTypes.string.isRequired,
+  itemsPerPage: PropTypes.number.isRequired,
+  restaurants: PropTypes.array.isRequired
 };
 
 export default Paginate;

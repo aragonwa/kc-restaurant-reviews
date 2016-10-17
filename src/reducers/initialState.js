@@ -6,4 +6,4 @@ export default {
     pagerNum: 1,
     loading: true
   }
-}
+};

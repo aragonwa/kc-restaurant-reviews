@@ -26,3 +26,13 @@
   height: 100%;
   width: 100%;
 }
+
+.location-input {
+  background-color:#CCC;
+  margin-bottom: 15px
+}
+
+.input-group {
+  padding-bottom: 20px;
+}
+

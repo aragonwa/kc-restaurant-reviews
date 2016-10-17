@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
-import Paginate from '../containers/Paginate';
+import Paginate from '../containers/Paginate'; // eslint-disable-line import/no-named-as-default
 
 const App = (props) => {
-//{props.children && React.cloneElement(props.children, {data: data})}
+  // Add filter logic here
   return (
       <div>
         <Paginate />
