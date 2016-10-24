@@ -15,8 +15,6 @@ export default function restarurantReviewsReducer(state = initialState.restauran
   //https://github.com/gaearon/redux-thunk
 
   switch (action.type) {
-    case DUMMY_ACTION:
-     return objectAssign({}, state, {updatedItem: 'yes'});
     case UPDATE_FILTER:
      return objectAssign({}, state, {filter: action.value}, {pagerNum: 1});
     case INCREASE_PAGER_NUM:

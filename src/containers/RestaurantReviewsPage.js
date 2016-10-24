@@ -3,6 +3,9 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as actions from '../actions/restaurantReviewsActions';
 import RestaurantReviewsList from '../components/RestaurantReviewsList';
+import SearchInput from '../components/SearchInput';
+import Filters from '../utils/Filters';
+import Paginate from './Paginate'; // eslint-disable-line import/no-named-as-default
 
 export const RestaurantReviewsPage = (props) => {
   if(props.loading) {
@@ -20,25 +23,34 @@ export const RestaurantReviewsPage = (props) => {
   return (
     <div>
       {childrenWithProps}
+      <SearchInput
+        updateFilter={props.actions.updateFilter}
+        name="restaurant-reviews-filter"
+      />
       <RestaurantReviewsList
         updateFilter={props.actions.updateFilter}
         restaurantReviews={props.restaurantReviews}
+        pagerNum={props.pagerNum}
       />
+      <Paginate />
     </div>
   );
 };
 
 RestaurantReviewsPage.propTypes = {
-  children: PropTypes.element,
-  restaurantReviews: PropTypes.object.isRequired,
+  pagerNum: PropTypes.number.isRequired,
+  restaurantReviews: PropTypes.array.isRequired,
   loading: PropTypes.bool.isRequired,
   actions: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {
+  const {filter, restaurants} = state.restaurantReviews;
+  const filteredRestaurants = Filters.filterRestaurants(restaurants, filter);
   return {
-    restaurantReviews: state.restaurantReviews,
-    loading: state.restaurantReviews.loading
+    restaurantReviews: filteredRestaurants,
+    loading: state.restaurantReviews.loading,
+    pagerNum: state.restaurantReviews.pagerNum
   };
 }
 

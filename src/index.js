@@ -11,6 +11,8 @@ import './styles/styles.css'; // Yep, that's right. You can import SASS/CSS file
 import { syncHistoryWithStore } from 'react-router-redux';
 
 const store = configureStore();
+
+//Load restaurants on load
 store.dispatch(loadRestaurants());
 
 // Create an enhanced history that syncs navigation events with the store

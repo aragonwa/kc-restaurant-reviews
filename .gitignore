@@ -38,3 +38,7 @@ dist
 
 # Mac files
 .DS_Store
+
+# old files
+old
+

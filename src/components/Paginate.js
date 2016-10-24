@@ -19,7 +19,8 @@ class Paginate extends React.Component {
 
   increasePagerNum (e){
     e.preventDefault();
-    if(this.props.pagerNum * this.props.itemsPerPage >= this.props.restaurants.length){
+    const restaurants = this.props.restaurants;
+    if(this.props.pagerNum * this.props.itemsPerPage >= restaurants.length){
       return;
     }
     this.props.increasePagerNum(this.props.pagerNum + 1);
@@ -28,7 +29,6 @@ class Paginate extends React.Component {
   render() {
     const {pagerNum} = this.props;
     const {restaurants} = this.props;
-    const filteredRestaurants = restaurants.filter((val) => { return val.businessName.toLowerCase().includes(this.props.filter.toLowerCase());});
     let previousDisabledClass = '';
     let nextDisabledClass = '';
 
@@ -37,7 +37,7 @@ class Paginate extends React.Component {
     } else {
       previousDisabledClass = 'previous';
     }
-    if(pagerNum * itemsPerPage >= filteredRestaurants.length) {
+    if(pagerNum * itemsPerPage >= restaurants.length) {
       nextDisabledClass = 'next disabled';
     } else {
       nextDisabledClass = 'next';

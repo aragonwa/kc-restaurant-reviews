@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as actions from '../actions/restaurantReviewsActions';
 import PaginateItem from '../components/Paginate';
+import Filters from '../utils/Filters';
 
 export const Paginate = (props) => {
   return (
@@ -25,9 +26,11 @@ Paginate.propTypes = {
 };
 
 function mapStateToProps(state) {
+  const {filter, restaurants} = state.restaurantReviews;
+  const filteredRestaurants = Filters.filterRestaurants(restaurants, filter);
   return {
     pagerNum: state.restaurantReviews.pagerNum,
-    restaurants: state.restaurantReviews.restaurants,
+    restaurants: filteredRestaurants,
     filter: state.restaurantReviews.filter,
   };
 }

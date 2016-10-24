@@ -1,13 +1,6 @@
 import * as types from '../constants/actionTypes';
 import {getRestaurantsApi} from '../api/api';
 
-export function dummyAction(text) {
-  return {
-    type: types.DUMMY_ACTION,
-    text
-  };
-}
-
 export function updateFilter(value) {
   return {
     type: types.UPDATE_FILTER,
@@ -50,8 +43,8 @@ export function loadRestaurants(){
     dispatch(loadingRestaurants(true));
     return getRestaurantsApi().then(function(response) {
       dispatch(loadRestaurantsSuccess(JSON.parse(response), false));
-      //console.log("Success!", response);
     }, function(error) {
+      // TODO: Replace with error
       console.error("Failed!", error);
     });
   };

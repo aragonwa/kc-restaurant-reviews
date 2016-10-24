@@ -1,60 +1,35 @@
 import React, {PropTypes} from 'react';
-// import FuelSavingsResults from './FuelSavingsResults';
-import RestaurantListItem from './home/list/RestaurantListItem';
-import TextInput from './TextInput';
+import RestaurantListItem from './RestaurantListItem';
 import _ from 'underscore';
+import StringHelper from '../utils/StringHelper';
 
 class RestaurantReviewsList extends React.Component {
   constructor(props, context) {
     super(props, context);
-    this.state = {
-     textVal: ''
-    };
-    this.restaurantReviewsFilterKeypress = this.restaurantReviewsFilterKeypress.bind(this);
-    this.updateFilter = this.updateFilter.bind(this);
-  }
-
-  restaurantReviewsFilterKeypress(e) {
-    this.setState({textVal: e.target.value});
-  }
-
-  updateFilter(){
-    this.props.updateFilter(this.state.textVal);
-  }
-
-  _capitalCase (str) {
-    return str.toLowerCase().replace(/\b[a-z]/g,function(char) { return char.toUpperCase();});
   }
 
   render() {
-    const {restaurantReviews} = this.props;
-    const {textVal} = this.state;
+    const {restaurantReviews, pagerNum} = this.props;
 
     let displayRows = [];
-    let len = restaurantReviews.restaurants.length;
-    for(let i=0; i < len; i++){
+    const len = restaurantReviews.length;
 
-      const item = restaurantReviews.restaurants[i];
+    for(let i=0; i < len; i++){
+      const item = restaurantReviews[i];
       const business = {};
-      business.name = this._capitalCase(item.businessName);
-      business.address = this._capitalCase(item.businessAddress);
-      business.city = this._capitalCase(item.businessCity);
+      business.name = StringHelper.capitalCase(item.businessName);
+      business.address = StringHelper.capitalCase(item.businessAddress);
+      business.city = StringHelper.capitalCase(item.businessCity);
       business.zip = item.businessLocationZip;
-      if((business.name.toLowerCase()).includes((restaurantReviews.filter).toLowerCase())) {
-        displayRows.push(<RestaurantListItem key={i} item={business} />);
-      }
+      business.businessRecordId = item.businessRecordId;
+
+      displayRows.push(<RestaurantListItem key={i} item={business} />);
     }
 
-    displayRows = _.first((_.rest(displayRows, [(restaurantReviews.pagerNum - 1) * 10])), 10);
+    displayRows = _.first((_.rest(displayRows, [(pagerNum - 1) * 10])), 10);
 
     return (
       <div>
-        <TextInput
-          onChange={this.restaurantReviewsFilterKeypress}
-          onClick={this.updateFilter}
-          name="restaurant-reviews-filter"
-          value={textVal}
-        />
         {displayRows}
       </div>
     );
@@ -62,8 +37,9 @@ class RestaurantReviewsList extends React.Component {
 }
 
 RestaurantReviewsList.propTypes = {
-  restaurantReviews: PropTypes.object.isRequired,
-  updateFilter: PropTypes.func.isRequired
+  restaurantReviews: PropTypes.array.isRequired,
+  updateFilter: PropTypes.func.isRequired,
+  pagerNum: PropTypes.number.isRequired
 };
 
 export default RestaurantReviewsList;
