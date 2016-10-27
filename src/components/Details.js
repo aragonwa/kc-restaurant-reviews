@@ -132,7 +132,7 @@ class DetailsPage extends React.Component {
     }, this);
 
     // console.log(inspections);
-    console.log(transformedObj);
+    // console.log(transformedObj);
     const inspectionsRows = transformedObj.map((inspection, index) => {
       return (
         <DetailsInspectionRow inspection={inspection} formatDate={this.formatDate} activeViolations={this.state.activeViolations} key={index} inspectionIndex={index} inspectionRowOnClick={this.inspectionRowOnClick}/>

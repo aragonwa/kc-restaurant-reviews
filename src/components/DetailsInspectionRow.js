@@ -17,7 +17,6 @@ const DetailsInspectionRow = ({inspection, formatDate, inspectionIndex, activeVi
     //opts.rowClass = 'info';
     opts.showIcon = 'show';
     opts.clickHandler = () => inspectionRowOnClick(inspection.inspection.inspectionSerialNum);
-    console.log(inspection.violation)
     violationRows = inspection.violation.map((item) => {
       return (
         <DetailsViolationRow violation={item} index={inspectionIndex} key={item.violationRecordId} />
