@@ -153,7 +153,7 @@ class DetailsPage extends React.Component {
                 {StringHelper.capitalCase(business.businessCity)}, WA {business.businessLocationZip}</p>
               </div>
               <div className="col-xs-6">
-                <p><span className="fa fa-phone"/> 555-555-5555</p>
+                <p className={(business.businessPhone) ? 'show': 'hidden'}><span className="fa fa-phone"/> {StringHelper.phoneNumFormat(business.businessPhone)}</p>
               </div>
             </div>
           </div>
