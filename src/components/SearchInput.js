@@ -23,7 +23,7 @@ class SearchInput extends React.Component {
   }
 
   searchInputKeypress(e) {
-    if(e.target.value.length <= 2) {
+    if(e.target.value.length < 2) {
       this.setState({inputError: true});
     } else {
       this.setState({inputError: false});
