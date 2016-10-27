@@ -15,6 +15,7 @@ const store = configureStore();
 //Load restaurants on load
 store.dispatch(loadRestaurants());
 
+//TODO: for production add a subdirectory: https://github.com/reactjs/react-router-redux/issues/414
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store);
 

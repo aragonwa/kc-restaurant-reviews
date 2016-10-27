@@ -5,6 +5,7 @@ const RestaurantListItem = ({item}) => {
   const businessName = item.name;
   const businessAddress = item.address;
   const businessCity = item.city;
+  const businessZip = item.zip;
   const rating = Math.floor(Math.random() * 3) + 1;
   let ratingIcon;
   let ratingString;
@@ -29,7 +30,7 @@ const RestaurantListItem = ({item}) => {
         <div className="col-xs-7">
           <p><strong>{businessName}</strong><br />
           {businessAddress}<br />
-          {businessCity}, WA {item.businessZip}<br />
+          {businessCity}, WA {businessZip}<br />
           555-555-5555</p>
         </div>
         <div className="col-xs-5 text-center">

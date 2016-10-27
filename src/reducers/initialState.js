@@ -4,6 +4,7 @@ export default {
     filter: '',
     restaurants: [],
     pagerNum: 1,
-    loading: true
+    loading: true,
+    loadingError: null
   }
 };

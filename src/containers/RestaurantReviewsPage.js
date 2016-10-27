@@ -15,6 +15,13 @@ export const RestaurantReviewsPage = (props) => {
       </div>
     );
   }
+  if(!props.loading && props.loadingError) {
+    return (
+      <div className="col-sm-12">
+        <div className="alert alert-danger"><h2>An error occured while loading restaurants.</h2></div>
+      </div>
+    );
+  }
   const childrenWithProps = React.Children.map(props.children,
     (child) => React.cloneElement(child, {
       restaurants: props.restaurantReviews.restaurants
@@ -41,7 +48,8 @@ RestaurantReviewsPage.propTypes = {
   pagerNum: PropTypes.number.isRequired,
   restaurantReviews: PropTypes.array.isRequired,
   loading: PropTypes.bool.isRequired,
-  actions: PropTypes.object.isRequired
+  actions: PropTypes.object.isRequired,
+  children: PropTypes.element
 };
 
 function mapStateToProps(state) {
@@ -50,7 +58,8 @@ function mapStateToProps(state) {
   return {
     restaurantReviews: filteredRestaurants,
     loading: state.restaurantReviews.loading,
-    pagerNum: state.restaurantReviews.pagerNum
+    pagerNum: state.restaurantReviews.pagerNum,
+    loadingError: state.restaurantReviews.loadingError
   };
 }
 

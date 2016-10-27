@@ -2,6 +2,7 @@ export function getRestaurantsApi () {
   const url = '//kcit-bzzqfx1:40001/api/business/a/47.0845/-122.5284/47.7803/-121.0657';
 
   return new Promise(function (resolve, reject) {
+
     // Do the usual XHR stuff
     let req = new XMLHttpRequest();
     req.open('GET', url);
@@ -58,6 +59,7 @@ export function getBusinessApi (id) {
     // Make the request
     req.send();
   });
+  //.catch( e =>{Error(e.statusText);});
 }
 
 export function getInspectionsApi (id) {

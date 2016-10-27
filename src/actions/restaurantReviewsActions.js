@@ -38,30 +38,29 @@ export function loadRestaurantsSuccess(restaurants, isLoading) {
   };
 }
 
+export function loadRestaurantsFail(isLoading, error) {
+  return {
+    type: types.LOAD_RESTAURANTS_FAIL,
+    isLoading,
+    error
+  };
+}
+
+
 export function loadRestaurants(){
   return function(dispatch){
     dispatch(loadingRestaurants(true));
     return getRestaurantsApi().then(function(response) {
       dispatch(loadRestaurantsSuccess(JSON.parse(response), false));
-    }, function(error) {
-      // TODO: Replace with error
-      console.error("Failed!", error);
+    }).catch(error => {
+      dispatch(loadRestaurantsFail(false, error));
+      throw(error);
     });
   };
 }
 
-
-//https://github.com/gaearon/redux-thunk
-
-// export function getAllRestaurants() {
-//   return function (dispatch) {
-//     return fetchSecretSauce().then(
-//       sauce => dispatch(makeASandwich(forPerson, sauce)),
-//       error => dispatch(apologize('The Sandwich Shop', forPerson, error))
-//     );
+// export function ajaxCallError() {
+//   return {
+//     type: types.AJAX_CALL_FAIL
 //   };
-// }
-
-// function getRestaurants() {
-//   return fetch('//kcit-bzzqfx1:40001/api/business/count/a/47.0845/-122.5284/47.7803/-121.0657');
 // }
