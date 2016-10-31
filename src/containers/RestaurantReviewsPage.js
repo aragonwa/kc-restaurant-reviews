@@ -49,7 +49,8 @@ RestaurantReviewsPage.propTypes = {
   restaurantReviews: PropTypes.array.isRequired,
   loading: PropTypes.bool.isRequired,
   actions: PropTypes.object.isRequired,
-  children: PropTypes.element
+  children: PropTypes.element,
+  loadingError: PropTypes.object
 };
 
 function mapStateToProps(state) {

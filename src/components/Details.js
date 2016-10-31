@@ -13,18 +13,19 @@ import {
   ModalFooter
 } from 'react-modal-bootstrap';
 import DetailsInspectionRow from './DetailsInspectionRow';
-
+//TODO: Add this to the details page
+//http://www.kingcounty.gov/healthservices/health/ehs/foodsafety/inspections/system.aspx
 class DetailsPage extends React.Component {
   constructor(props, context) {
     super(props, context);
     // State for Component
     this.state = {
-     isOpen: true,
-     business:[],
-     inspections:[],
-     activeViolations:[],
-     loading: true,
-     errorLoading: false
+      isOpen: true,
+      business: [],
+      inspections: [],
+      activeViolations: [],
+      loading: true,
+      errorLoading: false
     };
     this.openModal = this.openModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
@@ -41,42 +42,42 @@ class DetailsPage extends React.Component {
       throw(error);
     });
     getInspectionsApi(this.props.params.id).then((response) => {
-        this.setState({loading: false});
-        this.setState({inspections: response});
-      }).catch(error=> {
-        this.setState({errorLoading: true});
-        this.setState({loading: false});
-        throw(error);
+      this.setState({loading: false});
+      this.setState({inspections: response});
+    }).catch(error=> {
+      this.setState({errorLoading: true});
+      this.setState({loading: false});
+      throw(error);
     });
   }
 
   componentWillUnmount() {
     this.setState({loading: true});
-    this.setState({business:[]});
-    this.setState({inspections:[]});
+    this.setState({business: []});
+    this.setState({inspections: []});
   }
 
   openModal() {
     this.setState({isOpen: true});
   }
 
-  hideModal(){
+  hideModal() {
     this.setState({isOpen: false});
     browserHistory.push('/');
   }
 
-  formatDate(str){
+  formatDate(str) {
     const date = str.slice(0, 10).split('-');
     const year = date[0];
     const month = date[1];
     const day = date[2];
-    return month + '/' + day +'/' + year;
+    return month + '/' + day + '/' + year;
   }
 
-  inspectionRowOnClick(id){
+  inspectionRowOnClick(id) {
     let violationState = this.state.activeViolations;
 
-    if(violationState.indexOf(id) < 0) {
+    if (violationState.indexOf(id) < 0) {
       violationState.push(id);
     } else {
       const index = violationState.indexOf(id);
@@ -93,17 +94,17 @@ class DetailsPage extends React.Component {
     const {errorLoading} = this.state;
 
     if (loading) {
-       return (
-         <Modal isOpen={isOpen} onRequestHide={this.hideModal} size={"modal-lg"}>
-          <div  className="text-center">
-            <span className="fa fa-spinner fa-spin fa-4x" />
+      return (
+        <Modal isOpen={isOpen} onRequestHide={this.hideModal} size={"modal-lg"}>
+          <div className="text-center">
+            <span className="fa fa-spinner fa-spin fa-4x"/>
           </div>
         </Modal>
       );
     }
     if (errorLoading || business.length <= 0) {
-       return (
-         <Modal isOpen={isOpen} onRequestHide={this.hideModal} size={"modal-lg"}>
+      return (
+        <Modal isOpen={isOpen} onRequestHide={this.hideModal} size={"modal-lg"}>
           <div className="col-sm-12">
             <div className="alert alert-danger"><h2>An error occured while loading restaurant information.</h2></div>
           </div>
@@ -111,7 +112,7 @@ class DetailsPage extends React.Component {
       );
     }
 
-    let inspectionsBySerialNum = inspections.reduce(function(arr, item) {
+    let inspectionsBySerialNum = inspections.reduce(function (arr, item) {
       const key = item.inspection.inspectionSerialNum;
       arr[key] = arr[key] || [];
       arr[key].push(item);
@@ -122,7 +123,7 @@ class DetailsPage extends React.Component {
       let obj = {};
       let violations = [];
       inspectionsBySerialNum[element].forEach((element) => {
-        if(element.violation[0]) {
+        if (element.violation[0]) {
           violations.push(element.violation[0]);
         }
       });
@@ -135,7 +136,9 @@ class DetailsPage extends React.Component {
     // console.log(transformedObj);
     const inspectionsRows = transformedObj.map((inspection, index) => {
       return (
-        <DetailsInspectionRow inspection={inspection} formatDate={this.formatDate} activeViolations={this.state.activeViolations} key={index} inspectionIndex={index} inspectionRowOnClick={this.inspectionRowOnClick}/>
+        <DetailsInspectionRow inspection={inspection} formatDate={this.formatDate}
+                              activeViolations={this.state.activeViolations} key={index} inspectionIndex={index}
+                              inspectionRowOnClick={this.inspectionRowOnClick}/>
       );
     });
 
@@ -146,28 +149,40 @@ class DetailsPage extends React.Component {
           <ModalTitle>{business.businessName}</ModalTitle>
         </ModalHeader>
         <ModalBody>
-          <div className="call-out-text call-out-text-primary m-t-0">
-            <div className="row">
-              <div className="col-xs-6">
-                <p>{StringHelper.capitalCase(business.businessAddress)} <br />
-                {StringHelper.capitalCase(business.businessCity)}, WA {business.businessLocationZip}</p>
+          <div className="row">
+            <div className="col-sm-6">
+              <div className="call-out-text call-out-text-primary m-t-0">
+                <div className="row">
+                  <div className="col-xs-6">
+                    <p>{StringHelper.capitalCase(business.businessAddress)} <br />
+                      {StringHelper.capitalCase(business.businessCity)}, WA {business.businessLocationZip}</p>
+                  </div>
+                  <div className="col-xs-6">
+                    <p className={(business.businessPhone) ? 'show' : 'hidden'}><span
+                      className="fa fa-phone"/> {StringHelper.phoneNumFormat(business.businessPhone)}</p>
+                  </div>
+                </div>
               </div>
-              <div className="col-xs-6">
-                <p className={(business.businessPhone) ? 'show': 'hidden'}><span className="fa fa-phone"/> {StringHelper.phoneNumFormat(business.businessPhone)}</p>
+            </div>
+            <div className="col-sm-6">
+              <div className="call-out-text call-out-text-default m-t-0">
+                <p><span className="fa fa-color-danger fa-exclamation-circle" /> Critical violation</p>
+                <p><span className="fa fa-color-info fa-cog" /> Maintenance &amp; sanitation violation</p>
+                <p><a href="//www.kingcounty.gov/healthservices/health/ehs/foodsafety/inspections/system.aspx" target="_blank">Learn more about violations</a></p>
               </div>
             </div>
           </div>
 
-            <table className="table table-bordered table-hover">
-              <thead>
-                <tr>
-                  <th>Inspection type</th>
-                  <th>Date</th>
-                  <th>Score</th>
-                </tr>
-              </thead>
-              {inspectionsRows}
-            </table>
+          <table className="table table-bordered table-hover">
+            <thead>
+            <tr>
+              <th>Inspection type</th>
+              <th>Date</th>
+              <th>Score</th>
+            </tr>
+            </thead>
+            {inspectionsRows}
+          </table>
         </ModalBody>
         <ModalFooter>
           <button className="btn btn-primary" onClick={this.hideModal}>
