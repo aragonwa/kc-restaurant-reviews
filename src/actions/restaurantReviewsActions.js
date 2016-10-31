@@ -51,7 +51,7 @@ export function loadRestaurants(){
   return function(dispatch){
     dispatch(loadingRestaurants(true));
     return getRestaurantsApi().then(function(response) {
-      dispatch(loadRestaurantsSuccess(JSON.parse(response), false));
+      dispatch(loadRestaurantsSuccess(response, false));
     }).catch(error => {
       dispatch(loadRestaurantsFail(false, error));
       throw(error);
