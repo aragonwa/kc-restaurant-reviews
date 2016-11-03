@@ -6,6 +6,11 @@ import RestaurantReviewsPage from './containers/RestaurantReviewsPage'; // eslin
 import Details from './components/Details';
 
 //Todo: not found page <Route path="*" component={NotFoundPage}/>
+// let baseDir = '';
+// if(process.env.NODE_ENV === 'production') {
+//   baseDir = '/help/test/alex/restaurant-app';
+// }
+
 export default (
   <Route path="/" component={App}>
     <IndexRoute component={RestaurantReviewsPage}/>
