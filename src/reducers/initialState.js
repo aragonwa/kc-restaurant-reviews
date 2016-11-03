@@ -5,6 +5,7 @@ export default {
     restaurants: [],
     pagerNum: 1,
     loading: true,
-    loadingError: null
+    loadingError: null,
+    activeItem: null
   }
 };

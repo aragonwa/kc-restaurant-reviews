@@ -23,9 +23,23 @@ const DetailsInspectionRow = ({inspection, formatDate, inspectionIndex, activeVi
     });
   }
   let inspectionRows = [];
+
+  let inspectionType = null;
+  switch(Number(inspection.inspection.inspectionType)) {
+    case 128:
+      inspectionType = "Routine Inspection/Field Review"; //remove field review
+      break;
+    case 129:
+      inspectionType = "Return Inspection"; // Keep as is
+      break;
+    case 136:
+      inspectionType = "Consultation/Education - Field"; //remove field
+      break;
+  }
+
   inspectionRows.push(
     <tr data-toggle={opts.dataToggle} data-target={opts.dataTarget} onClick={opts.clickHandler} key={inspection.inspection.inspectionSerialNum}>
-      <td>{inspection.inspection.inspectionType}</td>
+      <td>{inspectionType}</td>
       <td>{formatDate(inspection.inspection.inspectionDate)}</td>
       <td><strong>{inspection.inspection.inspectionScore}</strong><span className={"pull-right " + opts.showIcon}><span className={(activeViolations.indexOf(inspection.inspection.inspectionSerialNum) < 0) ? 'fa fa-plus': 'fa fa-minus'}/></span></td>
     </tr>
@@ -43,7 +57,7 @@ DetailsInspectionRow.propTypes = {
   inspection: PropTypes.object.isRequired,
   formatDate: PropTypes.func.isRequired,
   inspectionIndex: PropTypes.number.isRequired,
-  activeViolations: PropTypes.array.isRequired,
+  activeViolations: PropTypes.array,
   inspectionRowOnClick: PropTypes.func.isRequired
 };
 

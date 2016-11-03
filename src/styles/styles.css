@@ -4,9 +4,11 @@
 .item {
   padding-top:10px;
 }
+.item.active {
+  background-color: #ebf2d2;
+}
 .item div[class^="col-xs-12"] div{
   border-bottom: 1px solid #DDD;
-
 }
 
 .iframe-container{
@@ -35,4 +37,8 @@
 .input-group {
   padding-bottom: 20px;
 }
+
+/*#app .row > .col-sm-6 {
+  padding-right:0;
+}*/
 

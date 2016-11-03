@@ -1,15 +1,16 @@
 export function getRestaurantsApi () {
   const url = '//kcit-bzzqfx1:40001/api/business/a/47.0845/-122.5284/47.7803/-121.0657';
-  
   return new Promise(function (resolve, reject) {
     fetch(url)
-      .then(response => {    
+      .then(response => {
         if(response.ok) {
           return resolve(response.json());
         }
-        return reject(Error(response.status));
+        return Promise.reject(Error(response.status));
       })
-      .catch(() => Error('Network Error'));
+      .catch((err) => {
+        return reject(Error('Network Error: ' + err));
+      });
 
   //   // Do the usual XHR stuff
   //   let req = new XMLHttpRequest();
@@ -35,14 +36,24 @@ export function getRestaurantsApi () {
 
   //   // Make the request
   //   req.send();
-  });
+ });
 }
 
 export function getBusinessApi (id) {
   const url = '//kcit-bzzqfx1:40001/api/business/' + id;
 
   return new Promise(function (resolve, reject) {
-    // Do the usual XHR stuff
+  //   fetch(url)
+  //     .then(response => {
+  //       if(response.ok) {
+  //         return resolve(response.json());
+  //       }
+  //       return Promise.reject(Error(response.status));
+  //     })
+  //     .catch((err) => {
+  //       return reject(Error('Network Error: ' + err));
+  //     });
+   // Do the usual XHR stuff
     let req = new XMLHttpRequest();
     req.open('GET', url);
 
@@ -71,7 +82,7 @@ export function getBusinessApi (id) {
 }
 
 export function getInspectionsApi (id) {
-  const url = '//kcit-bzzqfx1:40001/api/inspections/' + id;
+  const url = '//kcit-bzzqfx1:40001/api/inspections/flat/' + id;
 
   return new Promise(function (resolve, reject) {
     // Do the usual XHR stuff

@@ -6,6 +6,7 @@ import RestaurantReviewsList from '../components/RestaurantReviewsList';
 import SearchInput from '../components/SearchInput';
 import Filters from '../utils/Filters';
 import Paginate from './Paginate'; // eslint-disable-line import/no-named-as-default
+import Map from '../components/GMap'; // eslint-disable-line import/no-named-as-default
 
 export const RestaurantReviewsPage = (props) => {
   if(props.loading) {
@@ -30,16 +31,30 @@ export const RestaurantReviewsPage = (props) => {
   return (
     <div>
       {childrenWithProps}
-      <SearchInput
-        updateFilter={props.actions.updateFilter}
-        name="restaurant-reviews-filter"
-      />
-      <RestaurantReviewsList
-        updateFilter={props.actions.updateFilter}
-        restaurantReviews={props.restaurantReviews}
-        pagerNum={props.pagerNum}
-      />
-      <Paginate />
+      <div className="row">
+        <div className="col-sm-6">
+          <SearchInput
+            updateFilter={props.actions.updateFilter}
+            name="restaurant-reviews-filter"
+          />
+          <RestaurantReviewsList
+            updateFilter={props.actions.updateFilter}
+            restaurantReviews={props.restaurantReviews}
+            pagerNum={props.pagerNum}
+            setActiveItem={props.actions.setActiveItem}
+            activeItem={props.activeItem}
+          />
+          <Paginate />
+        </div>
+        <div className="col-sm-6">
+          <Map
+            activeItem={props.activeItem}
+            setActiveItem={props.actions.setActiveItem}
+            restaurants={props.filteredPagerRestaurants}
+            pagerNum={props.pagerNum}
+          />
+        </div>
+      </div>
     </div>
   );
 };
@@ -54,13 +69,16 @@ RestaurantReviewsPage.propTypes = {
 };
 
 function mapStateToProps(state) {
-  const {filter, restaurants} = state.restaurantReviews;
+  const {filter, restaurants, pagerNum} = state.restaurantReviews;
   const filteredRestaurants = Filters.filterRestaurants(restaurants, filter);
+  const filteredPagerRestaurants = Filters.filterPagerItems(filteredRestaurants, pagerNum);
   return {
     restaurantReviews: filteredRestaurants,
+    filteredPagerRestaurants: filteredPagerRestaurants,
     loading: state.restaurantReviews.loading,
     pagerNum: state.restaurantReviews.pagerNum,
-    loadingError: state.restaurantReviews.loadingError
+    loadingError: state.restaurantReviews.loadingError,
+    activeItem: state.restaurantReviews.activeItem
   };
 }
 

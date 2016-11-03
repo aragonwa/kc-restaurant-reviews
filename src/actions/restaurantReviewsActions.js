@@ -9,6 +9,13 @@ export function updateFilter(value) {
   };
 }
 
+export function setActiveItem(id) {
+  return {
+    type: types.SET_ACTIVE_ITEM,
+    id
+  };
+}
+
 export function increasePagerNum(value) {
   return {
     type: types.INCREASE_PAGER_NUM,
@@ -46,21 +53,13 @@ export function loadRestaurantsFail(isLoading, error) {
   };
 }
 
-
 export function loadRestaurants(){
   return function(dispatch){
     dispatch(loadingRestaurants(true));
-    return getRestaurantsApi().then(function(response) {
+    return getRestaurantsApi().then((response) => {
       dispatch(loadRestaurantsSuccess(response, false));
     }).catch(error => {
       dispatch(loadRestaurantsFail(false, error));
-      throw(error);
     });
   };
 }
-
-// export function ajaxCallError() {
-//   return {
-//     type: types.AJAX_CALL_FAIL
-//   };
-// }

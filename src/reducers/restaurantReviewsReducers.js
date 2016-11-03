@@ -1,4 +1,4 @@
-import {UPDATE_FILTER, LOAD_RESTAURANTS_SUCCESS, INCREASE_PAGER_NUM, DECREASE_PAGER_NUM, LOADING_RESTAURANTS, LOAD_RESTAURANTS_FAIL} from '../constants/actionTypes';
+import {UPDATE_FILTER, LOAD_RESTAURANTS_SUCCESS, INCREASE_PAGER_NUM, DECREASE_PAGER_NUM, LOADING_RESTAURANTS, LOAD_RESTAURANTS_FAIL, SET_ACTIVE_ITEM} from '../constants/actionTypes';
 import objectAssign from 'object-assign';
 import initialState from './initialState';
 
@@ -16,6 +16,8 @@ export default function restarurantReviewsReducer(state = initialState.restauran
   switch (action.type) {
     case UPDATE_FILTER:
      return objectAssign({}, state, {filter: action.value}, {pagerNum: 1});
+    case SET_ACTIVE_ITEM:
+     return objectAssign({}, state, {activeItem: action.id});
     case INCREASE_PAGER_NUM:
      return objectAssign({}, state, {pagerNum: action.value});
     case DECREASE_PAGER_NUM:

@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import {browserHistory} from 'react-router';
 import {getBusinessApi, getInspectionsApi} from '../api/api';
 import StringHelper from '../utils/StringHelper';
-// import _ from 'underscore';
+
 // https://github.com/minhtranite/react-modal-bootstrap
 import {
   Modal,
@@ -13,8 +13,7 @@ import {
   ModalFooter
 } from 'react-modal-bootstrap';
 import DetailsInspectionRow from './DetailsInspectionRow';
-//TODO: Add this to the details page
-//http://www.kingcounty.gov/healthservices/health/ehs/foodsafety/inspections/system.aspx
+
 class DetailsPage extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -39,7 +38,7 @@ class DetailsPage extends React.Component {
     }).catch(error=> {
       this.setState({errorLoading: true});
       this.setState({loading: false});
-      throw(error);
+      throw(error+'1');
     });
     getInspectionsApi(this.props.params.id).then((response) => {
       this.setState({loading: false});
@@ -93,6 +92,24 @@ class DetailsPage extends React.Component {
     const {loading} = this.state;
     const {errorLoading} = this.state;
 
+    const rating = Math.floor(Math.random() * 3) + 1;
+    let ratingString = null;
+    let ratingIcon = null;
+    switch (rating) {
+      case 1:
+        ratingIcon = "fa-smile-o";
+        ratingString = "Satisfactory";
+        break;
+      case 2:
+        ratingIcon = "fa-meh-o";
+        ratingString = "On warning";
+        break;
+      case 3:
+        ratingIcon = "fa-frown-o";
+        ratingString = "Unsatisfactory";
+        break;
+    }
+
     if (loading) {
       return (
         <Modal isOpen={isOpen} onRequestHide={this.hideModal} size={"modal-lg"}>
@@ -111,7 +128,7 @@ class DetailsPage extends React.Component {
         </Modal>
       );
     }
-
+    //TODO: Check with Jeff to see if I still need this
     let inspectionsBySerialNum = inspections.reduce(function (arr, item) {
       const key = item.inspection.inspectionSerialNum;
       arr[key] = arr[key] || [];
@@ -132,13 +149,16 @@ class DetailsPage extends React.Component {
       transformedObj.push(obj);
     }, this);
 
-    // console.log(inspections);
-    // console.log(transformedObj);
     const inspectionsRows = transformedObj.map((inspection, index) => {
       return (
-        <DetailsInspectionRow inspection={inspection} formatDate={this.formatDate}
-                              activeViolations={this.state.activeViolations} key={index} inspectionIndex={index}
-                              inspectionRowOnClick={this.inspectionRowOnClick}/>
+        <DetailsInspectionRow
+          inspection={inspection}
+          formatDate={this.formatDate}
+          activeViolations={this.state.activeViolations}
+          key={index}
+          inspectionIndex={index}
+          inspectionRowOnClick={this.inspectionRowOnClick}
+        />
       );
     });
 
@@ -156,10 +176,12 @@ class DetailsPage extends React.Component {
                   <div className="col-xs-6">
                     <p>{StringHelper.capitalCase(business.businessAddress)} <br />
                       {StringHelper.capitalCase(business.businessCity)}, WA {business.businessLocationZip}</p>
-                  </div>
-                  <div className="col-xs-6">
                     <p className={(business.businessPhone) ? 'show' : 'hidden'}><span
                       className="fa fa-phone"/> {StringHelper.phoneNumFormat(business.businessPhone)}</p>
+                  </div>
+                  <div className="col-xs-6 text-center">
+                      <p className=""><span className={"fa "+ratingIcon+" fa-3x"} /></p>
+                      <p>{ratingString}</p>
                   </div>
                 </div>
               </div>
