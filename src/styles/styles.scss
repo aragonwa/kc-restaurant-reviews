@@ -1,0 +1,81 @@
+/*Variables*/
+
+$active-color: #ebf2d2;
+$break-xs: 767px;
+$break-sm: 768px;
+
+#results {
+  #results-list {
+    .item {
+      padding-top:10px;
+      &.active {
+        background-color: $active-color;
+      }
+      &div[class^="col-xs-12"] div{
+        border-bottom: 1px solid #DDD;
+      }
+    }
+    @media screen and (min-width: $break-sm) {
+      padding-right:0;
+    }
+    .location-input {
+      background-color:#CCC;
+      .input-group {
+        padding-bottom: 20px;
+      }
+    }
+    #restaurant-list {
+      height: 500px; 
+      overflow: auto;
+      clear: both;
+      position:'relative';
+    }
+  }
+  #results-map {
+    height:300px;
+    .iframe-container{
+      position: relative;
+      width: 100%;
+      /*padding-bottom: 56.25%;  Ratio 16:9 ( 100%/16*9 = 56.25% ) */
+      & > *{
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+      }
+    }
+    @media screen and (min-width: $break-sm) {
+      padding-left:0;
+       height:600px;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .row.reorder-xs {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+    direction: rtl;
+      & > [class*="col-"] {
+      -webkit-transform: rotate(-180deg);
+      -moz-transform: rotate(-180deg);
+      -ms-transform: rotate(-180deg);
+      -o-transform: rotate(-180deg);
+      transform: rotate(-180deg);
+      direction: ltr;
+    }
+  }
+}
+
+
+
+
