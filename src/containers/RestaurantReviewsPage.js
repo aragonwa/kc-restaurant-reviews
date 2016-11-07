@@ -31,24 +31,24 @@ export const RestaurantReviewsPage = (props) => {
   return (
     <div>
       {childrenWithProps}
-      <div className="row">
-        <div className="col-sm-6">
+      <div className="row reorder-xs" id="results">
+        <div className="col-sm-6 col-xs-12" id="results-list">
           <SearchInput
             updateFilter={props.actions.updateFilter}
             name="restaurant-reviews-filter"
           />
           <RestaurantReviewsList
             updateFilter={props.actions.updateFilter}
-            restaurantReviews={props.restaurantReviews}
+            restaurantReviews={props.filteredPagerRestaurants}
             pagerNum={props.pagerNum}
             setActiveItem={props.actions.setActiveItem}
             activeItem={props.activeItem}
           />
           <Paginate />
         </div>
-        <div className="col-sm-6">
+        <div className="col-sm-6 col-xs-12" id="results-map">
           <Map
-            activeItem={props.activeItem}
+            filter={props.filter}
             setActiveItem={props.actions.setActiveItem}
             restaurants={props.filteredPagerRestaurants}
             pagerNum={props.pagerNum}
@@ -63,9 +63,11 @@ RestaurantReviewsPage.propTypes = {
   pagerNum: PropTypes.number.isRequired,
   restaurantReviews: PropTypes.array.isRequired,
   loading: PropTypes.bool.isRequired,
+  loadingError: PropTypes.bool,
   actions: PropTypes.object.isRequired,
   children: PropTypes.element,
-  loadingError: PropTypes.object
+  filteredPagerRestaurants: PropTypes.array.isRequired,
+  activeItem: PropTypes.string 
 };
 
 function mapStateToProps(state) {
@@ -73,6 +75,7 @@ function mapStateToProps(state) {
   const filteredRestaurants = Filters.filterRestaurants(restaurants, filter);
   const filteredPagerRestaurants = Filters.filterPagerItems(filteredRestaurants, pagerNum);
   return {
+    filter: filter,
     restaurantReviews: filteredRestaurants,
     filteredPagerRestaurants: filteredPagerRestaurants,
     loading: state.restaurantReviews.loading,
