@@ -1,8 +1,8 @@
 import React, {PropTypes} from 'react';
 import RestaurantListItem from './RestaurantListItem';
 import StringHelper from '../utils/StringHelper';
-import Filters from '../utils/Filters';
-import Scroll from 'react-scroll';
+// import Filters from '../utils/Filters';
+// import Scroll from 'react-scroll';
 
 class RestaurantReviewsList extends React.Component {
   constructor(props, context) {
@@ -12,14 +12,12 @@ class RestaurantReviewsList extends React.Component {
 
   componentDidUpdate() {
     //TODO: http://stackoverflow.com/questions/9880472/determine-distance-from-the-top-of-a-div-to-top-of-window-with-javascript/9880571
-    // Get help with this
-    // const scrollTop = $('#restaurant-list').scrollTop();
-    // const elementOffset = $('#'+this.props.activeItem).offset().top;
-    // const diff = scrollTop - elementOffset;
-    const topPos = document.getElementById(this.props.activeItem).offsetTop;
-    document.getElementById('restaurant-list').scrollTop = topPos-10;
-
-    //Scroll.animateScroll.scrollTo(elementOffset, {containerId: 'restaurant-list'});
+    let position = 0;
+    if(this.props.activeItem && this.restaurantReviews > 0){
+      const topPos = document.getElementById(this.props.activeItem).offsetTop;
+      position = topPos-99;
+    } 
+    document.getElementById('restaurant-list').scrollTop = position;
   }
 
   setActiveItemOnClick (id){
@@ -27,8 +25,7 @@ class RestaurantReviewsList extends React.Component {
   }
 
   render() {
-    const {restaurantReviews, pagerNum, activeItem} = this.props;
-
+    const {restaurantReviews, activeItem} = this.props;
     let displayRows = [];
     const len = restaurantReviews.length;
     //TODO: Reformat to use map function
@@ -47,10 +44,10 @@ class RestaurantReviewsList extends React.Component {
       displayRows.push(<RestaurantListItem key={i} item={business} activeItem={activeState} setActiveItemOnClick={this.setActiveItemOnClick}/>);
     }
 
-    displayRows = Filters.filterPagerItems(displayRows, pagerNum);
+    //displayRows = Filters.filterPagerItems(displayRows, pagerNum);
 
     return (
-      <div style={{height: '600px', overflow:'auto',clear:'both', position:'relative'}} id="restaurant-list">
+      <div id="restaurant-list">
         {displayRows}
       </div>
     );

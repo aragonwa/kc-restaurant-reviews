@@ -15,6 +15,7 @@ class Paginate extends React.Component {
       return;
     }
     this.props.decreasePagerNum(pagerNum - 1);
+    this.props.setActiveItem(null);
   }
 
   increasePagerNum (e){
@@ -24,6 +25,7 @@ class Paginate extends React.Component {
       return;
     }
     this.props.increasePagerNum(this.props.pagerNum + 1);
+    this.props.setActiveItem(null);
   }
 
   render() {
@@ -61,8 +63,8 @@ Paginate.propTypes = {
   increasePagerNum: PropTypes.func.isRequired,
   pagerNum: PropTypes.number.isRequired,
   filter: PropTypes.string.isRequired,
-  itemsPerPage: PropTypes.number.isRequired,
-  restaurants: PropTypes.array.isRequired
+  restaurants: PropTypes.array.isRequired,
+  setActiveItem: PropTypes.func.isRequired
 };
 
 export default Paginate;
