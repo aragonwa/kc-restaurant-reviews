@@ -44,6 +44,7 @@ class SearchInput extends React.Component {
 
   updateFilter() {
     this.props.updateFilter(this.state.textVal);
+    this.props.setActiveItem(null);
   }
 
   render() {
@@ -74,6 +75,7 @@ SearchInput.propTypes = {
   name: PropTypes.string.isRequired,
   updateFilter: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
+  setActiveItem: PropTypes.func.isRequired,
   value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number
