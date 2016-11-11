@@ -6,7 +6,7 @@ import RestaurantReviewsList from '../components/RestaurantReviewsList';
 import SearchInput from '../components/SearchInput';
 import Filters from '../utils/Filters';
 import Paginate from './Paginate'; // eslint-disable-line import/no-named-as-default
-import Map from '../components/GMap'; // eslint-disable-line import/no-named-as-default
+import Map from '../components/Map'; // eslint-disable-line import/no-named-as-default
 
 export const RestaurantReviewsPage = (props) => {
   if(props.loading) {
@@ -35,6 +35,7 @@ export const RestaurantReviewsPage = (props) => {
         <div className="col-sm-6 col-xs-12" id="results-list">
           <SearchInput
             updateFilter={props.actions.updateFilter}
+            setActiveItem={props.actions.setActiveItem}
             name="restaurant-reviews-filter"
           />
           <RestaurantReviewsList
@@ -48,10 +49,9 @@ export const RestaurantReviewsPage = (props) => {
         </div>
         <div className="col-sm-6 col-xs-12" id="results-map">
           <Map
-            filter={props.filter}
-            setActiveItem={props.actions.setActiveItem}
             restaurants={props.filteredPagerRestaurants}
-            pagerNum={props.pagerNum}
+            activeItem={props.activeItem}
+            setActiveItem={props.actions.setActiveItem}
           />
         </div>
       </div>
@@ -67,11 +67,13 @@ RestaurantReviewsPage.propTypes = {
   actions: PropTypes.object.isRequired,
   children: PropTypes.element,
   filteredPagerRestaurants: PropTypes.array.isRequired,
-  activeItem: PropTypes.string 
+  activeItem: PropTypes.string,
+  filter: PropTypes.string
 };
 
 function mapStateToProps(state) {
   const {filter, restaurants, pagerNum} = state.restaurantReviews;
+
   const filteredRestaurants = Filters.filterRestaurants(restaurants, filter);
   const filteredPagerRestaurants = Filters.filterPagerItems(filteredRestaurants, pagerNum);
   return {
