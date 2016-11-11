@@ -25,7 +25,7 @@ $break-sm: 768px;
       }
     }
     #restaurant-list {
-      height: 500px; 
+      height: 500px;
       overflow: auto;
       clear: both;
       position:'relative';
@@ -76,6 +76,12 @@ $break-sm: 768px;
   }
 }
 
+#results-map .ok img {
+  animation: pulse .5s infinite alternate;
+  -webkit-animation: pulse .5s infinite alternate;
+  transform-origin: center;
+  -webkit-transform-origin: center;
+}
 
 
 
