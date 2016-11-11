@@ -82,7 +82,7 @@ export function getBusinessApi (id) {
 }
 
 export function getInspectionsApi (id) {
-  const url = '//kcit-bzzqfx1:40001/api/inspections/flat/' + id;
+  const url = '//kcit-bzzqfx1:40001/api/inspections/' + id;
 
   return new Promise(function (resolve, reject) {
     // Do the usual XHR stuff
