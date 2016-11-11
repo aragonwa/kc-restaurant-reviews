@@ -13,10 +13,10 @@ class RestaurantReviewsList extends React.Component {
   componentDidUpdate() {
     //TODO: http://stackoverflow.com/questions/9880472/determine-distance-from-the-top-of-a-div-to-top-of-window-with-javascript/9880571
     let position = 0;
-    if(this.props.activeItem && this.restaurantReviews > 0){
+    if(this.props.activeItem && this.props.restaurantReviews.length > 0){
       const topPos = document.getElementById(this.props.activeItem).offsetTop;
       position = topPos-99;
-    } 
+    }
     document.getElementById('restaurant-list').scrollTop = position;
   }
 
@@ -25,26 +25,61 @@ class RestaurantReviewsList extends React.Component {
   }
 
   render() {
+    const style = {
+      fontSize: '20px'
+    };
     const {restaurantReviews, activeItem} = this.props;
-    let displayRows = [];
+
     const len = restaurantReviews.length;
-    //TODO: Reformat to use map function
-    for(let i=0; i < len; i++){
-      const item = restaurantReviews[i];
-      const business = {};
-      const activeState = (activeItem === item.businessRecordId) ? true : false;
-
-      business.name = StringHelper.capitalCase(item.businessName);
-      business.address = StringHelper.capitalCase(item.businessAddress);
-      business.city = StringHelper.capitalCase(item.businessCity);
-      business.zip = item.businessLocationZip;
-      business.phone = StringHelper.phoneNumFormat(item.businessPhone);
-      business.businessRecordId = item.businessRecordId;
-
-      displayRows.push(<RestaurantListItem key={i} item={business} activeItem={activeState} setActiveItemOnClick={this.setActiveItemOnClick}/>);
+    if(len <= 0){
+      return (
+        <div id="restaurant-list">
+          <div style={style} className="alert alert-danger" role="alert">
+            <p><span className="fa fa-exclamation-triangle"/> Sorry, no results for your search.</p>
+            <p>Try a different search term.</p>
+          </div>
+        </div>
+      );
     }
 
-    //displayRows = Filters.filterPagerItems(displayRows, pagerNum);
+    const displayRows = restaurantReviews.map((restaurant, index) => {
+      const id = restaurant.businessRecordId;
+      const rating = restaurant.rating;
+      const name = StringHelper.capitalCase(restaurant.businessName);
+      const address =  StringHelper.capitalCase(restaurant.businessAddress);
+      const city = StringHelper.capitalCase(restaurant.businessCity);
+      const zip = restaurant.businessLocationZip;
+      const phone = StringHelper.phoneNumFormat(restaurant.businessPhone);
+      const activeState = (activeItem === id) ? true : false;
+      const business = {
+        name,
+        address,
+        city,
+        zip,
+        phone,
+        id,
+        rating
+      };
+      return (<RestaurantListItem key={index} item={business} activeItem={activeState} setActiveItemOnClick={this.setActiveItemOnClick}/>);
+    });
+
+    // //TODO: Reformat to use map function
+    // for(let i=0; i < len; i++){
+    //   const item = restaurantReviews[i];
+    //   const business = {};
+    //   const activeState = (activeItem === item.businessRecordId) ? true : false;
+
+    //   business.name = StringHelper.capitalCase(item.businessName);
+    //   business.address = StringHelper.capitalCase(item.businessAddress);
+    //   business.city = StringHelper.capitalCase(item.businessCity);
+    //   business.zip = item.businessLocationZip;
+    //   business.phone = StringHelper.phoneNumFormat(item.businessPhone);
+    //   business.businessRecordId = item.businessRecordId;
+
+    //   displayRows.push(<RestaurantListItem key={i} item={business} activeItem={activeState} setActiveItemOnClick={this.setActiveItemOnClick}/>);
+    // }
+
+    // //displayRows = Filters.filterPagerItems(displayRows, pagerNum);
 
     return (
       <div id="restaurant-list">

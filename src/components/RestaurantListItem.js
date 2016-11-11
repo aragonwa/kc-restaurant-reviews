@@ -1,46 +1,31 @@
 import React, {PropTypes} from 'react';
 import {Link} from 'react-router';
+import Ratings from '../utils/Ratings';
 
 const RestaurantListItem = ({item, activeItem, setActiveItemOnClick}) => {
-  const businessName = item.name;
-  const businessAddress = item.address;
-  const businessCity = item.city;
-  const businessZip = item.zip;
-  const businessPhone = item.phone;
-  const businessRecordId = item.businessRecordId;
-  const rating = Math.floor(Math.random() * 3) + 1;
+  const name = item.name;
+  const address = item.address;
+  const city = item.city;
+  const zip = item.zip;
+  const phone = item.phone;
+  const id = item.id;
+  const rating = Ratings.getRatings(item.rating);
 
-  let ratingIcon;
-  let ratingString;
-  switch (rating) {
-    case 1:
-      ratingIcon = "fa-smile-o";
-      ratingString = "Satisfactory";
-      break;
-    case 2:
-      ratingIcon = "fa-meh-o";
-      ratingString = "On warning";
-      break;
-    case 3:
-      ratingIcon = "fa-frown-o";
-      ratingString = "Unsatisfactory";
-      break;
-  }
-  const clickHandler = () => setActiveItemOnClick(businessRecordId);
+  const clickHandler = () => setActiveItemOnClick(id);
 
   return (
-    <div id={businessRecordId} name={businessRecordId} className={"col-sm-12 item " + (activeItem ? 'active': '')} >
+    <div id={id} name={id} className={"col-sm-12 item " + (activeItem ? 'active': '')} >
       <div className="row">
         <div className="col-xs-7">
-          <p><strong>{businessName}</strong><br />
-          {businessAddress}<br />
-          {businessCity}, WA {businessZip}<br />
-          <span className={(businessPhone) ? 'show' : 'hidden'}><span className="fa fa-phone"/> {businessPhone}</span></p>
+          <p><strong>{name}</strong><br />
+          {address}<br />
+          {city}, WA {zip}<br />
+          <span className={(phone) ? 'show' : 'hidden'}><span className="fa fa-phone"/> {phone}</span></p>
         </div>
         <div className="col-xs-5 text-center">
-          <p><span className={"fa "+ratingIcon+" fa-3x fa-color-primary"} /></p>
-          <p>{ratingString}</p>
-          <p><Link to={"/details/"+item.businessRecordId} onClick={clickHandler}>History <span className="fa fa-chevron-right" /></Link></p>
+          <p><span className={"fa "+rating.icon+" fa-3x fa-color-primary"} /></p>
+          <p>{rating.string}</p>
+          <p><Link to={"/details/"+id} onClick={clickHandler}>History <span className="fa fa-chevron-right" /></Link></p>
         </div>
         <div className="col-xs-12">
           <div />

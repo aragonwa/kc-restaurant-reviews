@@ -23,7 +23,14 @@ export default function restarurantReviewsReducer(state = initialState.restauran
     case DECREASE_PAGER_NUM:
      return objectAssign({}, state, {pagerNum: action.value});
     case LOAD_RESTAURANTS_SUCCESS:
-     return objectAssign({}, state, {restaurants: action.restaurants},{loading: action.isLoading});
+    {
+      //TODO: Remove when real restaurants come in
+      const ratedRestaurants = action.restaurants.map((restaurant) => {
+        restaurant.rating = Math.floor(Math.random() * 3) + 1;
+        return restaurant;
+      });
+     return objectAssign({}, state, {restaurants: ratedRestaurants},{loading: action.isLoading});
+    }
     case LOAD_RESTAURANTS_FAIL:
      return objectAssign({}, state, {loading: action.isLoading}, {loadingError: action.error});
     case LOADING_RESTAURANTS:
