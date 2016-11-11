@@ -1,7 +1,8 @@
 import React, {PropTypes} from 'react';
-import {browserHistory} from 'react-router';
+// import {browserHistory} from 'react-router';
 import {getBusinessApi, getInspectionsApi} from '../api/api';
 import StringHelper from '../utils/StringHelper';
+// import Ratings from '../utils/Ratings';
 
 // https://github.com/minhtranite/react-modal-bootstrap
 import {
@@ -62,7 +63,8 @@ class DetailsPage extends React.Component {
 
   hideModal() {
     this.setState({isOpen: false});
-    browserHistory.push('/');
+    //browserHistory.push('/');
+    this.props.history.push('/');
   }
 
   formatDate(str) {
@@ -129,27 +131,28 @@ class DetailsPage extends React.Component {
       );
     }
     //TODO: Check with Jeff to see if I still need this
-    let inspectionsBySerialNum = inspections.reduce(function (arr, item) {
-      const key = item.inspection.inspectionSerialNum;
-      arr[key] = arr[key] || [];
-      arr[key].push(item);
-      return arr;
-    }, []);
-    let transformedObj = [];
-    Object.keys(inspectionsBySerialNum).forEach((element) => {
-      let obj = {};
-      let violations = [];
-      inspectionsBySerialNum[element].forEach((element) => {
-        if (element.violation[0]) {
-          violations.push(element.violation[0]);
-        }
-      });
-      obj.violation = violations;
-      obj.inspection = inspectionsBySerialNum[element][0].inspection;
-      transformedObj.push(obj);
-    }, this);
 
-    const inspectionsRows = transformedObj.map((inspection, index) => {
+    // let inspectionsBySerialNum = inspections.reduce(function (arr, item) {
+    //   const key = item.inspection.inspectionSerialNum;
+    //   arr[key] = arr[key] || [];
+    //   arr[key].push(item);
+    //   return arr;
+    // }, []);
+    // let transformedObj = [];
+    // Object.keys(inspectionsBySerialNum).forEach((element) => {
+    //   let obj = {};
+    //   let violations = [];
+    //   inspectionsBySerialNum[element].forEach((element) => {
+    //     if (element.violation[0]) {
+    //       violations.push(element.violation[0]);
+    //     }
+    //   });
+    //   obj.violation = violations;
+    //   obj.inspection = inspectionsBySerialNum[element][0].inspection;
+    //   transformedObj.push(obj);
+    // }, this);
+
+    const inspectionsRows = inspections.map((inspection, index) => {
       return (
         <DetailsInspectionRow
           inspection={inspection}
@@ -217,7 +220,8 @@ class DetailsPage extends React.Component {
 }
 
 DetailsPage.propTypes = {
-  params: PropTypes.object.isRequired
+  params: PropTypes.object.isRequired,
+  history: React.PropTypes.object
 };
 
 export default DetailsPage;
