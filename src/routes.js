@@ -15,8 +15,8 @@ export default (
   <Route path="/" component={App}>
     <IndexRoute component={RestaurantReviewsPage}/>
     <Route path="/" component={RestaurantReviewsPage}>
-      <Redirect from="details/" to="/" />
-      <Route path="details/:id" component={Details} />
+      <Redirect from="/details/" to="/" />
+      <Route path="/details/:id" component={Details} />
     </Route>
     <Route path="*" component={RestaurantReviewsPage}/>
   </Route>
