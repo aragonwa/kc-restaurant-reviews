@@ -39,6 +39,11 @@ export default {
     // Generate an external css file with a hash in the filename
     new ExtractTextPlugin('[name].[contenthash].css'),
 
+    // new webpack.ProvidePlugin({
+    //   Promise: 'imports?this=>global!exports?global.Promise!es6-promise'
+    //   //fetch: 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+    // }),
+
     // Generate HTML file that contains references to generated bundles. See here for how this works: https://github.com/ampedandwired/html-webpack-plugin#basic-usage
     new HtmlWebpackPlugin({
       template: 'src/index.ejs',

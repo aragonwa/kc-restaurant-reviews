@@ -28,6 +28,10 @@ export default {
       __DEV__: true
     }),
     new webpack.HotModuleReplacementPlugin(),
+    // new webpack.ProvidePlugin({
+    //         Promise: 'imports?this=>global!exports?global.Promise!es6-promise',
+    //         fetch: 'imports?this=>global!exports?global.fetch!fetch'
+    //     }),
     new webpack.NoErrorsPlugin(),
     new HtmlWebpackPlugin({     // Create HTML file that includes references to bundled CSS and JS.
       template: 'src/index.ejs',
