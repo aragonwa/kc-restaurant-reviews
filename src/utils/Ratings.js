@@ -4,20 +4,26 @@ export default class Ratings {
     switch (num) {
       case 1:
       {
-        rating.icon = 'fa-smile-o';
-        rating.string = 'Satisfactory';
+        rating.img = 'excellent';
+        rating.string = 'Excellent';
         break;
       }
       case 2:
       {
-        rating.icon = 'fa-meh-o';
-        rating.string = 'On warning';
+        rating.img = 'fair';
+        rating.string = 'Fair';
         break;
       }
       case 3:
       {
-        rating.icon = 'fa-frown-o';
-        rating.string = 'Unsatisfactory';
+        rating.img = 'good';
+        rating.string = 'Good';
+        break;
+      }
+      case 4:
+      {
+        rating.img = 'needs_improvement';
+        rating.string = 'Needs improvement';
         break;
       }
     }
