@@ -12,6 +12,7 @@ class GMap extends React.Component {
     super(props, context);
     this.onMapCreated = this.onMapCreated.bind(this);
     this.onMarkerClick = this.onMarkerClick.bind(this);
+    this.renderInfoWindows = this.renderInfoWindows.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -97,6 +98,7 @@ class GMap extends React.Component {
             lat={lat}
             lng={lng}
             key={id + '-infowindow'}
+            pixelOffset={new google.maps.Size(0, -30)}
             content={name + '<br /> <a href="/#/details/'+id+'">History <span class="fa fa-chevron-right fa-color-primary" /></a>'}
             onCloseClick={() => this.onMarkerClick(null, false)}
           />
