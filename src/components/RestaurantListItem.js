@@ -12,7 +12,7 @@ const RestaurantListItem = ({item, activeItem, setActiveItemOnClick}) => {
   const rating = Ratings.getRatings(item.rating);
 
   //TODO: move to style sheet
-  const style = {display: 'inline'};
+  const style = {display: 'inline', height:'50px'};
 
   const clickHandler = () => setActiveItemOnClick(id, false);
 

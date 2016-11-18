@@ -90,7 +90,7 @@ class DetailsPage extends React.Component {
   render() {
     const {isOpen, business, inspections, loading, errorLoading, rating} = this.state;
 
-    const style = {display: 'inline'};
+    const style = {display: 'inline', height:'70px'};
 
     if (loading) {
       return (
