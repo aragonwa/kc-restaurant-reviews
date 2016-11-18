@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
-import {Gmaps, Marker} from 'react-gmaps';
+import {Gmaps, Marker, InfoWindow} from 'react-gmaps';
+import {Link} from 'react-router';
 
 //https://github.com/MicheleBertoli/react-gmaps
 
@@ -79,6 +80,29 @@ class GMap extends React.Component {
       }
     );
   }
+  renderInfoWindows() {
+    const {restaurants} = this.props;
+    const {activeItem} = this.props;
+
+    return restaurants.map((restaurant) => {
+      const id = restaurant.businessRecordId;
+      if(id === activeItem) {
+        const lat = restaurant.businessLocationLat;
+        const lng = restaurant.businesssLocationLong;
+
+        const name = restaurant.businessName;
+
+        return (
+          <InfoWindow
+            lat={lat}
+            lng={lng}
+            key={id + '-infowindow'}
+            content={name + '<br /> <a href="/#/details/'+id+'">History <span class="fa fa-chevron-right fa-color-primary" /></a>'}
+          />
+        );
+      }
+    });
+  }
 
   onMarkerClick(id, scroll) {
     this.props.setActiveItem(id, scroll);
@@ -100,6 +124,7 @@ class GMap extends React.Component {
           zoom={14}
           params={params}>
           {this.renderMarkers()}
+          {this.renderInfoWindows()}
           </Gmaps>
       </div>
     );
