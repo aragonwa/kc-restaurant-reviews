@@ -14,7 +14,7 @@ const RestaurantListItem = ({item, activeItem, setActiveItemOnClick}) => {
   //TODO: move to style sheet
   const style = {display: 'inline'};
 
-  const clickHandler = () => setActiveItemOnClick(id);
+  const clickHandler = () => setActiveItemOnClick(id, false);
   // const clickHandlerNoScroll = () => setActiveItemNoRenderOnClick(id);
 
   return (

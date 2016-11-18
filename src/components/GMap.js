@@ -72,7 +72,7 @@ class GMap extends React.Component {
           lat={lat}
           lng={lng}
           onClick={() => {
-            this.onMarkerClick(id);
+            this.onMarkerClick(id, true);
           }}
         />
         );
@@ -80,8 +80,8 @@ class GMap extends React.Component {
     );
   }
 
-  onMarkerClick(id) {
-    this.props.setActiveItem(id);
+  onMarkerClick(id, scroll) {
+    this.props.setActiveItem(id, scroll);
   }
 
   render() {

@@ -17,7 +17,7 @@ export default function restarurantReviewsReducer(state = initialState.restauran
     case UPDATE_FILTER:
      return objectAssign({}, state, {filter: action.value}, {pagerNum: 1});
     case SET_ACTIVE_ITEM:
-     return objectAssign({}, state, {activeItem: action.id});
+     return objectAssign({}, state, {activeItem: action.id}, {scroll: action.scroll});
     case INCREASE_PAGER_NUM:
      return objectAssign({}, state, {pagerNum: action.value});
     case DECREASE_PAGER_NUM:

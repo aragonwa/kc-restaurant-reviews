@@ -44,6 +44,7 @@ export const RestaurantReviewsPage = (props) => {
             pagerNum={props.pagerNum}
             setActiveItem={props.actions.setActiveItem}
             activeItem={props.activeItem}
+            scroll={props.scroll}
           />
           <Paginate />
         </div>
@@ -53,6 +54,7 @@ export const RestaurantReviewsPage = (props) => {
             activeItem={props.activeItem}
             setActiveItem={props.actions.setActiveItem}
             pagerNum={props.pagerNum}
+            scroll={props.scroll}
           />
         </div>
       </div>
@@ -69,7 +71,8 @@ RestaurantReviewsPage.propTypes = {
   children: PropTypes.element,
   filteredPagerRestaurants: PropTypes.array.isRequired,
   activeItem: PropTypes.string,
-  filter: PropTypes.string
+  filter: PropTypes.string,
+  scroll: PropTypes.bool
 };
 
 function mapStateToProps(state) {
@@ -84,7 +87,8 @@ function mapStateToProps(state) {
     loading: state.restaurantReviews.loading,
     pagerNum: state.restaurantReviews.pagerNum,
     loadingError: state.restaurantReviews.loadingError,
-    activeItem: state.restaurantReviews.activeItem
+    activeItem: state.restaurantReviews.activeItem,
+    scroll: state.restaurantReviews.scroll
   };
 }
 

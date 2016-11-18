@@ -10,21 +10,19 @@ class RestaurantReviewsList extends React.Component {
 
   componentDidUpdate() {
     //TODO: http://stackoverflow.com/questions/9880472/determine-distance-from-the-top-of-a-div-to-top-of-window-with-javascript/9880571
-    let position = 0;
-    if(this.props.activeItem && this.props.restaurantReviews.length > 0){
-      const topPos = document.getElementById(this.props.activeItem).offsetTop;
-      position = topPos-99;
+    if(this.props.scroll) {
+      let position = 0;
+      if(this.props.activeItem && this.props.restaurantReviews.length > 0){
+        const topPos = document.getElementById(this.props.activeItem).offsetTop;
+        position = topPos-99;
+      }
+      document.getElementById('restaurant-list').scrollTop = position;
     }
-    document.getElementById('restaurant-list').scrollTop = position;
   }
 
-  setActiveItemOnClick (id){
-    this.props.setActiveItem(id);
+  setActiveItemOnClick (id, scroll){
+    this.props.setActiveItem(id, scroll);
   }
-
-  // setActiveItemNoRenderOnClick (id){
-  //   this.props.setActiveItem(id);
-  // }
 
   render() {
     //TODO: move to stylesheet

@@ -9,10 +9,11 @@ export function updateFilter(value) {
   };
 }
 
-export function setActiveItem(id) {
+export function setActiveItem(id, scroll) {
   return {
     type: types.SET_ACTIVE_ITEM,
-    id
+    id,
+    scroll
   };
 }
 
