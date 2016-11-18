@@ -78,7 +78,7 @@ export default {
       {test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url?limit=10000&mimetype=application/font-woff&name=[name].[ext]"},
       {test: /\.ttf(\?v=\d+.\d+.\d+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream&name=[name].[ext]'},
       {test: /\.svg(\?v=\d+.\d+.\d+)?$/, loader: 'url?limit=10000&mimetype=image/svg+xml&name=[name].[ext]'},
-      {test: /\.(jpe?g|png|gif)$/i, loader: 'file?name=[name].[ext]'},
+      {test: /\.(jpe?g|png|gif)$/i, loader: 'file?name=~/media/help/test/alex/[name].[ext]'},
       {test: /\.ico$/, loader: 'file?name=[name].[ext]'},
       {test: /(\.css|\.scss)$/, loader: ExtractTextPlugin.extract('css?sourceMap!postcss!sass?sourceMap')}
     ]
