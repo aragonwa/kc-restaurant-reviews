@@ -26,7 +26,7 @@ export default function restarurantReviewsReducer(state = initialState.restauran
     {
       //TODO: Remove when real restaurants come in
       const ratedRestaurants = action.restaurants.map((restaurant) => {
-        restaurant.rating = Math.floor(Math.random() * 3) + 1;
+        restaurant.rating = Math.floor(Math.random() * 4) + 1;
         return restaurant;
       });
      return objectAssign({}, state, {restaurants: ratedRestaurants},{loading: action.isLoading});

@@ -11,10 +11,14 @@ const RestaurantListItem = ({item, activeItem, setActiveItemOnClick}) => {
   const id = item.id;
   const rating = Ratings.getRatings(item.rating);
 
+  //TODO: move to style sheet
+  const style = {display: 'inline'};
+
   const clickHandler = () => setActiveItemOnClick(id);
+  // const clickHandlerNoScroll = () => setActiveItemNoRenderOnClick(id);
 
   return (
-    <div id={id} name={id} className={"col-sm-12 item " + (activeItem ? 'active': '')} >
+    <div onClick={clickHandler} id={id} name={id} className={"col-sm-12 item " + (activeItem ? 'active': '')} >
       <div className="row">
         <div className="col-xs-7">
           <p><strong>{name}</strong><br />
@@ -23,7 +27,7 @@ const RestaurantListItem = ({item, activeItem, setActiveItemOnClick}) => {
           <span className={(phone) ? 'show' : 'hidden'}><span className="fa fa-phone"/> {phone}</span></p>
         </div>
         <div className="col-xs-5 text-center">
-          <p><span className={"fa "+rating.icon+" fa-3x fa-color-primary"} /></p>
+          <p><img style={style} className="img-rounded" alt={rating.string} src={require('../assets/img/'+rating.img+'_100.gif')}/></p>
           <p>{rating.string}</p>
           <p><Link to={"/details/"+id} onClick={clickHandler}>History <span className="fa fa-chevron-right" /></Link></p>
         </div>
