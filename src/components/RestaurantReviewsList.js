@@ -1,8 +1,6 @@
 import React, {PropTypes} from 'react';
 import RestaurantListItem from './RestaurantListItem';
 import StringHelper from '../utils/StringHelper';
-// import Filters from '../utils/Filters';
-// import Scroll from 'react-scroll';
 
 class RestaurantReviewsList extends React.Component {
   constructor(props, context) {
@@ -24,7 +22,12 @@ class RestaurantReviewsList extends React.Component {
     this.props.setActiveItem(id);
   }
 
+  // setActiveItemNoRenderOnClick (id){
+  //   this.props.setActiveItem(id);
+  // }
+
   render() {
+    //TODO: move to stylesheet
     const style = {
       fontSize: '20px'
     };
@@ -51,35 +54,9 @@ class RestaurantReviewsList extends React.Component {
       const zip = restaurant.businessLocationZip;
       const phone = StringHelper.phoneNumFormat(restaurant.businessPhone);
       const activeState = (activeItem === id) ? true : false;
-      const business = {
-        name,
-        address,
-        city,
-        zip,
-        phone,
-        id,
-        rating
-      };
+      const business = {name, address, city, zip, phone, id, rating};
       return (<RestaurantListItem key={index} item={business} activeItem={activeState} setActiveItemOnClick={this.setActiveItemOnClick}/>);
     });
-
-    // //TODO: Reformat to use map function
-    // for(let i=0; i < len; i++){
-    //   const item = restaurantReviews[i];
-    //   const business = {};
-    //   const activeState = (activeItem === item.businessRecordId) ? true : false;
-
-    //   business.name = StringHelper.capitalCase(item.businessName);
-    //   business.address = StringHelper.capitalCase(item.businessAddress);
-    //   business.city = StringHelper.capitalCase(item.businessCity);
-    //   business.zip = item.businessLocationZip;
-    //   business.phone = StringHelper.phoneNumFormat(item.businessPhone);
-    //   business.businessRecordId = item.businessRecordId;
-
-    //   displayRows.push(<RestaurantListItem key={i} item={business} activeItem={activeState} setActiveItemOnClick={this.setActiveItemOnClick}/>);
-    // }
-
-    // //displayRows = Filters.filterPagerItems(displayRows, pagerNum);
 
     return (
       <div id="restaurant-list">

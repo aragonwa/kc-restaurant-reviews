@@ -6,7 +6,7 @@ import RestaurantReviewsList from '../components/RestaurantReviewsList';
 import SearchInput from '../components/SearchInput';
 import Filters from '../utils/Filters';
 import Paginate from './Paginate'; // eslint-disable-line import/no-named-as-default
-import Map from '../components/Map'; // eslint-disable-line import/no-named-as-default
+import GMap from '../components/GMap'; // eslint-disable-line import/no-named-as-default
 
 export const RestaurantReviewsPage = (props) => {
   if(props.loading) {
@@ -48,10 +48,11 @@ export const RestaurantReviewsPage = (props) => {
           <Paginate />
         </div>
         <div className="col-sm-6 col-xs-12" id="results-map">
-          <Map
+          <GMap
             restaurants={props.filteredPagerRestaurants}
             activeItem={props.activeItem}
             setActiveItem={props.actions.setActiveItem}
+            pagerNum={props.pagerNum}
           />
         </div>
       </div>
@@ -63,7 +64,7 @@ RestaurantReviewsPage.propTypes = {
   pagerNum: PropTypes.number.isRequired,
   restaurantReviews: PropTypes.array.isRequired,
   loading: PropTypes.bool.isRequired,
-  loadingError: PropTypes.bool,
+  loadingError: PropTypes.object,
   actions: PropTypes.object.isRequired,
   children: PropTypes.element,
   filteredPagerRestaurants: PropTypes.array.isRequired,
