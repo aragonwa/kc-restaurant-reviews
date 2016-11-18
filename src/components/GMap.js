@@ -99,7 +99,7 @@ class GMap extends React.Component {
             lng={lng}
             key={id + '-infowindow'}
             pixelOffset={new google.maps.Size(0, -30)}
-            content={name + '<br /> <a href="/#/details/'+id+'">History <span class="fa fa-chevron-right fa-color-primary" /></a>'}
+            content={'<strong>'+name + '</strong><br /> <a href="/#/details/'+id+'">History <span class="fa fa-chevron-right fa-color-primary" /></a>'}
             onCloseClick={() => this.onMarkerClick(null, false)}
           />
         );
