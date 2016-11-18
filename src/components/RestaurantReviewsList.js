@@ -69,7 +69,8 @@ RestaurantReviewsList.propTypes = {
   updateFilter: PropTypes.func.isRequired,
   pagerNum: PropTypes.number.isRequired,
   setActiveItem: PropTypes.func.isRequired,
-  activeItem: PropTypes.string
+  activeItem: PropTypes.string,
+  scroll: PropTypes.bool
 };
 
 export default RestaurantReviewsList;

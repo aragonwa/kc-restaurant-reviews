@@ -89,7 +89,7 @@ class DetailsPage extends React.Component {
 
   render() {
     const {isOpen, business, inspections, loading, errorLoading, rating} = this.state;
-
+    //TODO: add to stylesheet
     const style = {display: 'inline', height:'70px'};
 
     if (loading) {
@@ -131,6 +131,10 @@ class DetailsPage extends React.Component {
     //   obj.inspection = inspectionsBySerialNum[element][0].inspection;
     //   transformedObj.push(obj);
     // }, this);
+    //Sort inspections by Date
+    inspections.sort(function(a,b){
+      return new Date(b.inspectionDate) - new Date(a.inspectionDate);
+    });
 
     const inspectionsRows = inspections.map((inspection, index) => {
       return (

@@ -1,6 +1,5 @@
 import React, {PropTypes} from 'react';
 import {Gmaps, Marker, InfoWindow} from 'react-gmaps';
-import {Link} from 'react-router';
 import StringHelper from '../utils/StringHelper';
 
 //https://github.com/MicheleBertoli/react-gmaps
@@ -36,8 +35,10 @@ class GMap extends React.Component {
 
   onMapCreated(map) {
     this.setState({map});
+    //https://developers.google.com/maps/documentation/javascript/controls
     map.setOptions({
-      disableDefaultUI: true
+      disableDefaultUI: true,
+      zoomControl: true
     });
     const {restaurants} = this.props;
     const bounds = new google.maps.LatLngBounds();
@@ -94,7 +95,7 @@ class GMap extends React.Component {
         const name = StringHelper.capitalCase(restaurant.businessName);
 
         return (
-          <InfoWindow onCloseClick={() => this.toggleInfoWindow(index)}
+          <InfoWindow
             lat={lat}
             lng={lng}
             key={id + '-infowindow'}
