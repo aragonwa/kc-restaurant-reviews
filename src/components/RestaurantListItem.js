@@ -15,7 +15,6 @@ const RestaurantListItem = ({item, activeItem, setActiveItemOnClick}) => {
   const style = {display: 'inline'};
 
   const clickHandler = () => setActiveItemOnClick(id, false);
-  // const clickHandlerNoScroll = () => setActiveItemNoRenderOnClick(id);
 
   return (
     <div onClick={clickHandler} id={id} name={id} className={"col-sm-12 item " + (activeItem ? 'active': '')} >
@@ -42,7 +41,8 @@ const RestaurantListItem = ({item, activeItem, setActiveItemOnClick}) => {
 RestaurantListItem.propTypes = {
   item: PropTypes.object.isRequired,
   activeItem: PropTypes.bool,
-  setActiveItemOnClick: PropTypes.func
+  setActiveItemOnClick: PropTypes.func,
+  scroll: PropTypes.bool
 };
 
 export default RestaurantListItem;
