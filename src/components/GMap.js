@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import {Gmaps, Marker, InfoWindow} from 'react-gmaps';
 import {Link} from 'react-router';
+import StringHelper from '../utils/StringHelper';
 
 //https://github.com/MicheleBertoli/react-gmaps
 
@@ -89,15 +90,15 @@ class GMap extends React.Component {
       if(id === activeItem) {
         const lat = restaurant.businessLocationLat;
         const lng = restaurant.businesssLocationLong;
-
-        const name = restaurant.businessName;
+        const name = StringHelper.capitalCase(restaurant.businessName);
 
         return (
-          <InfoWindow
+          <InfoWindow onCloseClick={() => this.toggleInfoWindow(index)}
             lat={lat}
             lng={lng}
             key={id + '-infowindow'}
             content={name + '<br /> <a href="/#/details/'+id+'">History <span class="fa fa-chevron-right fa-color-primary" /></a>'}
+            onCloseClick={() => this.onMarkerClick(null, false)}
           />
         );
       }
