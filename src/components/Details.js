@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 // import {browserHistory} from 'react-router';
 import {getBusinessApi, getInspectionsApi} from '../api/api';
 import StringHelper from '../utils/StringHelper';
-// import Ratings from '../utils/Ratings';
+import Ratings from '../utils/Ratings';
 
 // https://github.com/minhtranite/react-modal-bootstrap
 import {
@@ -35,7 +35,7 @@ class DetailsPage extends React.Component {
   componentDidMount() {
     getBusinessApi(this.props.params.id).then((response) => {
       this.setState({loading: false});
-      this.setState({business: response[0]});
+      this.setState({business: response[0], rating: Ratings.getRatings(Math.floor(Math.random() * 4) + 1)});
     }).catch(error=> {
       this.setState({errorLoading: true});
       this.setState({loading: false});
@@ -88,29 +88,9 @@ class DetailsPage extends React.Component {
   }
 
   render() {
-    const {isOpen} = this.state;
-    const {business} = this.state;
-    const {inspections} = this.state;
-    const {loading} = this.state;
-    const {errorLoading} = this.state;
+    const {isOpen, business, inspections, loading, errorLoading, rating} = this.state;
 
-    const rating = Math.floor(Math.random() * 3) + 1;
-    let ratingString = null;
-    let ratingIcon = null;
-    switch (rating) {
-      case 1:
-        ratingIcon = "fa-smile-o";
-        ratingString = "Satisfactory";
-        break;
-      case 2:
-        ratingIcon = "fa-meh-o";
-        ratingString = "On warning";
-        break;
-      case 3:
-        ratingIcon = "fa-frown-o";
-        ratingString = "Unsatisfactory";
-        break;
-    }
+    const style = {display: 'inline'};
 
     if (loading) {
       return (
@@ -183,8 +163,8 @@ class DetailsPage extends React.Component {
                       className="fa fa-phone"/> {StringHelper.phoneNumFormat(business.businessPhone)}</p>
                   </div>
                   <div className="col-xs-6 text-center">
-                      <p className=""><span className={"fa "+ratingIcon+" fa-3x"} /></p>
-                      <p>{ratingString}</p>
+                      <p><img style={style} className="img-rounded" alt={rating.string} src={require('../assets/img/'+rating.img+'_100.gif')}/></p>
+                      <p>{rating.string}</p>
                   </div>
                 </div>
               </div>
