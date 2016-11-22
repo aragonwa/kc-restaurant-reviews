@@ -3,13 +3,15 @@ import {Link} from 'react-router';
 import Ratings from '../utils/Ratings';
 
 const RestaurantListItem = ({item, activeItem, setActiveItemOnClick}) => {
-  const name = item.name;
+  const programIdentifier = item.programIdentifier;
+  const name = (!programIdentifier || programIdentifier === item.name)? item.name : (item.name + ', ' + programIdentifier);
   const address = item.address;
   const city = item.city;
   const zip = item.zip;
   const phone = item.phone;
   const id = item.id;
   const rating = Ratings.getRatings(item.rating);
+
 
   //TODO: move to style sheet
   const style = {display: 'inline', height:'50px'};

@@ -52,7 +52,8 @@ class RestaurantReviewsList extends React.Component {
       const zip = restaurant.businessLocationZip;
       const phone = StringHelper.phoneNumFormat(restaurant.businessPhone);
       const activeState = (activeItem === id) ? true : false;
-      const business = {name, address, city, zip, phone, id, rating};
+      const programIdentifier = (restaurant.businessProgramIdentifier) ? StringHelper.capitalCase(restaurant.businessProgramIdentifier): '';
+      const business = {name, address, city, zip, phone, id, rating, programIdentifier};
       return (<RestaurantListItem key={index} item={business} activeItem={activeState} setActiveItemOnClick={this.setActiveItemOnClick}/>);
     });
 
