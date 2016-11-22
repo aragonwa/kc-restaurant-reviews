@@ -3,7 +3,6 @@ import React, {PropTypes} from 'react';
 import {getBusinessApi, getInspectionsApi} from '../api/api';
 import StringHelper from '../utils/StringHelper';
 import Ratings from '../utils/Ratings';
-
 // https://github.com/minhtranite/react-modal-bootstrap
 import {
   Modal,
@@ -23,13 +22,13 @@ class DetailsPage extends React.Component {
       isOpen: true,
       business: [],
       inspections: [],
-      activeViolations: [],
+      //activeViolations: [],
       loading: true,
       errorLoading: false
     };
     this.openModal = this.openModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
-    this.inspectionRowOnClick = this.inspectionRowOnClick.bind(this);
+    //this.inspectionRowOnClick = this.inspectionRowOnClick.bind(this);
   }
 
   componentDidMount() {
@@ -75,17 +74,17 @@ class DetailsPage extends React.Component {
     return month + '/' + day + '/' + year;
   }
 
-  inspectionRowOnClick(id) {
-    let violationState = this.state.activeViolations;
+  // inspectionRowOnClick(id) {
+  //   let violationState = this.state.activeViolations;
 
-    if (violationState.indexOf(id) < 0) {
-      violationState.push(id);
-    } else {
-      const index = violationState.indexOf(id);
-      violationState.splice(index, 1);
-    }
-    this.setState({activeViolations: violationState});
-  }
+  //   if (violationState.indexOf(id) < 0) {
+  //     violationState.push(id);
+  //   } else {
+  //     const index = violationState.indexOf(id);
+  //     violationState.splice(index, 1);
+  //   }
+  //   this.setState({activeViolations: violationState});
+  // }
 
   render() {
     const {isOpen, business, inspections, loading, errorLoading, rating} = this.state;
@@ -110,27 +109,7 @@ class DetailsPage extends React.Component {
         </Modal>
       );
     }
-    //TODO: Check with Jeff to see if I still need this
 
-    // let inspectionsBySerialNum = inspections.reduce(function (arr, item) {
-    //   const key = item.inspection.inspectionSerialNum;
-    //   arr[key] = arr[key] || [];
-    //   arr[key].push(item);
-    //   return arr;
-    // }, []);
-    // let transformedObj = [];
-    // Object.keys(inspectionsBySerialNum).forEach((element) => {
-    //   let obj = {};
-    //   let violations = [];
-    //   inspectionsBySerialNum[element].forEach((element) => {
-    //     if (element.violation[0]) {
-    //       violations.push(element.violation[0]);
-    //     }
-    //   });
-    //   obj.violation = violations;
-    //   obj.inspection = inspectionsBySerialNum[element][0].inspection;
-    //   transformedObj.push(obj);
-    // }, this);
     //Sort inspections by Date
     inspections.sort(function(a,b){
       return new Date(b.inspectionDate) - new Date(a.inspectionDate);
@@ -141,10 +120,8 @@ class DetailsPage extends React.Component {
         <DetailsInspectionRow
           inspection={inspection}
           formatDate={this.formatDate}
-          activeViolations={this.state.activeViolations}
           key={index}
           inspectionIndex={index}
-          inspectionRowOnClick={this.inspectionRowOnClick}
         />
       );
     });
@@ -153,7 +130,7 @@ class DetailsPage extends React.Component {
       <Modal isOpen={isOpen} onRequestHide={this.hideModal} size={"modal-lg"}>
         <ModalHeader>
           <ModalClose onClick={this.hideModal}/>
-          <ModalTitle>{business.businessName}</ModalTitle>
+          <ModalTitle>{business.businessName}, {business.businessProgramIdentifier} </ModalTitle>
         </ModalHeader>
         <ModalBody>
           <div className="row">
@@ -181,17 +158,18 @@ class DetailsPage extends React.Component {
               </div>
             </div>
           </div>
-
-          <table className="table table-bordered table-hover">
-            <thead>
-            <tr>
-              <th>Inspection type</th>
-              <th>Date</th>
-              <th>Score</th>
-            </tr>
-            </thead>
-            {inspectionsRows}
-          </table>
+          <div className="table-responsive">
+            <table className="table table-bordered table-hover">
+              <thead>
+              <tr>
+                <th>Inspection type</th>
+                <th>Date</th>
+                <th>Score</th>
+              </tr>
+              </thead>
+              {inspectionsRows}
+            </table>
+          </div>
         </ModalBody>
         <ModalFooter>
           <button className="btn btn-primary" onClick={this.hideModal}>
