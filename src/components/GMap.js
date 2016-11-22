@@ -93,7 +93,7 @@ class GMap extends React.Component {
         const lat = restaurant.businessLocationLat;
         const lng = restaurant.businesssLocationLong;
         const name = StringHelper.capitalCase(restaurant.businessName);
-
+        ///help/test/alex/restaurant-app.aspx#/details/
         return (
           <InfoWindow
             lat={lat}
