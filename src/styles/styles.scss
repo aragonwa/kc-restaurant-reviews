@@ -55,7 +55,21 @@ $break-sm: 768px;
        height:600px;
     }
   }
+
 }
+
+/*@media print {
+  body {
+    visibility: hidden;
+  }
+
+  #app .modal-dialog {
+    visibility: visible;
+    .collapse {
+      display:table-row;
+    }
+  }
+}*/
 
 @media (max-width: 767px) {
   .row.reorder-xs {
@@ -82,6 +96,8 @@ $break-sm: 768px;
   transform-origin: center;
   -webkit-transform-origin: center;
 }
+
+
 
 
 
