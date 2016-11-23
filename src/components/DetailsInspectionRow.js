@@ -44,13 +44,13 @@ class DetailsInspectionRow extends React.Component {
     let inspectionType = null;
     switch(Number(inspection.inspectionType)) {
       case 128:
-        inspectionType = "Routine Inspection/Field Review"; //remove field review
+        inspectionType = "Routine Inspection"; //remove field review
         break;
       case 129:
         inspectionType = "Return Inspection"; // Keep as is
         break;
       case 136:
-        inspectionType = "Consultation/Education - Field"; //remove field
+        inspectionType = "Consultation/Education"; //remove field
         break;
     }
 
