@@ -6,6 +6,9 @@ import StringHelper from '../utils/StringHelper';
 
 const params = { v: '3.exp', key: 'AIzaSyDHJbH9ajNAa3hm7Sl5l3TklpGSB5by4mA' };
 
+const baseDir = (process.env.NODE_ENV === 'production')? '/help/test/alex/restaurant-app.aspx#/details/':'/#/details/';
+
+
 class GMap extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -93,14 +96,14 @@ class GMap extends React.Component {
         const lat = restaurant.businessLocationLat;
         const lng = restaurant.businesssLocationLong;
         const name = StringHelper.capitalCase(restaurant.businessName);
-        ///help/test/alex/restaurant-app.aspx#/details/
+
         return (
           <InfoWindow
             lat={lat}
             lng={lng}
             key={id + '-infowindow'}
             pixelOffset={new google.maps.Size(0, -30)}
-            content={'<strong>'+name + '</strong><br /> <a href="/#/details/'+id+'">History <span class="fa fa-chevron-right fa-color-primary" /></a>'}
+            content={'<strong>'+name + '</strong><br /> <a href="'+baseDir+id+'">History <span class="fa fa-chevron-right fa-color-primary" /></a>'}
             onCloseClick={() => this.onMarkerClick(null, false)}
           />
         );
