@@ -25,11 +25,11 @@ export default function restarurantReviewsReducer(state = initialState.restauran
     case LOAD_RESTAURANTS_SUCCESS:
     {
       //TODO: Remove when real restaurants come in
-      const ratedRestaurants = action.restaurants.map((restaurant) => {
-        restaurant.rating = Math.floor(Math.random() * 4) + 1;
-        return restaurant;
-      });
-     return objectAssign({}, state, {restaurants: ratedRestaurants},{loading: action.isLoading});
+      // const ratedRestaurants = action.restaurants.map((restaurant) => {
+      //   restaurant.rating = Math.floor(Math.random() * 4) + 1;
+      //   return restaurant;
+      // });
+     return objectAssign({}, state, {restaurants: action.restaurants},{loading: action.isLoading});
     }
     case LOAD_RESTAURANTS_FAIL:
      return objectAssign({}, state, {loading: action.isLoading}, {loadingError: action.error});

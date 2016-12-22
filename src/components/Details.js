@@ -34,7 +34,7 @@ class DetailsPage extends React.Component {
   componentDidMount() {
     getBusinessApi(this.props.params.id).then((response) => {
       this.setState({loading: false});
-      this.setState({business: response[0], rating: Ratings.getRatings(Math.floor(Math.random() * 4) + 1)});
+      this.setState({business: response[0]});
     }).catch(error=> {
       this.setState({errorLoading: true});
       this.setState({loading: false});
@@ -87,9 +87,11 @@ class DetailsPage extends React.Component {
   // }
 
   render() {
-    const {isOpen, business, inspections, loading, errorLoading, rating} = this.state;
+    const {isOpen, business, inspections, loading, errorLoading} = this.state;
+    const rating = Ratings.getRatings(business.businessGrade);
+
     //TODO: add to stylesheet
-    const style = {display: 'inline', height:'70px'};
+    const style = {display: 'inline'};
 
     if (loading) {
       return (
@@ -130,7 +132,7 @@ class DetailsPage extends React.Component {
       <Modal isOpen={isOpen} onRequestHide={this.hideModal} size={"modal-lg"}>
         <ModalHeader>
           <ModalClose onClick={this.hideModal}/>
-          <ModalTitle>{business.businessName}, {business.businessProgramIdentifier} </ModalTitle>
+    <ModalTitle>{business.businessName}{(business.businessProgramIdentifier) ? ', '+business.businessProgramIdentifier: ''}</ModalTitle>
         </ModalHeader>
         <ModalBody>
           <div className="row">
@@ -144,7 +146,7 @@ class DetailsPage extends React.Component {
                       className="fa fa-phone"/> {StringHelper.phoneNumFormat(business.businessPhone)}</p>
                   </div>
                   <div className="col-xs-6 text-center">
-                      <p><img style={style} className="img-rounded" alt={rating.string} src={require('../assets/img/'+rating.img+'_100.gif')}/></p>
+                      <p><img style={style} className="img-rounded" alt={rating.string} src={require('../assets/img/'+rating.img+'_70.gif')}/></p>
                       <p>{rating.string}</p>
                   </div>
                 </div>

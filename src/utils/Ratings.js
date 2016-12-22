@@ -1,7 +1,7 @@
 export default class Ratings {
   static getRatings (num) {
     const rating = {};
-    switch (num) {
+    switch (Number(num)) {
       case 1:
       {
         rating.img = 'excellent';
@@ -10,20 +10,20 @@ export default class Ratings {
       }
       case 2:
       {
-        rating.img = 'fair';
-        rating.string = 'Fair';
-        break;
-      }
-      case 3:
-      {
         rating.img = 'good';
         rating.string = 'Good';
         break;
       }
+      case 3:
+      {
+        rating.img = 'okay';
+        rating.string = 'Okay';
+        break;
+      }
       case 4:
       {
-        rating.img = 'needs_improvement';
-        rating.string = 'Needs improvement';
+        rating.img = 'needstoimprove';
+        rating.string = 'Needs to improve';
         break;
       }
     }

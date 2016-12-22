@@ -1,5 +1,5 @@
 export function getRestaurantsApi () {
-  const url = '//kcit-bzzqfx1:40001/api/business/a/47.0845/-122.5284/47.7803/-121.0657';
+  const url = '//webstaging.kingcounty.gov/info.kingcounty.gov/healthservices/RestaurantInspectionsPublicAPI/api/business/1/47.0845/-122.5284/47.7803/-121.0657/';
   return new Promise(function (resolve, reject) {
     // fetch(url)
     //   .then(response => {
@@ -40,7 +40,7 @@ export function getRestaurantsApi () {
 }
 
 export function getBusinessApi (id) {
-  const url = '//kcit-bzzqfx1:40001/api/business/' + id;
+  const url = '//webstaging.kingcounty.gov/info.kingcounty.gov/healthservices/RestaurantInspectionsPublicAPI/api/business/' + id;
 
   return new Promise(function (resolve, reject) {
   //   fetch(url)
@@ -82,7 +82,7 @@ export function getBusinessApi (id) {
 }
 
 export function getInspectionsApi (id) {
-  const url = '//kcit-bzzqfx1:40001/api/inspections/' + id;
+  const url = '//webstaging.kingcounty.gov/info.kingcounty.gov/healthservices/RestaurantInspectionsPublicAPI/api/inspections/' + id;
 
   return new Promise(function (resolve, reject) {
     // Do the usual XHR stuff

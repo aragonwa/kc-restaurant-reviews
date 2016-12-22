@@ -30,8 +30,8 @@ class RestaurantReviewsList extends React.Component {
       fontSize: '20px'
     };
     const {restaurantReviews, activeItem} = this.props;
-
     const len = restaurantReviews.length;
+
     if(len <= 0){
       return (
         <div id="restaurant-list">
@@ -45,7 +45,7 @@ class RestaurantReviewsList extends React.Component {
 
     const displayRows = restaurantReviews.map((restaurant, index) => {
       const id = restaurant.businessRecordId;
-      const rating = restaurant.rating;
+      const grade = restaurant.businessGrade;
       const name = StringHelper.capitalCase(restaurant.businessName);
       const address =  StringHelper.capitalCase(restaurant.businessAddress);
       const city = StringHelper.capitalCase(restaurant.businessCity);
@@ -53,7 +53,7 @@ class RestaurantReviewsList extends React.Component {
       const phone = StringHelper.phoneNumFormat(restaurant.businessPhone);
       const activeState = (activeItem === id) ? true : false;
       const programIdentifier = (restaurant.businessProgramIdentifier) ? StringHelper.capitalCase(restaurant.businessProgramIdentifier): '';
-      const business = {name, address, city, zip, phone, id, rating, programIdentifier};
+      const business = {name, address, city, zip, phone, id, grade, programIdentifier};
       return (<RestaurantListItem key={index} item={business} activeItem={activeState} setActiveItemOnClick={this.setActiveItemOnClick}/>);
     });
 

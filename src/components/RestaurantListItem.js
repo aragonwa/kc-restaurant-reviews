@@ -10,11 +10,10 @@ const RestaurantListItem = ({item, activeItem, setActiveItemOnClick}) => {
   const zip = item.zip;
   const phone = item.phone;
   const id = item.id;
-  const rating = Ratings.getRatings(item.rating);
-
+  const rating = Ratings.getRatings(item.grade);
 
   //TODO: move to style sheet
-  const style = {display: 'inline', height:'50px'};
+  const style = {display: 'inline'};
 
   const clickHandler = () => setActiveItemOnClick(id, false);
 
@@ -28,7 +27,7 @@ const RestaurantListItem = ({item, activeItem, setActiveItemOnClick}) => {
           <span className={(phone) ? 'show' : 'hidden'}><span className="fa fa-phone"/> {phone}</span></p>
         </div>
         <div className="col-xs-5 text-center">
-          <p><img style={style} className="img-rounded" alt={rating.string} src={require('../assets/img/'+rating.img+'_100.gif')}/></p>
+          <p><img style={style} className="img-rounded" alt={rating.string} src={require('../assets/img/'+rating.img+'_50.gif')}/></p>
           <p>{rating.string}</p>
           <p><Link to={"/details/"+id} onClick={clickHandler}>History <span className="fa fa-chevron-right" /></Link></p>
         </div>

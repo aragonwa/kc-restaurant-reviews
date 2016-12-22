@@ -79,7 +79,14 @@ function mapStateToProps(state) {
   const {filter, restaurants, pagerNum} = state.restaurantReviews;
 
   const filteredRestaurants = Filters.filterRestaurants(restaurants, filter);
+  //Move this to utils function
+  filteredRestaurants.sort((a,b) => {
+    if(a.businessName.toLowerCase() < b.businessName.toLowerCase()) return -1;
+    if(a.businessName.toLowerCase() > b.businessName.toLowerCase()) return 1;
+    return 0;
+  });
   const filteredPagerRestaurants = Filters.filterPagerItems(filteredRestaurants, pagerNum);
+
   return {
     filter: filter,
     restaurantReviews: filteredRestaurants,
