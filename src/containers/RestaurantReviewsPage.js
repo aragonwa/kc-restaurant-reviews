@@ -32,7 +32,7 @@ export const RestaurantReviewsPage = (props) => {
     <div>
       {childrenWithProps}
       <div className="row reorder-xs" id="results">
-        <div className="col-sm-6 col-xs-12" id="results-list">
+        <div className={(props.filteredPagerRestaurants.length === 0) ? 'col-sm-12 col-xs-12': 'col-sm-6 col-xs-12'} id="results-list" style={(props.filteredPagerRestaurants.length === 0) ? {paddingRight:'20px'}:{}}>
           <SearchInput
             updateFilter={props.actions.updateFilter}
             setActiveItem={props.actions.setActiveItem}
@@ -48,7 +48,7 @@ export const RestaurantReviewsPage = (props) => {
           />
           <Paginate />
         </div>
-        <div className="col-sm-6 col-xs-12" id="results-map">
+        <div className={(props.filteredPagerRestaurants.length > 0) ? 'col-sm-6 col-xs-12': 'hidden'}  id="results-map">
           <GMap
             restaurants={props.filteredPagerRestaurants}
             activeItem={props.activeItem}
