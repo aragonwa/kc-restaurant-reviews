@@ -6,7 +6,8 @@ import StringHelper from '../utils/StringHelper';
 
 const params = { v: '3.exp', key: 'AIzaSyDHJbH9ajNAa3hm7Sl5l3TklpGSB5by4mA' };
 
-const baseDir = (process.env.NODE_ENV === 'production')? '/help/test/alex/restaurant-app.aspx#/details/':'/#/details/';
+// const baseDir = (process.env.NODE_ENV === 'production')? '/depts/health/environmental-health/food-safety/inspection-system/search.aspx/#/details/':'/#/details/';
+const baseDir = '#/details/';
 
 
 class GMap extends React.Component {
