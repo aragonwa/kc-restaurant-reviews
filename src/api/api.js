@@ -1,5 +1,7 @@
 export function getRestaurantsApi () {
   const url = '//webstaging.kingcounty.gov/info.kingcounty.gov/healthservices/RestaurantInspectionsPublicAPI/api/business/1/47.0845/-122.5284/47.7803/-121.0657/';
+  //const url = '//infoqa.kingcounty.gov/HealthServices/RestaurantInspectionsPublicAPI/api/business/1/47.0845/-122.5284/47.7803/-121.0657/';
+  // const url = '//info.kingcounty.gov/HealthServices/RestaurantInspectionsPublicAPI/api/business/1/47.0845/-122.5284/47.7803/-121.0657/';
   return new Promise(function (resolve, reject) {
     // fetch(url)
     //   .then(response => {
