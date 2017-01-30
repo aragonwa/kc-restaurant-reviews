@@ -24,6 +24,7 @@ class DetailsPage extends React.Component {
       inspections: [],
       //activeViolations: [],
       loading: true,
+      inspectionsLoading: true,
       errorLoading: false
     };
     this.openModal = this.openModal.bind(this);
@@ -41,7 +42,7 @@ class DetailsPage extends React.Component {
       throw(error+'1');
     });
     getInspectionsApi(this.props.params.id).then((response) => {
-      this.setState({loading: false});
+      this.setState({loading: false, inspectionsLoading: false});
       this.setState({inspections: response});
     }).catch(error=> {
       this.setState({errorLoading: true});
@@ -87,7 +88,7 @@ class DetailsPage extends React.Component {
   // }
 
   render() {
-    const {isOpen, business, inspections, loading, errorLoading} = this.state;
+    const {isOpen, business, inspections, loading, errorLoading, inspectionsLoading} = this.state;
     const rating = Ratings.getRatings(business.businessGrade);
 
     //TODO: add to stylesheet
@@ -117,22 +118,44 @@ class DetailsPage extends React.Component {
       return new Date(b.inspectionDate) - new Date(a.inspectionDate);
     });
 
-    const inspectionsRows = inspections.map((inspection, index) => {
-      return (
-        <DetailsInspectionRow
-          inspection={inspection}
-          formatDate={this.formatDate}
-          key={index}
-          inspectionIndex={index}
-        />
+    let inspectionsRows = '';
+    if(inspectionsLoading) {
+      inspectionsRows = (
+        <div className="text-center">
+          <span className="fa fa-spinner fa-spin fa-4x"/>
+        </div>
       );
-    });
+    } else {
+      const x = inspections.map((inspection, index) => {
+        return (
+          <DetailsInspectionRow
+            inspection={inspection}
+            formatDate={this.formatDate}
+            key={index}
+            inspectionIndex={index}
+          />
+        );
+      });
+      inspectionsRows = (
+        <div className="table-responsive">
+          <table className="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <th>Inspection type</th>
+                <th>Date</th>
+                <th>Score</th>
+              </tr>
+            </thead>
+            {x}
+          </table>
+      </div>);
+    }
 
     return (
       <Modal isOpen={isOpen} onRequestHide={this.hideModal} size={"modal-lg"}>
         <ModalHeader>
           <ModalClose onClick={this.hideModal}/>
-    <ModalTitle>{business.businessName}{(business.businessProgramIdentifier) ? ', '+business.businessProgramIdentifier: ''}</ModalTitle>
+          <ModalTitle>{business.businessName}{(business.businessProgramIdentifier) ? ', '+business.businessProgramIdentifier: ''}</ModalTitle>
         </ModalHeader>
         <ModalBody>
           <div className="row">
@@ -160,18 +183,7 @@ class DetailsPage extends React.Component {
               </div>
             </div>
           </div>
-          <div className="table-responsive">
-            <table className="table table-bordered table-hover">
-              <thead>
-              <tr>
-                <th>Inspection type</th>
-                <th>Date</th>
-                <th>Score</th>
-              </tr>
-              </thead>
-              {inspectionsRows}
-            </table>
-          </div>
+          {inspectionsRows}
         </ModalBody>
         <ModalFooter>
           <button className="btn btn-primary" onClick={this.hideModal}>
