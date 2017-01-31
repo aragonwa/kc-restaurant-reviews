@@ -1,7 +1,10 @@
+import RestaurantUrls from '../constants/appSettings';
+
+const urlApi = RestaurantUrls.setEnvironment('qa');
+
 export function getRestaurantsApi () {
-  const url = '//webstaging.kingcounty.gov/info.kingcounty.gov/healthservices/RestaurantInspectionsPublicAPI/api/business/1/47.0845/-122.5284/47.7803/-121.0657/';
-  //const url = '//infoqa.kingcounty.gov/HealthServices/RestaurantInspectionsPublicAPI/api/business/1/47.0845/-122.5284/47.7803/-121.0657/';
-  // const url = '//info.kingcounty.gov/HealthServices/RestaurantInspectionsPublicAPI/api/business/1/47.0845/-122.5284/47.7803/-121.0657/';
+  const url = urlApi.fullList;
+
   return new Promise(function (resolve, reject) {
     // fetch(url)
     //   .then(response => {
@@ -42,7 +45,7 @@ export function getRestaurantsApi () {
 }
 
 export function getBusinessApi (id) {
-  const url = '//webstaging.kingcounty.gov/info.kingcounty.gov/healthservices/RestaurantInspectionsPublicAPI/api/business/' + id;
+   const url = urlApi.business + id;
 
   return new Promise(function (resolve, reject) {
   //   fetch(url)
@@ -84,7 +87,7 @@ export function getBusinessApi (id) {
 }
 
 export function getInspectionsApi (id) {
-  const url = '//webstaging.kingcounty.gov/info.kingcounty.gov/healthservices/RestaurantInspectionsPublicAPI/api/inspections/' + id;
+  const url = urlApi.inspections + id;
 
   return new Promise(function (resolve, reject) {
     // Do the usual XHR stuff
