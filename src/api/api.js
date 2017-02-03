@@ -1,6 +1,6 @@
 import RestaurantUrls from '../constants/appSettings';
 
-const urlApi = RestaurantUrls.setEnvironment('qa');
+const urlApi = RestaurantUrls.setEnvironment('prod');
 
 export function getRestaurantsApi () {
   const url = urlApi.fullList;
