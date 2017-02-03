@@ -107,7 +107,7 @@ class DetailsPage extends React.Component {
       return (
         <Modal isOpen={isOpen} onRequestHide={this.hideModal} size={"modal-lg"}>
           <div className="col-sm-12">
-            <div className="alert alert-danger"><h2>An error occured while loading restaurant information.</h2></div>
+            <div className="alert alert-danger"><h2>An error occurred while loading restaurant information.</h2></div>
           </div>
         </Modal>
       );

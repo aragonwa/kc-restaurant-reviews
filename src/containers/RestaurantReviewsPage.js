@@ -19,7 +19,7 @@ export const RestaurantReviewsPage = (props) => {
   if(!props.loading && props.loadingError) {
     return (
       <div className="col-sm-12">
-        <div className="alert alert-danger"><h2>An error occured while loading restaurants.</h2></div>
+        <div className="alert alert-danger"><h2>An error occurred while loading restaurants.</h2></div>
       </div>
     );
   }
