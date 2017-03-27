@@ -8,10 +8,10 @@ export default class RestaurantUrls {
       case 'staging':
         environmentUrl = 'webstaging.kingcounty.gov/info.kingcounty.gov';
         break;
-      case 'qa':
+      case 'development':
         environmentUrl = 'infoqa.kingcounty.gov';
         break;
-      case 'prod':
+      case 'production':
         environmentUrl = 'info.kingcounty.gov';
         break;
     }
