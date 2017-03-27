@@ -76,15 +76,14 @@ RestaurantReviewsPage.propTypes = {
 };
 
 function mapStateToProps(state) {
-  const {filter, restaurants, pagerNum} = state.restaurantReviews;
+  const {filter, restaurants, pagerNum, initialLoad} = state.restaurantReviews;
 
-  const filteredRestaurants = Filters.filterRestaurants(restaurants, filter);
-  //Move this to utils function
-  filteredRestaurants.sort((a,b) => {
-    if(a.businessName.toLowerCase() < b.businessName.toLowerCase()) return -1;
-    if(a.businessName.toLowerCase() > b.businessName.toLowerCase()) return 1;
-    return 0;
-  });
+  let filteredRestaurants = Filters.filterRestaurants(restaurants, filter);
+
+  if(!initialLoad){
+    Filters.alphaSort(filteredRestaurants);
+  }
+
   const filteredPagerRestaurants = Filters.filterPagerItems(filteredRestaurants, pagerNum);
 
   return {

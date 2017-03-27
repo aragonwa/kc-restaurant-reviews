@@ -6,6 +6,7 @@ export default {
     pagerNum: 1,
     loading: true,
     loadingError: null,
-    activeItem: null
+    activeItem: null,
+    initialLoad: true
   }
 };

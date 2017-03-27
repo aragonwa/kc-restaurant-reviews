@@ -5,7 +5,8 @@ export function updateFilter(value) {
   return {
     type: types.UPDATE_FILTER,
     value,
-    pagerNum:1
+    pagerNum:1,
+    initialLoad: false
   };
 }
 
