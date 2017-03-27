@@ -26,7 +26,7 @@ class DetailsInspectionRow extends React.Component {
     let violationRows = [];
 
     //TODO: create a better key and indexId
-    if(inspection.violations.length > 0) {
+    if(inspection.violations.length > 0 && inspection.violations[0]) {
       opts.dataToggle = 'collapse';
       opts.dataTarget = '.'+inspectionIndex;
       opts.showIcon = 'show';
