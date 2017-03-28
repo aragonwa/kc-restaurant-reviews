@@ -31,6 +31,7 @@ export const RestaurantReviewsPage = (props) => {
   return (
     <div>
       {childrenWithProps}
+      <p>{props.restaurantNumTotal}</p>
       <div className="row reorder-xs" id="results">
         <div className={(props.filteredPagerRestaurants.length === 0) ? 'col-sm-12 col-xs-12': 'col-sm-6 col-xs-12'} id="results-list" style={(props.filteredPagerRestaurants.length === 0) ? {paddingRight:'20px'}:{}}>
           <SearchInput
@@ -88,6 +89,7 @@ function mapStateToProps(state) {
 
   return {
     filter: filter,
+    restaurantNumTotal: restaurants.length,
     restaurantReviews: filteredRestaurants,
     filteredPagerRestaurants: filteredPagerRestaurants,
     loading: state.restaurantReviews.loading,
