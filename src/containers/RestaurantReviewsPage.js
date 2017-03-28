@@ -1,6 +1,6 @@
-import React, {PropTypes} from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import * as actions from '../actions/restaurantReviewsActions';
 import RestaurantReviewsList from '../components/RestaurantReviewsList';
 import SearchInput from '../components/SearchInput';
@@ -9,14 +9,14 @@ import Paginate from './Paginate'; // eslint-disable-line import/no-named-as-def
 import GMap from '../components/GMap'; // eslint-disable-line import/no-named-as-default
 
 export const RestaurantReviewsPage = (props) => {
-  if(props.loading) {
+  if (props.loading) {
     return (
       <div className="col-sm-12">
-        <span className="fa fa-spinner fa-4x fa-spin"/>
+        <span className="fa fa-spinner fa-4x fa-spin" />
       </div>
     );
   }
-  if(!props.loading && props.loadingError) {
+  if (!props.loading && props.loadingError) {
     return (
       <div className="col-sm-12">
         <div className="alert alert-danger"><h2>An error occurred while loading restaurants.</h2></div>
@@ -30,10 +30,17 @@ export const RestaurantReviewsPage = (props) => {
   );
   return (
     <div>
+      <div className="col-sm-12">
+        <div className="call-out-text call-out-text-primary">
+          <p className="h3 m-t-0"><a href="//info.kingcounty.gov/health/ehs/foodsafety/inspections/search.aspx">Can't find your restaurant?</a></p>
+          <p>Search results will be limited as restaurants are phased into the new <a href="/depts/health/environmental-health/food-safety/inspection-system/food-safety-rating.aspx">food safety rating system</a>. You can continue to find all inspection records <a href="//info.kingcounty.gov/health/ehs/foodsafety/inspections/search.aspx">here</a>.
+        </p>
+        <p className="h3 m-b-0">{props.restaurantNumTotal} restaurants inspected so far.</p>
+        </div>
+      </div>
       {childrenWithProps}
-      <p>{props.restaurantNumTotal}</p>
       <div className="row reorder-xs" id="results">
-        <div className={(props.filteredPagerRestaurants.length === 0) ? 'col-sm-12 col-xs-12': 'col-sm-6 col-xs-12'} id="results-list" style={(props.filteredPagerRestaurants.length === 0) ? {paddingRight:'20px'}:{}}>
+        <div className={(props.filteredPagerRestaurants.length === 0) ? 'col-sm-12 col-xs-12' : 'col-sm-6 col-xs-12'} id="results-list" style={(props.filteredPagerRestaurants.length === 0) ? { paddingRight: '20px' } : {}}>
           <SearchInput
             updateFilter={props.actions.updateFilter}
             setActiveItem={props.actions.setActiveItem}
@@ -49,7 +56,7 @@ export const RestaurantReviewsPage = (props) => {
           />
           <Paginate />
         </div>
-        <div className={(props.filteredPagerRestaurants.length > 0) ? 'col-sm-6 col-xs-12': 'hidden'}  id="results-map">
+        <div className={(props.filteredPagerRestaurants.length > 0) ? 'col-sm-6 col-xs-12' : 'hidden'} id="results-map">
           <GMap
             restaurants={props.filteredPagerRestaurants}
             activeItem={props.activeItem}
@@ -77,11 +84,11 @@ RestaurantReviewsPage.propTypes = {
 };
 
 function mapStateToProps(state) {
-  const {filter, restaurants, pagerNum, initialLoad} = state.restaurantReviews;
+  const { filter, restaurants, pagerNum, initialLoad } = state.restaurantReviews;
 
   let filteredRestaurants = Filters.filterRestaurants(restaurants, filter);
 
-  if(!initialLoad){
+  if (!initialLoad) {
     Filters.alphaSort(filteredRestaurants);
   }
 
