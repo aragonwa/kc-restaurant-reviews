@@ -1,9 +1,9 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 
 class SearchInput extends React.Component {
-  constructor (props, context) {
+  constructor(props, context) {
     super(props, context);
-      this.state = {
+    this.state = {
       textVal: ''
       // inputError: false
     };
@@ -11,6 +11,7 @@ class SearchInput extends React.Component {
     this.searchInputKeypress = this.searchInputKeypress.bind(this);
     this.searchInputOnClick = this.searchInputOnClick.bind(this);
     this.updateFilter = this.updateFilter.bind(this);
+    this.clearSearch = this.clearSearch.bind(this);
   }
 
   restaurantReviewsFilterKeyUp(e) {
@@ -29,10 +30,10 @@ class SearchInput extends React.Component {
     //   this.setState({inputError: false});
     // }
     //  if (e.charCode === 13 && !this.state.inputError) {
-     if (e.charCode === 13 && !this.state.inputError) {
-       this.updateFilter(this.state.textVal);
+    if (e.charCode === 13 && !this.state.inputError) {
+      this.updateFilter(this.state.textVal);
     } else {
-      this.setState({textVal: e.target.value});
+      this.setState({ textVal: e.target.value });
     }
   }
 
@@ -43,31 +44,36 @@ class SearchInput extends React.Component {
     this.updateFilter();
   }
 
+  clearSearch() {
+    this.props.updateFilter('');
+    this.setState({ textVal: ''});
+  }
+
   updateFilter() {
     this.props.updateFilter(this.state.textVal);
     this.props.setActiveItem(null);
   }
 
   render() {
-    const {textVal} = this.state;
-    const {inputError} = this.state;
+    const { textVal } = this.state;
+    const { inputError } = this.state;
     return (
-    <div>
-      <div className="col-sm-12 location-input">
-        <br />
-        <label htmlFor="restaurantInput">Restaurant name</label>
-        <div className={(inputError)? 'has-error': ''}>
-          <div className="input-group">
-            <input type="text" className="form-control" id="restaurantInput" placeholder="Name" value={textVal} onChange={this.searchInputKeypress} onKeyPress={this.restaurantReviewsFilterKeyUp}/>
-            <span className="input-group-btn">
-              <button className={(inputError)? 'btn btn-danger': 'btn btn-primary'} type="button" onClick={this.searchInputOnClick} aria-label="Search restaurant inspections"><span className="fa fa-search" /></button>
-            </span>
+      <div>
+        <div className="col-sm-12 location-input">
+          <br />
+          <label htmlFor="restaurantInput">Restaurant name</label>
+          <div className={(inputError) ? 'has-error' : ''}>
+            <div className="input-group">
+              <input type="text" className="form-control" id="restaurantInput" placeholder="Name" value={textVal} onChange={this.searchInputKeypress} onKeyPress={this.restaurantReviewsFilterKeyUp} />
+              <span className="input-group-btn">
+                <button className={(inputError) ? 'btn btn-danger' : 'btn btn-primary'} type="button" onClick={this.searchInputOnClick} aria-label="Search restaurant inspections"><span className="fa fa-search" /></button>
+              </span>
+            </div>
+            <label className={'help-block text-danger ' + ((inputError) ? 'show' : 'hidden')} htmlFor="restaurantInput">Enter at least 2 characters</label>
           </div>
-          <label className={'help-block text-danger ' + ((inputError) ? 'show': 'hidden')} htmlFor="restaurantInput">Enter at least 2 characters</label>
+          <button style={{marginBottom :'15px'}} className={'btn btn-danger btn-xs' + ((textVal) ? '' :' hidden')} onClick={this.clearSearch} type="button">Clear search</button>
         </div>
-
       </div>
-    </div>
     );
   }
 }
