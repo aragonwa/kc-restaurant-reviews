@@ -28,6 +28,7 @@ export const RestaurantReviewsPage = (props) => {
       restaurants: props.restaurantReviews.restaurants
     })
   );
+
   return (
     <div>
       <div className="col-sm-12">
@@ -44,6 +45,8 @@ export const RestaurantReviewsPage = (props) => {
           <SearchInput
             updateFilter={props.actions.updateFilter}
             setActiveItem={props.actions.setActiveItem}
+            history={props.history}
+            searchTerm={props.params.searchTerm}
             name="restaurant-reviews-filter"
           />
           <RestaurantReviewsList
@@ -73,6 +76,7 @@ export const RestaurantReviewsPage = (props) => {
 RestaurantReviewsPage.propTypes = {
   pagerNum: PropTypes.number.isRequired,
   restaurantReviews: PropTypes.array.isRequired,
+  restaurantNumTotal: PropTypes.number.isRequired,
   loading: PropTypes.bool.isRequired,
   loadingError: PropTypes.object,
   actions: PropTypes.object.isRequired,
@@ -83,10 +87,16 @@ RestaurantReviewsPage.propTypes = {
   scroll: PropTypes.bool
 };
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
   const { filter, restaurants, pagerNum, initialLoad } = state.restaurantReviews;
 
   let filteredRestaurants = Filters.filterRestaurants(restaurants, filter);
+
+  if(ownProps.params.searchTerm) {
+    filteredRestaurants =  filteredRestaurants.filter(item => {
+      return item.businessName.toLowerCase().includes(ownProps.params.searchTerm.toLowerCase());
+    });
+  }
 
   if (!initialLoad) {
     Filters.alphaSort(filteredRestaurants);
@@ -103,7 +113,7 @@ function mapStateToProps(state) {
     pagerNum: state.restaurantReviews.pagerNum,
     loadingError: state.restaurantReviews.loadingError,
     activeItem: state.restaurantReviews.activeItem,
-    scroll: state.restaurantReviews.scroll
+    scroll: state.restaurantReviews.scroll,
   };
 }
 

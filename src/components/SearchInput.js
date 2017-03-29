@@ -4,7 +4,7 @@ class SearchInput extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      textVal: ''
+      textVal: this.props.searchTerm || ''
       // inputError: false
     };
     this.restaurantReviewsFilterKeyUp = this.restaurantReviewsFilterKeyUp.bind(this);
@@ -47,11 +47,13 @@ class SearchInput extends React.Component {
   clearSearch() {
     this.props.updateFilter('');
     this.setState({ textVal: ''});
+    this.props.history.push('/');
   }
 
   updateFilter() {
     this.props.updateFilter(this.state.textVal);
     this.props.setActiveItem(null);
+    this.props.history.push('/search/'+ this.state.textVal);
   }
 
   render() {
@@ -86,7 +88,8 @@ SearchInput.propTypes = {
   value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number
-  ])
+  ]),
+  history: React.PropTypes.object
 };
 
 export default SearchInput;
