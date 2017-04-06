@@ -92,13 +92,14 @@ function mapStateToProps(state, ownProps) {
 
   let filteredRestaurants;
 
-  if(ownProps.params.searchTerm && !filter) {
+  if(ownProps.params.searchTerm) {
     filteredRestaurants =  restaurants.filter(item => {
       return item.businessName.toLowerCase().includes(ownProps.params.searchTerm.toLowerCase());
     });
   } else {
-    filteredRestaurants = Filters.filterRestaurants(restaurants, filter);
+    filteredRestaurants = Filters.filterRestaurants(restaurants, '');
   }
+
 
   // if (!initialLoad) {
   //   //Filters.alphaSort(filteredRestaurants);

@@ -14,6 +14,14 @@ class SearchInput extends React.Component {
     this.clearSearch = this.clearSearch.bind(this);
   }
 
+  componentWillReceiveProps(nextProps){
+    if(nextProps.searchTerm){
+      this.setState({ textVal: nextProps.searchTerm});
+    } else{
+      this.setState({ textVal: ''});
+    }
+  }
+
   restaurantReviewsFilterKeyUp(e) {
     // if(this.state.inputError){
     //   return;
