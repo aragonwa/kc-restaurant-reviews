@@ -36,7 +36,7 @@ export const RestaurantReviewsPage = (props) => {
           <p className="h3 m-t-0"><a href="//info.kingcounty.gov/health/ehs/foodsafety/inspections/search.aspx">Can't find your restaurant?</a></p>
           <p>Search results will be limited as restaurants are phased into the new <a href="/depts/health/environmental-health/food-safety/inspection-system/food-safety-rating.aspx">food safety rating system</a>. You can continue to find all inspection records <a href="//info.kingcounty.gov/health/ehs/foodsafety/inspections/search.aspx">here</a>.
         </p>
-        <p className="h3 m-b-0">{props.restaurantNumTotal} restaurants inspected so far.</p>
+        <p>{props.restaurantNumTotal} restaurants inspected so far.</p>
         </div>
       </div>
       {childrenWithProps}
@@ -88,19 +88,21 @@ RestaurantReviewsPage.propTypes = {
 };
 
 function mapStateToProps(state, ownProps) {
-  const { filter, restaurants, pagerNum, initialLoad } = state.restaurantReviews;
+  const { filter, restaurants, pagerNum} = state.restaurantReviews;
 
-  let filteredRestaurants = Filters.filterRestaurants(restaurants, filter);
+  let filteredRestaurants;
 
-  if(ownProps.params.searchTerm) {
-    filteredRestaurants =  filteredRestaurants.filter(item => {
+  if(ownProps.params.searchTerm && !filter) {
+    filteredRestaurants =  restaurants.filter(item => {
       return item.businessName.toLowerCase().includes(ownProps.params.searchTerm.toLowerCase());
     });
+  } else {
+    filteredRestaurants = Filters.filterRestaurants(restaurants, filter);
   }
 
-  if (!initialLoad) {
-    Filters.alphaSort(filteredRestaurants);
-  }
+  // if (!initialLoad) {
+  //   //Filters.alphaSort(filteredRestaurants);
+  // }
 
   const filteredPagerRestaurants = Filters.filterPagerItems(filteredRestaurants, pagerNum);
 
