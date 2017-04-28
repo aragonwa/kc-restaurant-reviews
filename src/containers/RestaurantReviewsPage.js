@@ -76,12 +76,15 @@ RestaurantReviewsPage.propTypes = {
   filteredPagerRestaurants: PropTypes.array.isRequired,
   activeItem: PropTypes.string,
   filter: PropTypes.string,
-  scroll: PropTypes.bool
+  scroll: PropTypes.bool,
+  history: PropTypes.object.isRequired,
+  params: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state, ownProps) {
   const { filter, restaurants, pagerNum} = state.restaurantReviews;
 
+  //TODO: move to function above http://stackoverflow.com/questions/38133137/how-to-filter-and-sort-the-same-array-of-object-state-in-redux
   let filteredRestaurants;
 
   if(ownProps.params.searchTerm) {
@@ -108,7 +111,7 @@ function mapStateToProps(state, ownProps) {
     pagerNum: state.restaurantReviews.pagerNum,
     loadingError: state.restaurantReviews.loadingError,
     activeItem: state.restaurantReviews.activeItem,
-    scroll: state.restaurantReviews.scroll,
+    scroll: state.restaurantReviews.scroll
   };
 }
 

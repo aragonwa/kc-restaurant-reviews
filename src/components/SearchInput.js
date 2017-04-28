@@ -97,7 +97,8 @@ SearchInput.propTypes = {
     PropTypes.string,
     PropTypes.number
   ]),
-  history: React.PropTypes.object
+  history: React.PropTypes.object,
+  searchTerm: PropTypes.string
 };
 
 export default SearchInput;
