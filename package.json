@@ -29,7 +29,7 @@
     "test:cover:travis": "babel-node node_modules/isparta/bin/isparta cover --root src --report lcovonly _mocha -- --require ./tools/testSetup.js \"src/**/*.spec.js\" && cat ./coverage/lcov.info | node_modules/coveralls/bin/coveralls.js",
     "test:watch": "npm run test -- --watch",
     "open:cover": "npm run test:cover && open coverage/index.html",
-    "deploy":"surge dist"
+    "deploy": "surge dist"
   },
   "author": "KCIT",
   "license": "MIT",
@@ -97,6 +97,7 @@
     "sinon": "1.17.5",
     "sinon-chai": "2.8.0",
     "style-loader": "0.13.1",
+    "surge": "0.19.0",
     "underscore": "1.8.3",
     "url-loader": "0.5.7",
     "webpack": "1.13.2",
