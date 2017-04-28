@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import {Gmaps, Marker, InfoWindow} from 'react-gmaps';
 import StringHelper from '../utils/StringHelper';
+import Ratings from '../utils/Ratings';
 
 //https://github.com/MicheleBertoli/react-gmaps
 
@@ -62,15 +63,16 @@ class GMap extends React.Component {
 
   renderMarkers() {
     const {restaurants} = this.props;
-    const {activeItem} = this.props;
+    // const {activeItem} = this.props;
     return restaurants.map((restaurant) => {
-
+      const rating = Ratings.getRatings(restaurant.businessGrade);
       const lat = restaurant.businessLocationLat;
       const lng = restaurant.businesssLocationLong;
       const id = restaurant.businessRecordId;
-      const icon = (activeItem === id) ?
-        '//maps.google.com/mapfiles/ms/icons/green-dot.png' :
-        '//maps.google.com/mapfiles/ms/icons/red-dot.png';
+      const icon = require('../assets/img/'+rating.img+'_pin.png');
+      // const icon = (activeItem === id) ?
+      //   '//maps.google.com/mapfiles/ms/icons/green-dot.png' :
+      //   '//maps.google.com/mapfiles/ms/icons/red-dot.png';
       // Add animation
       return (
         <Marker
