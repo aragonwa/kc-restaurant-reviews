@@ -71,9 +71,11 @@ class SearchInput extends React.Component {
       <div>
         <div className="col-sm-12 location-input">
           <br />
+          {/*TODO Hide title*/}
           <label htmlFor="restaurantInput">Restaurant name</label>
           <div className={(inputError) ? 'has-error' : ''}>
             <div className="input-group">
+                {/* Change placeholder to search*/}
               <input type="text" className="form-control" id="restaurantInput" placeholder="Name" value={textVal} onChange={this.searchInputKeypress} onKeyPress={this.restaurantReviewsFilterKeyUp} />
               <span className="input-group-btn">
                 <button className={(inputError) ? 'btn btn-danger' : 'btn btn-primary'} type="button" onClick={this.searchInputOnClick} aria-label="Search restaurant inspections"><span className="fa fa-search" /></button>
