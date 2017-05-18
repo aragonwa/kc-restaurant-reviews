@@ -12,6 +12,8 @@ export default {
   noInfo: true, // set to false to see a list of every file being bundled.
   entry: [
     // must be first entry to properly set public path
+    'babel-polyfill',
+    'whatwg-fetch',
     './src/webpack-public-path',
     'webpack-hot-middleware/client?reload=true',
     path.resolve(__dirname, 'src/index.js') // Defining path seems necessary for this to work consistently on Windows machines.
