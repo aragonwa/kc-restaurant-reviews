@@ -17,9 +17,9 @@ export default class RestaurantUrls {
     }
 
     const apiUrls = {
-      fullList: '//' + environmentUrl + '/healthservices/RestaurantInspectionsPublicAPI/api/business/1/47.0845/-122.5284/47.7803/-121.0657/',
-      business: '//' + environmentUrl + '/healthservices/RestaurantInspectionsPublicAPI/api/business/',
-      inspections: '//' + environmentUrl + '/healthservices/RestaurantInspectionsPublicAPI/api/inspections/'
+      fullList: `//${environmentUrl}/healthservices/RestaurantInspectionsPublicAPI/api/business/1/47.0845/-122.5284/47.7803/-121.0657/`,
+      business: `//${environmentUrl}/healthservices/RestaurantInspectionsPublicAPI/api/business/`,
+      inspections: `//${environmentUrl}/healthservices/RestaurantInspectionsPublicAPI/api/inspections/`
     };
 
     return apiUrls;
