@@ -17,7 +17,8 @@ export function setActiveItem(id, scroll) {
     scroll
   };
 }
-
+// TODO: Combine next two actions
+// Should be called set pagernum
 export function increasePagerNum(value) {
   return {
     type: types.INCREASE_PAGER_NUM,
