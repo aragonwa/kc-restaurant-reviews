@@ -1,4 +1,4 @@
-import _ from 'underscore';
+// import _ from 'underscore';
 import {PAGER_ITEMS_PER_PAGE as itemsPerPage} from '../constants/appSettings';
 
 export default class Filters {
@@ -7,8 +7,11 @@ export default class Filters {
        return item.businessName.toLowerCase().includes(filter.toLowerCase());
     });
   }
-  static filterPagerItems (displayRows, pagerNum) {
-    return _.first((_.rest(displayRows, [(pagerNum - 1) * itemsPerPage])), itemsPerPage);
+  static filterPagerItems (items, pagerNum) {
+    // return _.first((_.rest(items, [(pagerNum - 1) * itemsPerPage])), itemsPerPage);
+    // TODO: fix bug: pagination will break if you load the page with a filter already set. the numer of items will be set to the full list.
+    const startArray = (pagerNum - 1) * itemsPerPage;
+    return (items.slice(startArray, startArray + itemsPerPage));
   }
   // TODO: Convert to ES6
   static shuffle (sourceArray) {
