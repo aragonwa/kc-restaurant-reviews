@@ -13,7 +13,7 @@ process.env.NODE_ENV = 'test';
 
 // Disable webpack-specific features for tests since
 // Mocha doesn't know what to do with them.
-['.css', '.scss', '.png', '.jpg'].forEach(ext => {
+['.css', '.scss', '.png', '.jpg', '.gif'].forEach(ext => {
   require.extensions[ext] = () => null;
 });
 
@@ -41,3 +41,6 @@ global.navigator = {
 };
 
 documentRef = document;  //eslint-disable-line no-undef
+
+//http://stackoverflow.com/questions/38485826/getting-referenceerror-fetch-is-not-defined-when-running-react-native-tests-in
+// require('isomorphic-fetch');
