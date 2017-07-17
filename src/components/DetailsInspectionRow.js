@@ -28,7 +28,7 @@ class DetailsInspectionRow extends React.Component {
     //TODO: create a better key and indexId
     if(inspection.violations.length > 0 && inspection.violations[0]) {
       opts.dataToggle = 'collapse';
-      opts.dataTarget = '.'+inspectionIndex;
+      opts.dataTarget = `.${inspectionIndex}`;
       opts.showIcon = 'show';
       //TODO: make sure the fix worked (see below)
       // Remove this to Fix bug with render, but need to figure out how to activate the plus/minus sign
@@ -38,6 +38,14 @@ class DetailsInspectionRow extends React.Component {
           <DetailsViolationRow violation={item} index={inspectionIndex} key={item.violationRecordId} />
         );
       });
+      violationRows.sort((a,b)=>{
+        if(a.props.violation.violationType.toLowerCase() === 'red' ) {
+          return -1
+        }
+        else {
+          return 1;
+        }
+      })
     }
     let inspectionRows = [];
 
