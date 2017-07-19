@@ -60,6 +60,15 @@ export const RestaurantReviewsPage = (props) => {
             scroll={props.scroll}
           />
         </div>
+        <div className="col-xs-12" >
+          <div className="col-xs-12" style={{ borderTop: "1px solid #CCCCCC", paddingTop: "15px" }}>
+            <ul className="list-unstyled">
+              <li><a href="http://www.kingcounty.gov/depts/health/environmental-health/food-safety/inspection-system/closures.aspx">Restaurant closure list</a></li>
+              <li><a href="http://www.kingcounty.gov/depts/health/communicable-diseases/disease-control/outbreak.aspx">Disease outbreak information</a></li>
+              <li><a href="https://data.kingcounty.gov/Health/Food-Establishment-Inspection-Data/f29f-zza5">Raw inspection data</a></li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -82,13 +91,13 @@ RestaurantReviewsPage.propTypes = {
 };
 
 function mapStateToProps(state, ownProps) {
-  const { filter, restaurants, pagerNum} = state.restaurantReviews;
+  const { filter, restaurants, pagerNum } = state.restaurantReviews;
 
   //TODO: move to function above http://stackoverflow.com/questions/38133137/how-to-filter-and-sort-the-same-array-of-object-state-in-redux
   let filteredRestaurants;
 
-  if(ownProps.params.searchTerm) {
-    filteredRestaurants =  Filters.alphaSort(restaurants.filter(item => {
+  if (ownProps.params.searchTerm) {
+    filteredRestaurants = Filters.alphaSort(restaurants.filter(item => {
       return item.businessName.toLowerCase().includes(ownProps.params.searchTerm.toLowerCase());
     }));
   } else {
