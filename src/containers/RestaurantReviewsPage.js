@@ -65,7 +65,7 @@ export const RestaurantReviewsPage = (props) => {
             <ul className="list-unstyled">
               <li><a href="http://www.kingcounty.gov/depts/health/environmental-health/food-safety/inspection-system/closures.aspx">Restaurant closure list</a></li>
               <li><a href="http://www.kingcounty.gov/depts/health/communicable-diseases/disease-control/outbreak.aspx">Disease outbreak information</a></li>
-              <li><a href="https://data.kingcounty.gov/Health/Food-Establishment-Inspection-Data/f29f-zza5">Raw inspection data</a></li>
+              <li><a href="https://data.kingcounty.gov/Health/Food-Establishment-Inspection-Data/f29f-zza5">Explore raw inspection data</a></li>
             </ul>
           </div>
         </div>
