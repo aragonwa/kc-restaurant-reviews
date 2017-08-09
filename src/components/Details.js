@@ -1,17 +1,9 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 // import {browserHistory} from 'react-router';
-import {getBusinessApi, getInspectionsApi} from '../api/api';
+import { getBusinessApi, getInspectionsApi } from '../api/api';
 import StringHelper from '../utils/StringHelper';
 import Ratings from '../utils/Ratings';
-// https://github.com/minhtranite/react-modal-bootstrap
-import {
-  Modal,
-  ModalHeader,
-  ModalTitle,
-  ModalClose,
-  ModalBody,
-  ModalFooter
-} from 'react-modal-bootstrap';
+import { Modal, Popover, OverlayTrigger } from 'react-bootstrap';
 import DetailsInspectionRow from './DetailsInspectionRow';
 
 class DetailsPage extends React.Component {
@@ -22,48 +14,45 @@ class DetailsPage extends React.Component {
       isOpen: true,
       business: [],
       inspections: [],
-      //activeViolations: [],
       loading: true,
       inspectionsLoading: true,
       errorLoading: false
     };
     this.openModal = this.openModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
-    //this.inspectionRowOnClick = this.inspectionRowOnClick.bind(this);
   }
 
   componentDidMount() {
     getBusinessApi(this.props.params.id).then((response) => {
-      this.setState({loading: false});
-      this.setState({business: response[0]});
-    }).catch(error=> {
-      this.setState({errorLoading: true});
-      this.setState({loading: false});
-      throw(error+'1');
+      this.setState({ loading: false });
+      this.setState({ business: response[0] });
+    }).catch(error => {
+      this.setState({ errorLoading: true });
+      this.setState({ loading: false });
+      throw (error + '1');
     });
     getInspectionsApi(this.props.params.id).then((response) => {
-      this.setState({loading: false, inspectionsLoading: false});
-      this.setState({inspections: response});
-    }).catch(error=> {
-      this.setState({errorLoading: true});
-      this.setState({loading: false});
-      throw(error);
+      this.setState({ loading: false, inspectionsLoading: false });
+      this.setState({ inspections: response });
+    }).catch(error => {
+      this.setState({ errorLoading: true });
+      this.setState({ loading: false });
+      throw (error);
     });
   }
 
   componentWillUnmount() {
-    this.setState({loading: true});
-    this.setState({business: []});
-    this.setState({inspections: []});
+    this.setState({ loading: true });
+    this.setState({ business: [] });
+    this.setState({ inspections: [] });
   }
 
   openModal() {
-    this.setState({isOpen: true});
+    this.setState({ isOpen: true });
   }
 
   hideModal() {
-    this.setState({isOpen: false});
-    //browserHistory.push('/');
+    this.setState({ isOpen: false });
     this.props.history.push('/');
   }
 
@@ -74,59 +63,34 @@ class DetailsPage extends React.Component {
     const day = date[2];
     return month + '/' + day + '/' + year;
   }
-
-  // inspectionRowOnClick(id) {
-  //   let violationState = this.state.activeViolations;
-
-  //   if (violationState.indexOf(id) < 0) {
-  //     violationState.push(id);
-  //   } else {
-  //     const index = violationState.indexOf(id);
-  //     violationState.splice(index, 1);
-  //   }
-  //   this.setState({activeViolations: violationState});
-  // }
-
-  render() {
-    const {isOpen, business, inspections, loading, errorLoading, inspectionsLoading} = this.state;
-    const rating = Ratings.getRatings(business.businessGrade);
-
-    //TODO: add to stylesheet
-    const style = {display: 'inline'};
-
-    if (loading) {
-      return (
-        <Modal isOpen={isOpen} onRequestHide={this.hideModal} size={"modal-lg"}>
-          <div className="text-center">
-            <span className="fa fa-spinner fa-spin fa-4x"/>
-          </div>
-        </Modal>
-      );
-    }
-    if (errorLoading || business.length <= 0) {
-      return (
-        <Modal isOpen={isOpen} onRequestHide={this.hideModal} size={"modal-lg"}>
-          <div className="col-sm-12">
-            <div className="alert alert-danger"><h2>An error occurred while loading restaurant information.</h2></div>
-          </div>
-        </Modal>
-      );
-    }
-
-    //Sort inspections by Date
-    inspections.sort(function(a,b){
-      return new Date(b.inspectionDate) - new Date(a.inspectionDate);
-    });
-
-    let inspectionsRows = '';
-    if(inspectionsLoading) {
-      inspectionsRows = (
+  loadingModal() {
+    return (
+      <Modal show={this.state.showModal} onHide={this.hideModal} bsSize="large">
         <div className="text-center">
-          <span className="fa fa-spinner fa-spin fa-4x"/>
+          <span className="fa fa-spinner fa-spin fa-4x" />
+        </div>
+      </Modal>
+    );
+  }
+
+  loadingModalError() {
+    return (
+      <Modal show={this.state.showModal} onHide={this.hideModal} bsSize="large">
+        <div className="col-sm-12">
+          <div className="alert alert-danger"><h2>An error occurred while loading restaurant information.</h2></div>
+        </div>
+      </Modal>
+    );
+  }
+  getInspectionRows(inspectionsLoading, inspections) {
+    if (inspectionsLoading) {
+      return (
+        <div className="text-center">
+          <span className="fa fa-spinner fa-spin fa-4x" />
         </div>
       );
     } else {
-      const x = inspections.map((inspection, index) => {
+      const detailsInspectionRows = inspections.map((inspection, index) => {
         return (
           <DetailsInspectionRow
             inspection={inspection}
@@ -136,60 +100,119 @@ class DetailsPage extends React.Component {
           />
         );
       });
-      inspectionsRows = (
+      const popoverInspectionType = (
+        <Popover id="inspection-type-popover">
+          <p>Businesses receive 1-3 inspections per year. Routine inspections are scored inspections and are unannounced. Return inspections occur as needed to address violations observed during routine inspections.  Many businesses receive an unscored Consultation/Educational visit each year.</p>
+        </Popover>
+      );
+      const popoverViolations = (
+        <Popover id="violations-popover">
+          <p><span className="fa fa-color-danger fa-exclamation-circle" /> High risk violations are for food safety requirements that prevent you from getting sick.</p>
+          <p><span className="fa fa-color-info fa-cog" /> Low risk violations are not likely to cause illness.</p>
+          <p><a href="//www.kingcounty.gov/depts/health/environmental-health/food-safety/inspection-system/reporting.aspx">Learn more</a></p>
+        </Popover>
+      );
+      const popoverResults = (
+        <Popover id="results-popover">
+          <p>Zero is a perfect score.</p>
+          <p>Scores over 35 may result in a return inspection.</p>
+          <p>Score over 90 may result in closure until the items are resolved.</p>
+          <p><a href="//www.kingcounty.gov/depts/health/environmental-health/food-safety/inspection-system/reporting.aspx">More details about scoring.</a></p>
+        </Popover>
+      );
+      return (
         <div className="table-responsive">
           <table className="table table-bordered table-hover">
-            <thead>
+            <thead className="bg-primary">
               <tr>
-                <th>Inspection type</th>
                 <th>Date</th>
-                <th>Score</th>
+                <th>Inspection type&nbsp;
+                  <OverlayTrigger trigger="click" rootClose placement="top" overlay={popoverInspectionType}>
+                    <span className="fa fa-question-circle" />
+                  </OverlayTrigger>
+                  &nbsp;/Violation list&nbsp;
+                  <OverlayTrigger trigger="click" rootClose placement="top" overlay={popoverViolations}>
+                    <span className="fa fa-question-circle" />
+                  </OverlayTrigger>
+                </th>
+                <th>
+                  Score&nbsp;
+                  <OverlayTrigger trigger="click" rootClose placement="top" overlay={popoverResults}>
+                    <span className="fa fa-question-circle" />
+                  </OverlayTrigger>
+                </th>
               </tr>
             </thead>
-            {x}
+            {detailsInspectionRows}
           </table>
-      </div>);
+        </div>);
+    }
+  }
+
+  render() {
+    const { business, inspections, loading, errorLoading, inspectionsLoading } = this.state;
+    const rating = Ratings.getRatings(business.businessGrade);
+
+    const popoverRiskCategory = (
+      <Popover id="risk-category-popover">
+        <p>Risk categories are determined by the complexity of the businesses' food processing and handling. </p>
+      </Popover>
+    );
+
+    if (loading) {
+      return this.loadingModal();
+    }
+    if (errorLoading || business.length <= 0) {
+      return this.loadingModalError();
     }
 
+    //Sort inspections by Date
+    inspections.sort(function (a, b) {
+      return new Date(b.inspectionDate) - new Date(a.inspectionDate);
+    });
+
+    const inspectionsRows = this.getInspectionRows(inspectionsLoading, inspections);
+
     return (
-      <Modal isOpen={isOpen} onRequestHide={this.hideModal} size={"modal-lg"}>
-        <ModalHeader>
-          <ModalClose onClick={this.hideModal}/>
-          <ModalTitle>{business.businessName}{(business.businessProgramIdentifier) ? ', '+business.businessProgramIdentifier: ''}</ModalTitle>
-        </ModalHeader>
-        <ModalBody>
+      <Modal show={this.state.showModal} onHide={this.hideModal} bsSize="large">
+        <Modal.Header closeButton>
+          <Modal.Title><img className="img-non-responsive" alt={rating.string} src={require('../assets/img/' + rating.img + '_25.gif')} />  {business.businessName}{(business.businessProgramIdentifier) ? ', ' + business.businessProgramIdentifier : ''}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
           <div className="row">
-            <div className="col-sm-6">
-              <div className="call-out-text call-out-text-primary m-t-0">
-                <div className="row">
-                  <div className="col-xs-6">
-                    <p>{StringHelper.capitalCase(business.businessAddress)} <br />
-                      {StringHelper.capitalCase(business.businessCity)}, WA {business.businessLocationZip}</p>
-                    <p className={(business.businessPhone) ? 'show' : 'hidden'}><span
-                      className="fa fa-phone"/> {StringHelper.phoneNumFormat(business.businessPhone)}</p>
-                  </div>
-                  <div className="col-xs-6 text-center">
-                      <p><img style={style} className="img-rounded" alt={rating.string} src={require('../assets/img/'+rating.img+'_70.gif')}/></p>
-                      <p>{rating.string}</p>
-                  </div>
-                </div>
-              </div>
+            <div className="col-sm-4 col-xs-6">
+              <p><strong>{StringHelper.capitalCase(business.businessName)}</strong> <br />
+                {StringHelper.capitalCase(business.businessAddress)} <br />
+                {StringHelper.capitalCase(business.businessCity)}, WA {business.businessLocationZip}<br />
+                <span className={(business.businessPhone) ? 'show' : 'hidden'}><span
+                  className="fa fa-phone" /> {StringHelper.phoneNumFormat(business.businessPhone)}</span></p>
+              <p>
+                {business.businessEstablishmentDescr}&nbsp;
+          <OverlayTrigger trigger="click" rootClose placement="top" overlay={popoverRiskCategory}>
+                  <span className="fa fa-question-circle fa-color-primary" />
+                </OverlayTrigger>
+              </p>
+              <p><a target="_blank" href={"//www.google.com/maps/dir//" + StringHelper.capitalCase(business.businessName) + ' ' + StringHelper.capitalCase(business.businessAddress) + "+" + StringHelper.capitalCase(business.businessCity) + "+" + business.businessLocationZip}>Get directions <span className="fa fa-car" /></a></p>
             </div>
-            <div className="col-sm-6">
+            <div className="col-sm-4 col-xs-6">
+              <p className="text-center"><img alt={rating.string} src={require('../assets/img/dial_' + rating.img + '.jpg')} /> <br />
+                <strong>{rating.string}</strong>
+              </p>
+            </div>
+            <div className="col-sm-4 col-xs-12">
               <div className="call-out-text call-out-text-default m-t-0">
-                <p><span className="fa fa-color-danger fa-exclamation-circle" /> Critical violation</p>
-                <p><span className="fa fa-color-info fa-cog" /> Maintenance &amp; sanitation violation</p>
+                <p>The rating is based on the average of <span className="fa fa-color-danger fa-exclamation-circle" /> high risk violations from the last 4 routine inspections.</p>
                 <p><a href="//www.kingcounty.gov/healthservices/health/ehs/foodsafety/inspections/system.aspx" target="_blank">Learn more about violations</a></p>
               </div>
             </div>
           </div>
           {inspectionsRows}
-        </ModalBody>
-        <ModalFooter>
+        </Modal.Body>
+        <Modal.Footer>
           <button className="btn btn-primary" onClick={this.hideModal}>
             Close
           </button>
-        </ModalFooter>
+        </Modal.Footer>
       </Modal>
     );
   }
