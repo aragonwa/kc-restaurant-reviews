@@ -11,7 +11,7 @@ class DetailsPage extends React.Component {
     super(props, context);
     // State for Component
     this.state = {
-      isOpen: true,
+      showModal: true,
       business: [],
       inspections: [],
       loading: true,
@@ -48,11 +48,11 @@ class DetailsPage extends React.Component {
   }
 
   openModal() {
-    this.setState({ isOpen: true });
+    this.setState({ showModal: true });
   }
 
   hideModal() {
-    this.setState({ isOpen: false });
+    this.setState({ showModal: false });
     this.props.history.push('/');
   }
 
