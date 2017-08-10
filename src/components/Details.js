@@ -102,22 +102,25 @@ class DetailsPage extends React.Component {
       });
       const popoverInspectionType = (
         <Popover id="inspection-type-popover">
-          <p>Businesses receive 1-3 inspections per year. Routine inspections are scored inspections and are unannounced. Return inspections occur as needed to address violations observed during routine inspections.  Many businesses receive an unscored Consultation/Educational visit each year.</p>
+          <p>Businesses receive 1-3 inspections per year. <br/>
+          Routine inspections are scored inspections and are unannounced. <br/>
+          Return inspections occur as needed to address violations observed during routine inspections. <br />
+          Many businesses receive an unscored Consultation/Educational visit each year.</p>
         </Popover>
       );
       const popoverViolations = (
         <Popover id="violations-popover">
           <p><span className="fa fa-color-danger fa-exclamation-circle" /> High risk violations are for food safety requirements that prevent you from getting sick.</p>
           <p><span className="fa fa-color-info fa-cog" /> Low risk violations are not likely to cause illness.</p>
-          <p><a href="//www.kingcounty.gov/depts/health/environmental-health/food-safety/inspection-system/reporting.aspx">Learn more</a></p>
+          <p><a href="//www.kingcounty.gov/depts/health/environmental-health/food-safety/inspection-system/reporting.aspx" target="_blank">Learn more</a></p>
         </Popover>
       );
       const popoverResults = (
         <Popover id="results-popover">
           <p>Zero is a perfect score.</p>
           <p>Scores over 35 may result in a return inspection.</p>
-          <p>Score over 90 may result in closure until the items are resolved.</p>
-          <p><a href="//www.kingcounty.gov/depts/health/environmental-health/food-safety/inspection-system/reporting.aspx">More details about scoring.</a></p>
+          <p>Scores over 90 may result in closure until the items are resolved.</p>
+          <p><a href="//www.kingcounty.gov/depts/health/environmental-health/food-safety/inspection-system/reporting.aspx" target="_blank">More details about scoring.</a></p>
         </Popover>
       );
       return (
@@ -202,7 +205,7 @@ class DetailsPage extends React.Component {
             <div className="col-sm-4 col-xs-12">
               <div className="call-out-text call-out-text-default m-t-0">
                 <p>The rating is based on the average of <span className="fa fa-color-danger fa-exclamation-circle" /> high risk violations from the last 4 routine inspections.</p>
-                <p><a href="//www.kingcounty.gov/healthservices/health/ehs/foodsafety/inspections/system.aspx" target="_blank">Learn more about violations</a></p>
+                <p><a href="//www.kingcounty.gov/depts/health/environmental-health/food-safety/inspection-system/food-safety-rating.aspx" target="_blank">Learn more about the rating system</a></p>
               </div>
             </div>
           </div>
