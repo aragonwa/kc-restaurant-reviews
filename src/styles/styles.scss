@@ -4,6 +4,13 @@ $active-color: #ebf2d2;
 $break-xs: 767px;
 $break-sm: 768px;
 
+.location-input {
+  background-color:#CCC;
+  .input-group {
+    padding-bottom: 20px;
+  }
+}
+
 #results {
   #results-list {
     .item {
