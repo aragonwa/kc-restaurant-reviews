@@ -64,8 +64,8 @@ class DetailsInspectionRow extends React.Component {
 
     inspectionRows.push(
       <tr data-toggle={opts.dataToggle} data-target={opts.dataTarget} onClick={this.clickHandler} key={inspection.inspectionSerialNum}>
-        <td>{inspectionType}</td>
         <td>{formatDate(inspection.inspectionDate)}</td>
+        <td>{inspectionType}</td>
         <td><strong>{inspection.inspectionScore}</strong><span className={"pull-right " + opts.showIcon}><span className={(!this.state.isOpen) ? 'fa fa-plus': 'fa fa-minus'}/></span></td>
       </tr>
     );
