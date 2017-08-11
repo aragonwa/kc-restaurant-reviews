@@ -12,7 +12,9 @@ export const RestaurantReviewsPage = (props) => {
   if (props.loading) {
     return (
       <div className="col-sm-12">
-        <span className="fa fa-spinner fa-4x fa-spin" />
+        <div className="text-center m-a-lg">
+          <span className="fa fa-spinner fa-4x fa-spin" />
+        </div>
       </div>
     );
   }
@@ -38,6 +40,9 @@ export const RestaurantReviewsPage = (props) => {
             updateFilter={props.actions.updateFilter}
             setActiveItem={props.actions.setActiveItem}
             history={props.history}
+            searchRestaurants={props.actions.searchRestaurants}
+            searchCity={props.actions.searchCity}
+            searchZip={props.actions.searchZip}
             searchTerm={props.params.searchTerm}
             name="restaurant-reviews-filter"
           />
@@ -87,6 +92,7 @@ RestaurantReviewsPage.propTypes = {
   filter: PropTypes.string,
   scroll: PropTypes.bool,
   history: PropTypes.object.isRequired,
+  searchIsLoading: PropTypes.bool,
   params: PropTypes.object.isRequired
 };
 
@@ -119,6 +125,7 @@ function mapStateToProps(state, ownProps) {
     loading: state.restaurantReviews.loading,
     pagerNum: state.restaurantReviews.pagerNum,
     loadingError: state.restaurantReviews.loadingError,
+    searchIsLoading: state.restaurantReviews.searchIsLoading,
     activeItem: state.restaurantReviews.activeItem,
     scroll: state.restaurantReviews.scroll
   };
