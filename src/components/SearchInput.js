@@ -59,6 +59,7 @@ class SearchInput extends React.Component {
   }
   setSearchType(type) {
     this.setState({ searchType: type });
+    this.setState({ textVal: '' });
     //this.props.searchRestaurants('starbucks');
   }
 
