@@ -35,6 +35,9 @@ class GMap extends React.Component {
         bounds.extend(new google.maps.LatLng(lat,lng));
       });
       map.fitBounds(bounds);
+      if(restaurants.length === 1) {
+        map.setZoom(16);
+      }
    }
   }
 
@@ -59,6 +62,9 @@ class GMap extends React.Component {
     });
 
     map.fitBounds(bounds);
+    if(restaurants.length === 1) {
+      map.setZoom(16);
+    }
   }
 
   renderMarkers() {
