@@ -40,7 +40,7 @@ class DetailsInspectionRow extends React.Component {
       });
       violationRows.sort((a,b)=>{
         if(a.props.violation.violationType.toLowerCase() === 'red' ) {
-          return -1
+          return -1;
         }
         else {
           return 1;
