@@ -102,16 +102,14 @@ class DetailsPage extends React.Component {
       });
       const popoverInspectionType = (
         <Popover id="inspection-type-popover">
-          <p>Businesses receive 1-3 inspections per year. <br/>
-          Routine inspections are scored inspections and are unannounced. <br/>
-          Return inspections occur as needed to address violations observed during routine inspections. <br />
+          <p>Businesses receive 1-3 inspections per year. Routine inspections are scored and unannounced. Return inspections occur as needed to address violations observed during routine inspections. <br />
           Many businesses receive an unscored Consultation/Educational visit each year.</p>
         </Popover>
       );
       const popoverViolations = (
         <Popover id="violations-popover">
           <p><span className="fa fa-color-danger fa-exclamation-circle" /> High risk violations are for food safety requirements that prevent you from getting sick.</p>
-          <p><span className="fa fa-color-info fa-cog" /> Low risk violations are not likely to cause illness.</p>
+          <p><span className="fa fa-color-info fa-cog" /> Low risk violations are less likely to cause illness.</p>
           <p><a href="//www.kingcounty.gov/depts/health/environmental-health/food-safety/inspection-system/reporting.aspx" target="_blank">Learn more</a></p>
         </Popover>
       );
