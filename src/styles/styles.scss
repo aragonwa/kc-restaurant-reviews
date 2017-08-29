@@ -6,6 +6,7 @@ $break-sm: 768px;
 
 .location-input {
   background-color:#CCC;
+  padding-top: 20px;
   .input-group {
     padding-bottom: 20px;
   }
@@ -14,7 +15,9 @@ $break-sm: 768px;
 #results {
   #results-list {
     .item {
-      padding-top:10px;
+      padding-top:15px;
+      padding-bottom:15px;
+      border-bottom: 1px solid #CCC;
       &.active {
         background-color: $active-color;
       }

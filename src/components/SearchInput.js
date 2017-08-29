@@ -106,8 +106,6 @@ class SearchInput extends React.Component {
     return (
       <div>
         <div className="col-sm-12 location-input">
-          <br />
-          {/*TODO Hide title*/}
           <label htmlFor="restaurantInput">Search</label>
           <div className={(inputError) ? 'has-error' : ''}>
             <div className="input-group">
