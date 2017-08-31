@@ -49,7 +49,7 @@ export const RestaurantReviewsPage = (props) => {
   } else {
     showResults = (
       <div>
-        <div className={(props.filteredPagerRestaurants.length > 0) ? 'col-sm-6 col-sm-push-6 col-xs-12' : 'hidden'} id="results-map">
+        <div className={(props.filteredPagerRestaurants.length > 0) ? 'col-sm-6 col-sm-push-6 col-lg-7 col-lg-push-5 col-xs-12' : 'hidden'} id="results-map">
           <GMap
             restaurants={props.filteredPagerRestaurants}
             activeItem={props.activeItem}
@@ -58,7 +58,7 @@ export const RestaurantReviewsPage = (props) => {
             scroll={props.scroll}
           />
         </div>
-        <div className={(props.filteredPagerRestaurants.length === 0) ? 'col-sm-12 col-xs-12' : 'col-sm-6 col-sm-pull-6 col-xs-12'} id="results-list" style={(props.filteredPagerRestaurants.length === 0) ? { paddingRight: '20px' } : {}}>
+        <div className={(props.filteredPagerRestaurants.length === 0) ? 'col-sm-12 col-xs-12' : 'col-sm-6 col-sm-pull-6 col-lg-5 col-lg-pull-7 col-xs-12'} id="results-list" style={(props.filteredPagerRestaurants.length === 0) ? { paddingRight: '20px' } : {}}>
           <RestaurantReviewsList
             updateFilter={props.actions.updateFilter}
             restaurantReviews={props.filteredPagerRestaurants}
