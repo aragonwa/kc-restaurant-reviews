@@ -193,7 +193,7 @@ class DetailsPage extends React.Component {
                   <span className="fa fa-question-circle fa-color-primary" />
                 </OverlayTrigger>
               </p>
-              <p><a target="_blank" href={"//www.google.com/maps/dir//" + StringHelper.capitalCase(business.businessName) + ' ' + StringHelper.capitalCase(business.businessAddress) + "+" + StringHelper.capitalCase(business.businessCity) + "+" + business.businessLocationZip}>Get directions <span className="fa fa-car" /></a></p>
+              <p><a target="_blank" href={"//www.google.com/maps/dir//" + StringHelper.capitalCase(business.businessAddress) + "+" + StringHelper.capitalCase(business.businessCity) + "+" + business.businessLocationZip}>Get directions <span className="fa fa-car" /></a></p>
             </div>
             <div className="col-sm-4 col-xs-6">
               <p className="text-center"><img alt={rating.string} src={require('../assets/img/dial_' + rating.img + '.jpg')} /> <br />
