@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
 import {PAGER_ITEMS_PER_PAGE as itemsPerPage} from '../constants/appSettings';
+import PagerNumbers from './PagerNumbers';
 
 class Paginate extends React.Component {
   constructor(props, context) {
@@ -10,7 +11,7 @@ class Paginate extends React.Component {
 
   decreasePagerNum (e){
     e.preventDefault();
-    const pagerNum = this.props.pagerNum;
+    const {pagerNum} = this.props;
     if(pagerNum <= 1){
       return;
     }
@@ -20,17 +21,17 @@ class Paginate extends React.Component {
 
   increasePagerNum (e){
     e.preventDefault();
-    const {restaurants} = this.props;
-    if(this.props.pagerNum * itemsPerPage >= restaurants.length){
+    const {pagerNum, count} = this.props;
+    if(pagerNum * itemsPerPage >= count){
       return;
     }
-    this.props.increasePagerNum(this.props.pagerNum + 1);
+    this.props.increasePagerNum(pagerNum + 1);
     this.props.setActiveItem(null);
   }
 
   render() {
-    const {pagerNum} = this.props;
-    const {restaurants} = this.props;
+    const {pagerNum, count} = this.props;
+
     let previousDisabledClass = '';
     let nextDisabledClass = '';
 
@@ -39,20 +40,25 @@ class Paginate extends React.Component {
     } else {
       previousDisabledClass = 'previous';
     }
-    if(pagerNum * itemsPerPage >= restaurants.length) {
+    if(pagerNum * itemsPerPage >= this.props.count) {
       nextDisabledClass = 'next disabled';
     } else {
       nextDisabledClass = 'next';
     }
 
     return (
-      <div className="col-sm-12">
-        <nav className="center-block">
-          <ul className="pagination">
-            <li className={previousDisabledClass} onClick={this.decreasePagerNum}><a href="#">Previous</a></li>
-            <li className={nextDisabledClass} onClick={this.increasePagerNum}><a href="#">Next</a></li>
-          </ul>
-        </nav>
+      <div>
+        <div className="col-xs-7" style={{margin: '20px 0'}}>
+          <PagerNumbers pagerNum={pagerNum} itemsPerPage={itemsPerPage} count={count}/>
+        </div>
+        <div className="col-xs-5">
+          <nav className="pull-right">
+            <ul className="pagination">
+              <li className={previousDisabledClass} onClick={this.decreasePagerNum}><a href="#">Previous</a></li>
+              <li className={nextDisabledClass} onClick={this.increasePagerNum}><a href="#">Next</a></li>
+            </ul>
+          </nav>
+        </div>
       </div>
     );
   }
@@ -65,7 +71,8 @@ Paginate.propTypes = {
   filter: PropTypes.string.isRequired,
   restaurants: PropTypes.array.isRequired,
   setActiveItem: PropTypes.func.isRequired,
-  itemsPerPage: PropTypes.number
+  itemsPerPage: PropTypes.number,
+  count: PropTypes.number.isRequired
 };
 
 export default Paginate;

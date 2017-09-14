@@ -9,22 +9,6 @@ import Paginate from './Paginate'; // eslint-disable-line import/no-named-as-def
 import GMap from '../components/GMap'; // eslint-disable-line import/no-named-as-default
 
 export const RestaurantReviewsPage = (props) => {
-  // if (props.loading) {
-  //   return (
-  //     <div className="col-sm-12">
-  //       <div className="text-center m-a-lg">
-  //         <span className="fa fa-spinner fa-4x fa-spin" />
-  //       </div>
-  //     </div>
-  //   );
-  // }
-  // if (!props.loading && props.loadingError) {
-  //   return (
-  //     <div className="col-sm-12">
-  //       <div className="alert alert-danger"><h2>An error occurred while loading restaurants.</h2></div>
-  //     </div>
-  //   );
-  // }
   const childrenWithProps = React.Children.map(props.children,
     (child) => React.cloneElement(child, {
       restaurants: props.restaurantReviews.restaurants
@@ -54,8 +38,6 @@ export const RestaurantReviewsPage = (props) => {
             restaurants={props.filteredPagerRestaurants}
             activeItem={props.activeItem}
             setActiveItem={props.actions.setActiveItem}
-            pagerNum={props.pagerNum}
-            scroll={props.scroll}
           />
         </div>
         <div className={(props.filteredPagerRestaurants.length === 0) ? 'col-sm-12 col-xs-12' : 'col-sm-6 col-sm-pull-6 col-lg-5 col-lg-pull-7 col-xs-12'} id="results-list" style={(props.filteredPagerRestaurants.length === 0) ? { paddingRight: '20px' } : {}}>
@@ -145,7 +127,7 @@ function mapStateToProps(state, ownProps) {
     filter: filter,
     restaurantNumTotal: restaurants.length,
     restaurantReviews: filteredRestaurants,
-    filteredPagerRestaurants: filteredPagerRestaurants,
+    filteredPagerRestaurants: filteredRestaurants,
     loading: state.restaurantReviews.loading,
     pagerNum: state.restaurantReviews.pagerNum,
     loadingError: state.restaurantReviews.loadingError,

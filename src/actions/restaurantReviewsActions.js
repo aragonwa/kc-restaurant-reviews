@@ -1,130 +1,125 @@
 import * as types from '../constants/actionTypes';
-import {getRestaurantsApi, getRestaurantsByNameApi, getRestaurantsByCityApi, getRestaurantsByZipApi} from '../api/api';
+import { getRestaurantsApi, getRestaurantsByNameApi, getRestaurantsByCityApi, getRestaurantsByZipApi } from '../api/api';
 
-export function updateFilter(value) {
+export function updateFilter (value) {
   return {
     type: types.UPDATE_FILTER,
     value,
-    pagerNum:1,
     initialLoad: false
   };
 }
 
-export function setActiveItem(id, scroll) {
+export function setActiveItem (id, scroll) {
   return {
     type: types.SET_ACTIVE_ITEM,
     id,
-    scroll
-  };
+  scroll};
 }
 // TODO: Combine next two actions
 // Should be called set pagernum
-export function increasePagerNum(value) {
-  return {
-    type: types.INCREASE_PAGER_NUM,
-    value
+export function increasePagerNum (value) {
+  return function (dispatch, getState) {
+    dispatch({
+      type: types.INCREASE_PAGER_NUM,
+    value});
+    dispatch(searchZip(getState().restaurantReviews.filter, false));
   };
 }
 
-export function decreasePagerNum(value) {
-  return {
-    type: types.DECREASE_PAGER_NUM,
-    value
+export function decreasePagerNum (value) {
+  return function (dispatch, getState) {
+    dispatch({
+      type: types.DECREASE_PAGER_NUM,
+    value});
+    dispatch(searchZip(getState().restaurantReviews.filter, false));
   };
 }
 
-export function loadingRestaurants(isLoading) {
+export function loadingRestaurants (isLoading) {
   return {
     type: types.LOADING_RESTAURANTS,
-    isLoading
-  };
+  isLoading};
 }
 
-export function loadRestaurantsSuccess(restaurants, isLoading) {
+export function loadRestaurantsSuccess (restaurants, isLoading) {
   return {
     type: types.LOAD_RESTAURANTS_SUCCESS,
     restaurants,
-    isLoading
-  };
+  isLoading};
 }
 
-export function loadRestaurantsFail(isLoading, error) {
+export function loadRestaurantsFail (isLoading, error) {
   return {
     type: types.LOAD_RESTAURANTS_FAIL,
     isLoading,
-    error
-  };
+  error};
 }
 
-export function searchingRestaurantsByName(searchIsLoading) {
+export function searchingRestaurantsByName (searchIsLoading) {
   return {
     type: types.SEARCHING_RESTAURANTS_BY_NAME,
-    searchIsLoading
-  };
+  searchIsLoading};
 }
 
-export function searchingRestaurantsByNameSuccess(restaurants, searchIsLoading) {
+export function searchingRestaurantsByNameSuccess (restaurants, searchIsLoading) {
   return {
     type: types.SEARCHING_RESTAURANTS_BY_NAME_SUCCESS,
     restaurants,
-    searchIsLoading
-  };
+  searchIsLoading};
 }
 
-export function searchingRestaurantsByNameFail(searchIsLoading, error) {
+export function searchingRestaurantsByNameFail (searchIsLoading, error) {
   return {
     type: types.SEARCHING_RESTAURANTS_BY_NAME_FAIL,
     searchIsLoading,
-    error
-  };
+  error};
 }
-export function searchingRestaurantsByCity(searchIsLoading) {
+export function searchingRestaurantsByCity (searchIsLoading) {
   return {
     type: types.SEARCHING_RESTAURANTS_BY_CITY,
-    searchIsLoading
-  };
+  searchIsLoading};
 }
 
-export function searchingRestaurantsByCitySuccess(restaurants, searchIsLoading) {
+export function searchingRestaurantsByCitySuccess (restaurants, searchIsLoading) {
   return {
     type: types.SEARCHING_RESTAURANTS_BY_CITY_SUCCESS,
     restaurants,
-    searchIsLoading
-  };
+  searchIsLoading};
 }
 
-export function searchingRestaurantsByCityFail(searchIsLoading, error) {
+export function searchingRestaurantsByCityFail (searchIsLoading, error) {
   return {
     type: types.SEARCHING_RESTAURANTS_BY_CITY_FAIL,
     searchIsLoading,
-    error
-  };
+  error};
 }
-export function searchingRestaurantsByZip(searchIsLoading) {
+export function searchingRestaurantsByZip (searchIsLoading) {
   return {
     type: types.SEARCHING_RESTAURANTS_BY_ZIP,
-    searchIsLoading
-  };
+  searchIsLoading};
 }
 
-export function searchingRestaurantsByZipSuccess(restaurants, searchIsLoading) {
-  return {
+export function searchingRestaurantsByZipSuccess (restaurants, searchIsLoading, pagerNum) {
+
+  const count = restaurants.pop().NumberofItems;
+   return {
     type: types.SEARCHING_RESTAURANTS_BY_ZIP_SUCCESS,
     restaurants,
-    searchIsLoading
+    searchIsLoading,
+    pagerNum,
+    count
   };
 }
 
-export function searchingRestaurantsByZipFail(searchIsLoading, error) {
+export function searchingRestaurantsByZipFail (searchIsLoading, error) {
   return {
     type: types.SEARCHING_RESTAURANTS_BY_ZIP_FAIL,
     searchIsLoading,
-    error
-  };
+  error};
 }
 
-export function loadRestaurants(){
-  return function(dispatch){
+export function loadRestaurants () {
+  return function (dispatch) {
     dispatch(loadingRestaurants(true));
     return getRestaurantsApi().then((response) => {
       dispatch(loadRestaurantsSuccess(response, false));
@@ -134,8 +129,8 @@ export function loadRestaurants(){
   };
 }
 
-export function searchRestaurants(name){
-  return function(dispatch){
+export function searchRestaurants (name) {
+  return function (dispatch) {
     dispatch(searchingRestaurantsByName(true));
     return getRestaurantsByNameApi(name).then((response) => {
       dispatch(searchingRestaurantsByNameSuccess(response, false));
@@ -144,8 +139,8 @@ export function searchRestaurants(name){
     });
   };
 }
-export function searchCity(city){
-  return function(dispatch){
+export function searchCity (city) {
+  return function (dispatch) {
     dispatch(searchingRestaurantsByCity(true));
     return getRestaurantsByCityApi(city).then((response) => {
       dispatch(searchingRestaurantsByCitySuccess(response, false));
@@ -154,11 +149,14 @@ export function searchCity(city){
     });
   };
 }
-export function searchZip(zip){
-  return function(dispatch){
+export function searchZip (zip, resetPager) {
+  return function (dispatch, getState) {
     dispatch(searchingRestaurantsByZip(true));
-    return getRestaurantsByZipApi(zip).then((response) => {
-      dispatch(searchingRestaurantsByZipSuccess(response, false));
+    const pagerNum = (resetPager)? 1: getState().restaurantReviews.pagerNum;
+    const pagerNumMod = (pagerNum <= 0) ? 0 : pagerNum - 1;
+
+    return getRestaurantsByZipApi(zip, pagerNumMod, 0).then((response) => {
+      dispatch(searchingRestaurantsByZipSuccess(response, false, pagerNum));
     }).catch(error => {
       dispatch(searchingRestaurantsByZipFail(false, error));
     });

@@ -1,4 +1,4 @@
-export const PAGER_ITEMS_PER_PAGE = 10;
+export const PAGER_ITEMS_PER_PAGE = 25;
 
 export default class RestaurantUrls {
   static setEnvironment (environment) {
@@ -25,7 +25,7 @@ export default class RestaurantUrls {
       // Get businesses with a grade within King County where city equals string
       searchCity:`//${environmentUrl}/healthservices/RestaurantInspectionsPublicAPI/api/city/1/47.0845/-122.5284/47.7803/-121.0657/`,
       // Get businesses with or without a grade within King County where Zip Code = “98104”
-      searchZip :`//${environmentUrl}/healthservices/RestaurantInspectionsPublicAPI/api/zip/1/47.0845/-122.5284/47.7803/-121.0657/`
+      searchZip :`//${environmentUrl}/healthservices/RestaurantInspectionsPublicAPI/api/zip/1/alpha/47.0845/-122.5284/47.7803/-121.0657/`
     };
 
     return apiUrls;

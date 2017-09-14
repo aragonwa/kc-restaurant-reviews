@@ -71,8 +71,8 @@ class SearchInput extends React.Component {
 
   updateFilter() {
     this.props.updateFilter(this.state.textVal);
-    this.props.setActiveItem(null);
-    this.props.history.push('/search/' + this.state.textVal);
+    // this.props.setActiveItem(null);
+    // this.props.history.push('/search/' + this.state.textVal);
   }
   updateSearch(){
     this.props.setActiveItem(null);
@@ -84,7 +84,8 @@ class SearchInput extends React.Component {
       this.props.searchCity(textVal);
     }
     if(searchType === 'zip'){
-      this.props.searchZip(textVal);
+      this.updateFilter();
+      this.props.searchZip(textVal, true);
     }
   }
 
@@ -111,7 +112,7 @@ class SearchInput extends React.Component {
             <div className="input-group">
               {/* Change placeholder to search*/}
               <SearchInputDropdown searchTypeText={searchTypeText} setSearchType={this.setSearchType} searchType={searchType}/>
-              <input type="text" className="form-control" id="restaurantInput" placeholder="Search" 
+              <input type="text" className="form-control" id="restaurantInput" placeholder="Search"
               value={textVal} onChange={this.searchInputKeypress} onKeyPress={this.restaurantReviewsFilterKeyUp} />
               <span className="input-group-btn">
                 <button className={(inputError) ? 'btn btn-danger' : 'btn btn-primary'} type="button" onClick={this.searchInputOnClick} aria-label="Search restaurant inspections"><span className="fa fa-search" /></button>

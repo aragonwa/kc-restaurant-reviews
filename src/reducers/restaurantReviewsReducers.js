@@ -1,19 +1,19 @@
-import { 
-  UPDATE_FILTER, 
+import {
+  UPDATE_FILTER,
   LOAD_RESTAURANTS_SUCCESS,
   INCREASE_PAGER_NUM,
   DECREASE_PAGER_NUM,
   LOADING_RESTAURANTS,
-  LOAD_RESTAURANTS_FAIL, 
-  SET_ACTIVE_ITEM, 
-  SEARCHING_RESTAURANTS_BY_NAME, 
-  SEARCHING_RESTAURANTS_BY_NAME_SUCCESS, 
-  SEARCHING_RESTAURANTS_BY_NAME_FAIL, 
+  LOAD_RESTAURANTS_FAIL,
+  SET_ACTIVE_ITEM,
+  SEARCHING_RESTAURANTS_BY_NAME,
+  SEARCHING_RESTAURANTS_BY_NAME_SUCCESS,
+  SEARCHING_RESTAURANTS_BY_NAME_FAIL,
   SEARCHING_RESTAURANTS_BY_CITY,
-  SEARCHING_RESTAURANTS_BY_CITY_FAIL, 
+  SEARCHING_RESTAURANTS_BY_CITY_FAIL,
   SEARCHING_RESTAURANTS_BY_CITY_SUCCESS,
   SEARCHING_RESTAURANTS_BY_ZIP,
-  SEARCHING_RESTAURANTS_BY_ZIP_FAIL, 
+  SEARCHING_RESTAURANTS_BY_ZIP_FAIL,
   SEARCHING_RESTAURANTS_BY_ZIP_SUCCESS
  } from '../constants/actionTypes';
 import objectAssign from 'object-assign';
@@ -60,13 +60,14 @@ export default function restarurantReviewsReducer (state = initialState.restaura
         const filteredRestaurants = Filters.alphaSort(action.restaurants);
         return objectAssign({}, state, {restaurants: filteredRestaurants}, {searchIsLoading: action.searchIsLoading}, {pagerNum: 1},{loadingError: false});
       }
-      case SEARCHING_RESTAURANTS_BY_CITY_FAIL: 
+      case SEARCHING_RESTAURANTS_BY_CITY_FAIL:
         return objectAssign({}, state, {searchIsLoading: action.searchIsLoading}, {loadingError: (action.error)? true: false});
       case SEARCHING_RESTAURANTS_BY_CITY:
         return objectAssign({}, state, {searchIsLoading: action.searchIsLoading});
       case SEARCHING_RESTAURANTS_BY_ZIP_SUCCESS: {
         const filteredRestaurants = Filters.alphaSort(action.restaurants);
-        return objectAssign({}, state, {restaurants:filteredRestaurants}, {searchIsLoading: action.searchIsLoading}, {pagerNum: 1}, {loadingError: false});
+
+        return objectAssign({}, state, {restaurants:filteredRestaurants}, {searchIsLoading: action.searchIsLoading}, {loadingError: false}, {count:action.count}, {pagerNum: action.pagerNum});
       }
       case SEARCHING_RESTAURANTS_BY_ZIP_FAIL:
         return objectAssign({}, state, {searchIsLoading: action.searchIsLoading}, {loadingError: (action.error)? true: false});

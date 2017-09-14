@@ -14,6 +14,7 @@ export const Paginate = (props) => {
       restaurants={props.restaurants}
       filter={props.filter}
       setActiveItem={props.actions.setActiveItem}
+      count={props.count}
     />
   );
 };
@@ -32,6 +33,7 @@ function mapStateToProps(state) {
     pagerNum: pagerNum,
     restaurants: filteredRestaurants,
     filter: filter,
+    count: state.restaurantReviews.count
   };
 }
 

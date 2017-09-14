@@ -31,7 +31,7 @@ class GMap extends React.Component {
       const bounds = new google.maps.LatLngBounds();
       restaurants.forEach((restaurant) => {
         const lat = restaurant.businessLocationLat;
-        const lng = restaurant.businesssLocationLong;
+        let lng = (restaurant.businesssLocationLong)? restaurant.businesssLocationLong: restaurant.businessLocationLong;
         bounds.extend(new google.maps.LatLng(lat,lng));
       });
       map.fitBounds(bounds);
@@ -57,7 +57,7 @@ class GMap extends React.Component {
 
     restaurants.forEach((restaurant) => {
       const lat = restaurant.businessLocationLat;
-      const lng = restaurant.businesssLocationLong;
+      let lng = (restaurant.businesssLocationLong)? restaurant.businesssLocationLong: restaurant.businessLocationLong;
       bounds.extend(new google.maps.LatLng(lat,lng));
     });
 
@@ -73,7 +73,7 @@ class GMap extends React.Component {
     return restaurants.map((restaurant) => {
       const rating = Ratings.getRatings(restaurant.businessGrade);
       const lat = restaurant.businessLocationLat;
-      const lng = restaurant.businesssLocationLong;
+      let lng = (restaurant.businesssLocationLong)? restaurant.businesssLocationLong: restaurant.businessLocationLong;
       const id = restaurant.businessRecordId;
       const icon = require('../assets/img/'+rating.img+'_pin.png');
       // const icon = (activeItem === id) ?
@@ -103,7 +103,7 @@ class GMap extends React.Component {
       const id = restaurant.businessRecordId;
       if(id === activeItem) {
         const lat = restaurant.businessLocationLat;
-        const lng = restaurant.businesssLocationLong;
+        let lng = (restaurant.businesssLocationLong)? restaurant.businesssLocationLong: restaurant.businessLocationLong;
         const name = StringHelper.capitalCase(restaurant.businessName);
 
         return (
