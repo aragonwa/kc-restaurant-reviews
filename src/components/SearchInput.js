@@ -12,7 +12,7 @@ class SearchInput extends React.Component {
     this.restaurantReviewsFilterKeyUp = this.restaurantReviewsFilterKeyUp.bind(this);
     this.searchInputKeypress = this.searchInputKeypress.bind(this);
     this.searchInputOnClick = this.searchInputOnClick.bind(this);
-    this.updateFilter = this.updateFilter.bind(this);
+    this.updateSearchTerm = this.updateSearchTerm.bind(this);
     this.clearSearch = this.clearSearch.bind(this);
     this.setSearchType = this.setSearchType.bind(this);
   }
@@ -30,7 +30,7 @@ class SearchInput extends React.Component {
     //   return;
     // }
     if (e.charCode === 13) {
-      // this.updateFilter();
+      // this.updateSearchTerm();
       this.updateSearch();
     }
   }
@@ -43,7 +43,7 @@ class SearchInput extends React.Component {
     // }
     //  if (e.charCode === 13 && !this.state.inputError) {
     if (e.charCode === 13 && !this.state.inputError) {
-      // this.updateFilter(this.state.textVal);
+      // this.updateSearchTerm(this.state.textVal);
       this.updateSearch();
     } else {
       this.setState({ textVal: e.target.value });
@@ -54,23 +54,24 @@ class SearchInput extends React.Component {
     // if(this.state.inputError){
     //   return;
     // }
-    // this.updateFilter();
+    // this.updateSearchTerm();
     this.updateSearch();
   }
   setSearchType(type) {
     this.setState({ searchType: type });
     this.setState({ textVal: '' });
+    this.props.setSearchType(type);
     //this.props.searchRestaurants('starbucks');
   }
 
   clearSearch() {
-    this.props.updateFilter('');
+    this.props.updateSearchTerm('');
     this.setState({ textVal: '' });
     // this.props.history.push('/');
   }
 
-  updateFilter() {
-    this.props.updateFilter(this.state.textVal);
+  updateSearchTerm() {
+    this.props.updateSearchTerm(this.state.textVal);
     // this.props.setActiveItem(null);
     // this.props.history.push('/search/' + this.state.textVal);
   }
@@ -84,7 +85,7 @@ class SearchInput extends React.Component {
       this.props.searchCity(textVal);
     }
     if(searchType === 'zip'){
-      this.updateFilter();
+      this.updateSearchTerm();
       this.props.searchZip(textVal, true);
     }
   }
@@ -129,7 +130,7 @@ class SearchInput extends React.Component {
 
 SearchInput.propTypes = {
   name: PropTypes.string.isRequired,
-  updateFilter: PropTypes.func.isRequired,
+  updateSearchTerm: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
   setActiveItem: PropTypes.func.isRequired,
   value: PropTypes.oneOfType([

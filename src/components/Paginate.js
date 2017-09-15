@@ -48,10 +48,10 @@ class Paginate extends React.Component {
 
     return (
       <div>
-        <div className="col-xs-7" style={{margin: '20px 0'}}>
+        <div className="col-xs-6" style={{margin: '20px 0'}}>
           <PagerNumbers pagerNum={pagerNum} itemsPerPage={itemsPerPage} count={count}/>
         </div>
-        <div className="col-xs-5">
+        <div className="col-xs-6">
           <nav className="pull-right">
             <ul className="pagination">
               <li className={previousDisabledClass} onClick={this.decreasePagerNum}><a href="#">Previous</a></li>
@@ -72,7 +72,7 @@ Paginate.propTypes = {
   restaurants: PropTypes.array.isRequired,
   setActiveItem: PropTypes.func.isRequired,
   itemsPerPage: PropTypes.number,
-  count: PropTypes.number.isRequired
+  count: PropTypes.number
 };
 
 export default Paginate;

@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 // import {browserHistory} from 'react-router';
-import { getBusinessApi, getInspectionsApi } from '../api/api';
+import { getRestaurantsApi} from '../api/api';
 import StringHelper from '../utils/StringHelper';
 import Ratings from '../utils/Ratings';
 import { Modal, Popover, OverlayTrigger } from 'react-bootstrap';
@@ -23,7 +23,7 @@ class DetailsPage extends React.Component {
   }
 
   componentDidMount() {
-    getBusinessApi(this.props.params.id).then((response) => {
+    getRestaurantsApi('business', 0, 0, this.props.params.id).then((response) => {
       this.setState({ loading: false });
       this.setState({ business: response[0] });
     }).catch(error => {
@@ -31,7 +31,7 @@ class DetailsPage extends React.Component {
       this.setState({ loading: false });
       throw (error + '1');
     });
-    getInspectionsApi(this.props.params.id).then((response) => {
+    getRestaurantsApi('inspections', 0, 0, this.props.params.id).then((response) => {
       this.setState({ loading: false, inspectionsLoading: false });
       this.setState({ inspections: response });
     }).catch(error => {

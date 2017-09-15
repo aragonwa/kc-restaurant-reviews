@@ -10,7 +10,7 @@ function setup () {
       violationDescr:'Bad food'
     },
     index: '1234',
-    updateFilter: () => {},
+    updateSearchTerm: () => {},
     pagerNum: 1,
     setActiveItem: false
   };

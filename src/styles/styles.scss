@@ -115,6 +115,39 @@ $break-sm: 768px;
 }
 
 
+.filter-slider {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  overflow: hidden;
+  background-color: #CCC;
+  transition: all .4s;
+}
 
+.filter-slider.close {
+  top: 100vh;
+  height: 0;
+}
+
+.filter-slider-hide {
+  display: none;
+  transition: all .5s;
+}
+
+.filter-slider-this {
+  display:block;
+  transition: all ,5s;
+}
+
+.filter-slider-panel {
+  .rating-img {
+    border: 4px solid transparent;
+    border-radius: 10px;
+  }
+  .rating-img.rating-img-selected {
+    border: 4px solid #3c7893;
+  }
+}
 
 

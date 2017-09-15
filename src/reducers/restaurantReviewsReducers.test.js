@@ -7,7 +7,7 @@ describe('Restaurant Reviews Reducer', () => {
     // arrange
     const initialState = {filter: '', pagerNum: 6};
     const newFilter = 'cat';
-    const action = actions.updateFilter(newFilter);
+    const action = actions.updateSearchTerm(newFilter);
 
     // act
     const newState = restaurantReviewsReducers(initialState, action);

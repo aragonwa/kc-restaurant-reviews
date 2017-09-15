@@ -42,12 +42,15 @@ export const RestaurantReviewsPage = (props) => {
         </div>
         <div className={(props.filteredPagerRestaurants.length === 0) ? 'col-sm-12 col-xs-12' : 'col-sm-6 col-sm-pull-6 col-lg-5 col-lg-pull-7 col-xs-12'} id="results-list" style={(props.filteredPagerRestaurants.length === 0) ? { paddingRight: '20px' } : {}}>
           <RestaurantReviewsList
-            updateFilter={props.actions.updateFilter}
+            count={props.count}
+            updateSearchTerm={props.actions.updateSearchTerm}
             restaurantReviews={props.filteredPagerRestaurants}
             pagerNum={props.pagerNum}
             setActiveItem={props.actions.setActiveItem}
+            setRatingFilter={props.actions.setRatingFilter}
             activeItem={props.activeItem}
             scroll={props.scroll}
+            ratingFilter={props.ratingFilter}
           />
           <Paginate />
         </div>
@@ -59,7 +62,7 @@ export const RestaurantReviewsPage = (props) => {
     <div>
       {childrenWithProps}
       <SearchInput
-        updateFilter={props.actions.updateFilter}
+        updateSearchTerm={props.actions.updateSearchTerm}
         setActiveItem={props.actions.setActiveItem}
         history={props.history}
         searchRestaurants={props.actions.searchRestaurants}
@@ -67,6 +70,7 @@ export const RestaurantReviewsPage = (props) => {
         searchZip={props.actions.searchZip}
         searchTerm={props.params.searchTerm}
         name="restaurant-reviews-filter"
+        setSearchType={props.actions.setSearchType}
       />
       <div className="row" id="results">
         {showResults}
@@ -99,11 +103,12 @@ RestaurantReviewsPage.propTypes = {
   scroll: PropTypes.bool,
   history: PropTypes.object.isRequired,
   searchIsLoading: PropTypes.bool,
-  params: PropTypes.object.isRequired
+  params: PropTypes.object.isRequired,
+  count: PropTypes.number
 };
 
 function mapStateToProps(state, ownProps) {
-  const { filter, restaurants, pagerNum } = state.restaurantReviews;
+  const { filter, restaurants} = state.restaurantReviews;
 
   //TODO: move to function above http://stackoverflow.com/questions/38133137/how-to-filter-and-sort-the-same-array-of-object-state-in-redux
   let filteredRestaurants;
@@ -121,7 +126,7 @@ function mapStateToProps(state, ownProps) {
   //   //Filters.alphaSort(filteredRestaurants);
   // }
 
-  const filteredPagerRestaurants = Filters.filterPagerItems(filteredRestaurants, pagerNum);
+  // const filteredPagerRestaurants = Filters.filterPagerItems(filteredRestaurants, pagerNum);
 
   return {
     filter: filter,
@@ -133,7 +138,9 @@ function mapStateToProps(state, ownProps) {
     loadingError: state.restaurantReviews.loadingError,
     searchIsLoading: state.restaurantReviews.searchIsLoading,
     activeItem: state.restaurantReviews.activeItem,
-    scroll: state.restaurantReviews.scroll
+    scroll: state.restaurantReviews.scroll,
+    count: state.restaurantReviews.count,
+    ratingFilter: state.restaurantReviews.ratingFilter
   };
 }
 

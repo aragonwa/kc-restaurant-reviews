@@ -6,7 +6,7 @@ import SearchInput from './SearchInput';
 function setup (searchTerm) {
   const props = {
     searchTerm,
-    updateFilter: () => {},
+    updateSearchTerm: () => {},
     history: {
       push: () => {}
     }

@@ -15,7 +15,7 @@ describe('Restaurant Reviews Actions', () => {
       pagerNum: 1,
       initialLoad: false
     };
-    expect(actions.updateFilter(filterText)).to.eql(expectedAction);
+    expect(actions.updateSearchTerm(filterText)).to.eql(expectedAction);
   });
    it('should create an action to set an Active Item', () => {
     const id = '1234';

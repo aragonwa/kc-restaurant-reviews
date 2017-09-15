@@ -12,7 +12,7 @@ class PagerNumbers extends React.Component {
 
     return (
       <span>
-      Showing {itemsStart}-{(count < itemsEnd)? count:itemsEnd} of {count}
+        Showing {itemsStart}-{(count < itemsEnd)? count:itemsEnd} of {count}
       </span>
     );
   }
@@ -21,7 +21,7 @@ class PagerNumbers extends React.Component {
 
 PagerNumbers.propTypes = {
   pagerNum: PropTypes.number.isRequired,
-  count: PropTypes.number.isRequired,
+  count: PropTypes.number,
   itemsPerPage: PropTypes.number.isRequired,
-}
+};
 export default PagerNumbers;
