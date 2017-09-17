@@ -7,7 +7,7 @@ class PagerNumbers extends React.Component {
   }
   render(){
     const {pagerNum, itemsPerPage, count} = this.props;
-    const itemsStart = 1 + (itemsPerPage  * (pagerNum - 1));
+    const itemsStart = (count <= 0)? 0 : 1 + (itemsPerPage  * (pagerNum - 1));
     const itemsEnd = itemsPerPage * pagerNum;
 
     return (
