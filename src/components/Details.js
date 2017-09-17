@@ -23,7 +23,7 @@ class DetailsPage extends React.Component {
   }
 
   componentDidMount() {
-    getRestaurantsApi('business', 0, 0, this.props.params.id).then((response) => {
+    getRestaurantsApi('business', this.props.params.id, 0, 0).then((response) => {
       this.setState({ loading: false });
       this.setState({ business: response[0] });
     }).catch(error => {
@@ -31,7 +31,7 @@ class DetailsPage extends React.Component {
       this.setState({ loading: false });
       throw (error + '1');
     });
-    getRestaurantsApi('inspections', 0, 0, this.props.params.id).then((response) => {
+    getRestaurantsApi('inspections', this.props.params.id, 0, 0).then((response) => {
       this.setState({ loading: false, inspectionsLoading: false });
       this.setState({ inspections: response });
     }).catch(error => {

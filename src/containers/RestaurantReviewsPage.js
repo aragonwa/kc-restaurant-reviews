@@ -64,13 +64,14 @@ export const RestaurantReviewsPage = (props) => {
       <SearchInput
         updateSearchTerm={props.actions.updateSearchTerm}
         setActiveItem={props.actions.setActiveItem}
+        setSearchType={props.actions.setSearchType}
         history={props.history}
         searchRestaurants={props.actions.searchRestaurants}
         searchCity={props.actions.searchCity}
         searchZip={props.actions.searchZip}
         searchTerm={props.params.searchTerm}
         name="restaurant-reviews-filter"
-        setSearchType={props.actions.setSearchType}
+
       />
       <div className="row" id="results">
         {showResults}

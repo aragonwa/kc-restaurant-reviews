@@ -2,7 +2,7 @@ import RestaurantUrls, { PAGER_ITEMS_PER_PAGE as itemsPerPage } from '../constan
 
 const urlApi = RestaurantUrls.setEnvironment(process.env.NODE_ENV);
 
-export function getRestaurantsApi (type, ratingFilter = 0 , pageNumber = 0 , val = '') {
+export function getRestaurantsApi (type, val = '', pageNumber = 0, ratingFilter = 0 ) {
   let url = '';
   switch (type) {
     case 'all': {

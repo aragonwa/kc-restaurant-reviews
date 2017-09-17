@@ -78,16 +78,18 @@ class SearchInput extends React.Component {
   updateSearch(){
     this.props.setActiveItem(null);
     const {searchType, textVal} = this.state;
-    if(searchType === 'name'){
-      this.props.searchRestaurants(textVal);
-    }
-    if(searchType === 'city'){
-      this.props.searchCity(textVal);
-    }
-    if(searchType === 'zip'){
-      this.updateSearchTerm();
-      this.props.searchZip(textVal, true);
-    }
+    this.updateSearchTerm();
+    this.props.searchRestaurants(textVal, true)
+    // if(searchType === 'name'){
+    //   this.props.searchRestaurants(textVal);
+    // }
+    // if(searchType === 'city'){
+    //   this.props.searchCity(textVal);
+    // }
+    // if(searchType === 'zip'){
+    //   this.updateSearchTerm();
+    //   this.props.searchZip(textVal, true);
+    // }
   }
 
   render() {

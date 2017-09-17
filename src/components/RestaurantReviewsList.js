@@ -47,17 +47,14 @@ class RestaurantReviewsList extends React.Component {
     };
     const {restaurantReviews, activeItem, count, pagerNum} = this.props;
     const len = restaurantReviews.length;
-
-    if(len <= 0){
-      return (
-        <div id="restaurant-list">
-          <div style={style} className="alert alert-danger" role="alert">
-            <p><span className="fa fa-exclamation-triangle"/> Sorry, no results for your search.</p>
-            <p>Try a different search term.</p>
-          </div>
+    const error = (
+      <div id="restaurant-list">
+        <div style={style} className="alert alert-danger" role="alert">
+          <p><span className="fa fa-exclamation-triangle" /> Sorry, no results for your search.</p>
+          <p>Try a different search term or filter.</p>
         </div>
-      );
-    }
+      </div>
+    );
 
     const displayRows = restaurantReviews.map((restaurant, index) => {
       const id = restaurant.businessRecordId;
@@ -83,7 +80,7 @@ class RestaurantReviewsList extends React.Component {
         </div>
         <div id="restaurant-list">
           <div className={(this.state.sliderVisible) ? 'filter-slider-hide' : 'filter-slider-show'}>
-            {displayRows}
+            {(len <= 0) ? error : displayRows}
           </div>
           <div className={(this.state.sliderVisible) ? 'filter-slider' : 'filter-slider close'}>
             <div className="col-sm-12 filter-slider-panel">
