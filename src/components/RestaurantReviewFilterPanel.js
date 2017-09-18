@@ -17,6 +17,8 @@ class RestaurantReviewFilterPanel extends React.Component  {
     this.setState({filters: filters.map(num => Number(num))});
   }
   applyFilters() {
+    const currRatings = this.state.filters;
+    if(currRatings.includes(0)){currRatings.splice(currRatings.indexOf(0), 1);}
     this.props.setRatingFilter(this.state.filters.join(''));
     this.props.displaySlider();
   }
@@ -50,7 +52,7 @@ class RestaurantReviewFilterPanel extends React.Component  {
         })
       }
       <br />
-      <button className="m-t pull-right btn btn-primary"  onClick={this.applyFilters}>Apply</button>
+      <button disabled={this.state.filters.includes(0) && (this.state.filters.length === 1)} className="m-t pull-right btn btn-primary" onClick={this.applyFilters}>Apply</button>
    </div>
   );
 }
@@ -58,8 +60,8 @@ class RestaurantReviewFilterPanel extends React.Component  {
 
 RestaurantReviewFilterPanel.propTypes = {
   setRatingFilter: PropTypes.func.isRequired,
-  ratingFilter: PropTypes.num,
-  displaySlider: PropTypes.bool.isRequired
+  ratingFilter: PropTypes.number,
+  displaySlider: PropTypes.func.isRequired
 };
 
 export default RestaurantReviewFilterPanel;

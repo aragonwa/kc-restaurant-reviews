@@ -74,7 +74,7 @@ class RestaurantReviewsList extends React.Component {
       <div>
         <div className="col-sm-12 m-t p-b" style={{ borderBottom: "4px solid #3c7893" }}>
           <div className="pull-right">
-            <button className="btn btn-link p-t-0" onClick={this.displaySlider}><span className="fa fa-sliders" /></button>
+            <button className="btn btn-link p-t-0" onClick={this.displaySlider}><strong>Filter</strong> <span className="fa fa-sliders" /></button>
           </div>
           <p className="m-b-0"><PagerNumbers pagerNum={pagerNum} itemsPerPage={itemsPerPage} count={count}/></p>
         </div>
