@@ -1,7 +1,7 @@
 export default {
 
   restaurantReviews: {
-    filter: 'name',
+    filter: '',
     searchType: 'name',
     restaurants: [],
     pagerNum: 1,
