@@ -9,6 +9,6 @@ export default {
     loadingError: null,
     activeItem: null,
     initialLoad: true,
-    ratingFilter: 1234
+    ratingFilter: 0
   }
 };
