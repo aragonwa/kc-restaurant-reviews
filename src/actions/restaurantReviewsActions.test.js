@@ -10,9 +10,8 @@ describe('Restaurant Reviews Actions', () => {
   it('should create an action to update a filter', () => {
     const filterText = 'dog';
     const expectedAction = {
-      type: types.UPDATE_FILTER,
+      type: types.UPDATE_SEARCH_TERM,
       value: filterText,
-      pagerNum: 1,
       initialLoad: false
     };
     expect(actions.updateSearchTerm(filterText)).to.eql(expectedAction);
@@ -27,22 +26,22 @@ describe('Restaurant Reviews Actions', () => {
     };
     expect(actions.setActiveItem(id, scroll)).to.eql(expectedAction);
   });
-  it('should create an action to increase Pager Num', () => {
-    const value = '3';
-    const expectedAction = {
-      type: types.INCREASE_PAGER_NUM,
-      value
-    };
-    expect(actions.increasePagerNum(value)).to.eql(expectedAction);
-  });
-  it('should create an action to decrease Pager Num', () => {
-    const value = '1';
-    const expectedAction = {
-      type: types.DECREASE_PAGER_NUM,
-      value
-    };
-    expect(actions.decreasePagerNum(value)).to.eql(expectedAction);
-  });
+  // it('should create an action to increase Pager Num', () => {
+  //   const value = '3';
+  //   const expectedAction = {
+  //     type: types.INCREASE_PAGER_NUM,
+  //     value
+  //   };
+  //   expect(actions.increasePagerNum(value)).to.eql(expectedAction);
+  // });
+  // it('should create an action to decrease Pager Num', () => {
+  //   const value = '1';
+  //   const expectedAction = {
+  //     type: types.DECREASE_PAGER_NUM,
+  //     value
+  //   };
+  //   expect(actions.decreasePagerNum(value)).to.eql(expectedAction);
+  // });
 
   //https://github.com/chaijs/chai/issues/842
   const middleware  = [thunk];

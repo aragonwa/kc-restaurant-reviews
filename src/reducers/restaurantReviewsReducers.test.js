@@ -28,28 +28,28 @@ describe('Restaurant Reviews Reducer', () => {
     // assert
     expect(newState.activeItem).to.equal(10);
   });
-  it('should increase pager count when passed INCREASE_PAGER_NUM', () => {
-    // arrange
-    const initialState = {pagerNum: 1};
-    const pagerNum = initialState.pagerNum + 1;
-    const action = actions.increasePagerNum(pagerNum);
+  // it('should increase pager count when passed INCREASE_PAGER_NUM', () => {
+  //   // arrange
+  //   const initialState = {pagerNum: 1};
+  //   const pagerNum = initialState.pagerNum + 1;
+  //   const action = actions.increasePagerNum(pagerNum);
 
-    // act
-    const newState = restaurantReviewsReducers(initialState, action);
+  //   // act
+  //   const newState = restaurantReviewsReducers(initialState, action);
 
-    // assert
-    expect(newState.pagerNum).to.equal(2);
-  });
-  it('should decrease pager count when passed DECREASE_PAGER_NUM', () => {
-    // arrange
-    const initialState = {pagerNum: 3};
-    const pagerNum = initialState.pagerNum - 1;
-    const action = actions.increasePagerNum(pagerNum);
+  //   // assert
+  //   expect(newState.pagerNum).to.equal(2);
+  // });
+  // it('should decrease pager count when passed DECREASE_PAGER_NUM', () => {
+  //   // arrange
+  //   const initialState = {pagerNum: 3};
+  //   const pagerNum = initialState.pagerNum - 1;
+  //   const action = actions.increasePagerNum(pagerNum);
 
-    // act
-    const newState = restaurantReviewsReducers(initialState, action);
+  //   // act
+  //   const newState = restaurantReviewsReducers(initialState, action);
 
-    // assert
-    expect(newState.pagerNum).to.equal(2);
-  });
+  //   // assert
+  //   expect(newState.pagerNum).to.equal(2);
+  // });
 });

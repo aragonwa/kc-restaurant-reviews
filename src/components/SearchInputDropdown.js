@@ -20,7 +20,7 @@ const SearchInputDropDown = ({ searchTypeText, setSearchType, searchType }) => {
 
   return (
     <div className="input-group-btn">
-      <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{searchTypeText}<span className="fa fa-chevron-down" /></button>
+      <button type="button" className="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{searchTypeText}<span className="fa fa-chevron-down" /></button>
       <ul className="dropdown-menu">
         {items}
       </ul>

@@ -103,6 +103,7 @@ RestaurantReviewsList.propTypes = {
   setActiveItem: PropTypes.func.isRequired,
   activeItem: PropTypes.string,
   scroll: PropTypes.bool,
+  ratingFilter: PropTypes.number.isRequired,
   count: PropTypes.number
 };
 

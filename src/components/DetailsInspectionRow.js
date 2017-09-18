@@ -38,14 +38,14 @@ class DetailsInspectionRow extends React.Component {
           <DetailsViolationRow violation={item} index={inspectionIndex} key={item.violationRecordId} />
         );
       });
-      violationRows.sort((a,b)=>{
+      violationRows.sort((a)=>{
         if(a.props.violation.violationType.toLowerCase() === 'red' ) {
           return -1;
         }
         else {
           return 1;
         }
-      })
+      });
     }
     let inspectionRows = [];
 

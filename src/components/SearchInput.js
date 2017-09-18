@@ -77,9 +77,9 @@ class SearchInput extends React.Component {
   }
   updateSearch(){
     this.props.setActiveItem(null);
-    const {searchType, textVal} = this.state;
+    const {textVal} = this.state;
     this.updateSearchTerm();
-    this.props.searchRestaurants(textVal, true)
+    this.props.searchRestaurants(textVal, true);
     // if(searchType === 'name'){
     //   this.props.searchRestaurants(textVal);
     // }
@@ -135,6 +135,7 @@ SearchInput.propTypes = {
   updateSearchTerm: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
   setActiveItem: PropTypes.func.isRequired,
+  setSearchType: PropTypes.func.isRequired,
   value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number

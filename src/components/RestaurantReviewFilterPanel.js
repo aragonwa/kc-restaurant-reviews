@@ -57,7 +57,9 @@ class RestaurantReviewFilterPanel extends React.Component  {
 }
 
 RestaurantReviewFilterPanel.propTypes = {
-  setRatingFilter: PropTypes.func.isRequired
+  setRatingFilter: PropTypes.func.isRequired,
+  ratingFilter: PropTypes.num,
+  displaySlider: PropTypes.bool.isRequired
 };
 
 export default RestaurantReviewFilterPanel;

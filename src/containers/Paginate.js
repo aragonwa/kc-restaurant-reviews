@@ -23,7 +23,8 @@ Paginate.propTypes = {
   pagerNum: PropTypes.number.isRequired,
   filter: PropTypes.string.isRequired,
   restaurants: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired
+  actions: PropTypes.object.isRequired,
+  count: PropTypes.num
 };
 
 function mapStateToProps(state) {

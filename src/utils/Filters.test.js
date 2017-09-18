@@ -59,20 +59,35 @@ describe('Filters', () => {
         {businessName: 'Vineyard'}
       ]
     };
-    it('should return the second set of 10 restaurants', () => {
+    it('should return the 1st set of restaurants', () => {
       // arrange
-      const pagerNum = '2';
+      const pagerNum = '1';
       const expectedResult =
-      [{businessName: 'Victory'},
-        {businessName: 'Clarity'},
-        {businessName: 'Empress'},
-        {businessName: 'Simmer'},
-        {businessName: 'Down'},
-        {businessName: 'Catch'},
-        {businessName: 'Bounty'},
-        {businessName: 'Hungry'},
-        {businessName: 'Canteen'},
-        {businessName: 'Beach'}];
+      [{businessName: 'Subway'},
+      {businessName: 'The Caviar Shop'},
+      {businessName: "Alberto's tacos"},
+      {businessName: 'McDonalds'},
+      {businessName: 'Pizza Place'},
+      {businessName: 'Coffee Joe'},
+      {businessName: 'Salad Sam'},
+      {businessName: 'The Grand'},
+      {businessName: 'Copper'},
+      {businessName: 'Rare'},
+      {businessName: 'Victory'},
+      {businessName: 'Clarity'},
+      {businessName: 'Empress'},
+      {businessName: 'Simmer'},
+      {businessName: 'Down'},
+      {businessName: 'Catch'},
+      {businessName: 'Bounty'},
+      {businessName: 'Hungry'},
+      {businessName: 'Canteen'},
+      {businessName: 'Beach'},
+      {businessName: 'Chamber'},
+      {businessName: 'Amber'},
+      {businessName: 'Rose'},
+      {businessName: 'Saffron'},
+      {businessName: 'Afternoon'}];
 
       // act
       const result = Filters.filterPagerItems(initialState.restaurants, pagerNum);
@@ -82,16 +97,11 @@ describe('Filters', () => {
     });
     it('should return the final set of 8 restaurnts', () => {
       // arrange
-      const pagerNum = '3';
+      const pagerNum = '2';
       const expectedResult =
-      [{businessName: 'Chamber'},
-        {businessName: 'Amber'},
-        {businessName: 'Rose'},
-        {businessName: 'Saffron'},
-        {businessName: 'Afternoon'},
-        {businessName: 'Thai'},
-        {businessName: 'Bear'},
-        {businessName: 'Vineyard'}];
+      [{businessName: 'Thai'},
+      {businessName: 'Bear'},
+      {businessName: 'Vineyard'}];
 
       // act
       const result = Filters.filterPagerItems(initialState.restaurants, pagerNum);

@@ -105,7 +105,8 @@ RestaurantReviewsPage.propTypes = {
   history: PropTypes.object.isRequired,
   searchIsLoading: PropTypes.bool,
   params: PropTypes.object.isRequired,
-  count: PropTypes.number
+  count: PropTypes.number,
+  ratingFilter: PropTypes.number.isRequired
 };
 
 function mapStateToProps(state, ownProps) {
