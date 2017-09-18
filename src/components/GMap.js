@@ -21,9 +21,10 @@ class GMap extends React.Component {
 
   componentDidUpdate(prevProps) {
     const {restaurants} = this.props;
-    const {map} = this.state;
+    // const {map} = this.state;
+    const map = (this.state) ? this.state.map : null;
 
-    if(restaurants.length === 0) {
+    if(restaurants.length === 0 || !map) {
       return;
     }
 
