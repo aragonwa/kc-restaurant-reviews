@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react';
 import SearchInputDropdown from './SearchInputDropdown';
+import SearchInputFilterDropdown from './SearchInputFilterDropdown';
+import { Popover, OverlayTrigger } from 'react-bootstrap';
 
 class SearchInput extends React.Component {
   constructor(props, context) {
@@ -20,30 +22,17 @@ class SearchInput extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.searchTerm) {
       this.setState({ textVal: nextProps.searchTerm });
-    } else {
-      //this.setState({ textVal: ''});
     }
   }
 
   restaurantReviewsFilterKeyUp(e) {
-    // if(this.state.inputError){
-    //   return;
-    // }
     if (e.charCode === 13) {
-      // this.updateSearchTerm();
       this.updateSearch();
     }
   }
 
   searchInputKeypress(e) {
-    // if(e.target.value.length < 2) {
-    //   this.setState({inputError: true});
-    // } else {
-    //   this.setState({inputError: false});
-    // }
-    //  if (e.charCode === 13 && !this.state.inputError) {
     if (e.charCode === 13 && !this.state.inputError) {
-      // this.updateSearchTerm(this.state.textVal);
       this.updateSearch();
     } else {
       this.setState({ textVal: e.target.value });
@@ -51,22 +40,18 @@ class SearchInput extends React.Component {
   }
 
   searchInputOnClick() {
-    // if(this.state.inputError){
-    //   return;
-    // }
-    // this.updateSearchTerm();
     this.updateSearch();
   }
   setSearchType(type) {
     this.setState({ searchType: type });
     this.setState({ textVal: '' });
     this.props.setSearchType(type);
-    //this.props.searchRestaurants('starbucks');
   }
 
   clearSearch() {
     this.props.updateSearchTerm('');
     this.setState({ textVal: '' });
+    this.props.setRatingFilter(1234);
     // this.props.history.push('/');
   }
 
@@ -80,20 +65,17 @@ class SearchInput extends React.Component {
     const {textVal} = this.state;
     this.updateSearchTerm();
     this.props.searchRestaurants(textVal, true);
-    // if(searchType === 'name'){
-    //   this.props.searchRestaurants(textVal);
-    // }
-    // if(searchType === 'city'){
-    //   this.props.searchCity(textVal);
-    // }
-    // if(searchType === 'zip'){
-    //   this.updateSearchTerm();
-    //   this.props.searchZip(textVal, true);
-    // }
   }
 
   render() {
     const { textVal, inputError, searchType } = this.state;
+    const filters = ((this.props.ratingFilter+"").split("")).map(num => Number(num));
+    const popoverRatingFilter = (
+      <Popover id="inspection-type-popover">
+        <SearchInputFilterDropdown setRatingFilter={this.props.setRatingFilter} ratingFilter={this.props.ratingFilter} />
+      </Popover>
+      );
+
     // TODO: move to function above
     let searchTypeText;
     switch (searchType) {
@@ -113,7 +95,6 @@ class SearchInput extends React.Component {
           <label htmlFor="restaurantInput">Search</label>
           <div className={(inputError) ? 'has-error' : ''}>
             <div className="input-group">
-              {/* Change placeholder to search*/}
               <SearchInputDropdown searchTypeText={searchTypeText} setSearchType={this.setSearchType} searchType={searchType}/>
               <input type="text" className="form-control" id="restaurantInput" placeholder="Search"
               value={textVal} onChange={this.searchInputKeypress} onKeyPress={this.restaurantReviewsFilterKeyUp} />
@@ -123,7 +104,17 @@ class SearchInput extends React.Component {
             </div>
             <label className={'help-block text-danger ' + ((inputError) ? 'show' : 'hidden')} htmlFor="restaurantInput">Enter at least 2 characters</label>
           </div>
-          <button style={{ marginBottom: '15px' }} className={'btn btn-danger btn-xs' + ((textVal) ? '' : ' hidden')} onClick={this.clearSearch} type="button">Clear search</button>
+          <button style={{  marginRight: "10px" }} className={'btn btn-danger btn-xs' + ((textVal) ? '' : ' hidden')} onClick={this.clearSearch} type="button">Clear search</button>
+          <OverlayTrigger trigger="click" rootClose placement="bottom" overlay={popoverRatingFilter} >
+            <span className="fa fa-sliders" style={{paddingRight: "3px", marginBottom: '15px'}} />
+          </OverlayTrigger>
+          {filters.map(rating =>{
+              if(rating === 1) return (<img alt="Excellent" key={rating} style={{paddingRight: "3px", display:'inline'}} src={require('../assets/img/excellent_25.gif')} />);
+              if(rating === 2) return (<img key={rating} style={{paddingRight: "3px", display:'inline'}} alt="Good" src={require('../assets/img/good_25.gif')} />);
+              if(rating === 3) return (<img key={rating} style={{paddingRight: "3px", display:'inline'}} alt="Okay" src={require('../assets/img/okay_25.gif')} />);
+              if(rating === 4) return (<img key={rating} style={{paddingRight: "3px", display:'inline'}} alt="Needs to improve" src={require('../assets/img/needstoimprove_25.gif')}/>);
+            })
+          }
         </div>
       </div>
     );
@@ -144,7 +135,9 @@ SearchInput.propTypes = {
   searchTerm: PropTypes.string,
   searchRestaurants: PropTypes.func,
   searchCity: PropTypes.func,
-  searchZip: PropTypes.func
+  searchZip: PropTypes.func,
+  setRatingFilter: PropTypes.func,
+  ratingFilter: PropTypes.number
 };
 
 export default SearchInput;

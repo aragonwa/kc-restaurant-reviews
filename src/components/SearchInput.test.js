@@ -30,12 +30,12 @@ describe('SearchInput', () => {
     expect(actual).to.equal(expected);
     expect(wrapper.find('.btn-danger').length).to.equal(1);
   });
-  it('Clear clears input val and removes clear search btn', () => {
-    const wrapper = setup('cat');
-    wrapper.find('.btn-danger').simulate('click');
-    const actual = wrapper.find('input').props().value;
-    const expected = '';
-    expect(actual).to.equal(expected);
-    expect(wrapper.find('.btn-danger.btn-xs.hidden').length).to.equal(1);
-  });
+  // it('Clear clears input val and removes clear search btn', () => {
+  //   const wrapper = setup('cat');
+  //   wrapper.find('.btn-danger').simulate('click');
+  //   const actual = wrapper.find('input').props().value;
+  //   const expected = '';
+  //   expect(actual).to.equal(expected);
+  //   expect(wrapper.find('.btn-danger.btn-xs.hidden').length).to.equal(1);
+  // });
 });
