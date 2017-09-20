@@ -1,6 +1,5 @@
 import React, {PropTypes} from 'react';
 import RestaurantListItem from './RestaurantListItem';
-import RestaurantReviewFilterPanel from './RestaurantReviewFilterPanel';
 import StringHelper from '../utils/StringHelper';
 import {PAGER_ITEMS_PER_PAGE as itemsPerPage} from '../constants/appSettings';
 import PagerNumbers from './PagerNumbers';
@@ -8,11 +7,6 @@ import PagerNumbers from './PagerNumbers';
 class RestaurantReviewsList extends React.Component {
   constructor(props, context) {
     super(props, context);
-    this.state = {
-      sliderVisible: false
-    };
-    this.displaySlider = this.displaySlider.bind(this);
-    this.applyFilters = this.applyFilters.bind(this);
     this.setActiveItemOnClick = this.setActiveItemOnClick.bind(this);
   }
 
@@ -31,13 +25,6 @@ class RestaurantReviewsList extends React.Component {
 
   setActiveItemOnClick (id, scroll){
     this.props.setActiveItem(id, scroll);
-  }
-
-  displaySlider() {
-    this.setState({ sliderVisible: !this.state.sliderVisible });
-  }
-  applyFilters() {
-    this.displaySlider();
   }
 
   render() {
@@ -73,21 +60,11 @@ class RestaurantReviewsList extends React.Component {
     return (
       <div>
         <div className="col-sm-12 m-t p-b" style={{ borderBottom: "4px solid #3c7893" }}>
-          <div className="pull-right">
-            <button className="btn btn-link p-t-0" onClick={this.displaySlider}><strong>Filter</strong> <span className="fa fa-sliders" /></button>
-          </div>
-          <p className="m-b-0"><PagerNumbers pagerNum={pagerNum} itemsPerPage={itemsPerPage} count={count}/></p>
+             <p className="m-b-0"><PagerNumbers pagerNum={pagerNum} itemsPerPage={itemsPerPage} count={count}/></p>
         </div>
         <div id="restaurant-list">
-          <div className={(this.state.sliderVisible) ? 'filter-slider-hide' : 'filter-slider-show'}>
+          <div >
             {(len <= 0) ? error : displayRows}
-          </div>
-          <div className={(this.state.sliderVisible) ? 'filter-slider' : 'filter-slider close'}>
-            <div className="col-sm-12 filter-slider-panel">
-              <button className="btn btn-link pull-right" onClick={this.displaySlider}><span className="fa fa-times fa-lg" /></button>
-              <p className="h3">Refine search</p>
-                <RestaurantReviewFilterPanel setRatingFilter={this.props.setRatingFilter} ratingFilter={this.props.ratingFilter}  displaySlider={this. displaySlider}/>
-            </div>
           </div>
         </div>
       </div>
@@ -98,12 +75,10 @@ class RestaurantReviewsList extends React.Component {
 RestaurantReviewsList.propTypes = {
   restaurantReviews: PropTypes.array.isRequired,
   updateSearchTerm: PropTypes.func.isRequired,
-  setRatingFilter:PropTypes.func.isRequired,
   pagerNum: PropTypes.number.isRequired,
   setActiveItem: PropTypes.func.isRequired,
   activeItem: PropTypes.string,
   scroll: PropTypes.bool,
-  ratingFilter: PropTypes.number.isRequired,
   count: PropTypes.number
 };
 

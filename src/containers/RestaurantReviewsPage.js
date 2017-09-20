@@ -47,10 +47,8 @@ export const RestaurantReviewsPage = (props) => {
             restaurantReviews={props.filteredPagerRestaurants}
             pagerNum={props.pagerNum}
             setActiveItem={props.actions.setActiveItem}
-            setRatingFilter={props.actions.setRatingFilter}
             activeItem={props.activeItem}
             scroll={props.scroll}
-            ratingFilter={props.ratingFilter}
           />
           <Paginate />
         </div>
@@ -70,6 +68,8 @@ export const RestaurantReviewsPage = (props) => {
         searchCity={props.actions.searchCity}
         searchZip={props.actions.searchZip}
         searchTerm={props.params.searchTerm}
+        ratingFilter={props.ratingFilter}
+        setRatingFilter={props.actions.setRatingFilter}
         name="restaurant-reviews-filter"
 
       />
